@@ -4,7 +4,7 @@
 %define INIClass__Get_Bool							0x004F3ACC
 %define FileClass__FileClass                        0x004627D4
 %define FileClass__Is_Available                     0x00462A30
-s
+
 redalert_ini   db "REDALERT.INI", 0
 multiplayer_defaults_str db "MultiplayerDefaults",0
 money_str db "Money",0

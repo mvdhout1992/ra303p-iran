@@ -16,13 +16,11 @@
 
 [org 0x00711000]
 
-der_str db "derdddddddd",0
-
 ;_str_version: db "3.03p4 B6 ",0
 _str_version: db "3.03p-iran ",0
 
 ;format_test_str  db 'SC%c%02d%c%c.INI',0
-format_test_str  db 'SC%c%02d%c%c.INI',0
+test_str  db "RUN1226M",0
 
 %include "config.inc"
 %include "imports.inc"
@@ -54,4 +52,8 @@ format_test_str  db 'SC%c%02d%c%c.INI',0
 
 %ifdef USE_NEW_MULTIPLAYER_DEFAULTS
 %include "src/multiplayer_defaults.asm"
+%endif
+
+%ifdef USE_LOAD_MORE_MIX_FILES
+%include "src/load_more_mix_files.asm"
 %endif
