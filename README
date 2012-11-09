@@ -1,0 +1,20 @@
+Red Alert 3.03 "p" series
+-------------------------
+
+Building requirements:
+
+ * make
+ * gcc
+ * nasm
+ * ra95.dat (from ra303eng.zip)
+
+Tools to modify ra95.dat in tools/. Just type "make" when you have ra95.dat in
+the root directory to apply the patches.
+
+The PE section insert tool, "extpe" might not be production quality for
+anything else than Red Alert. I hope it can be perfected to add a section to 
+any image without causing problems for the running program.
+
+I hope this evolves into something useful!
+
+- hifi
