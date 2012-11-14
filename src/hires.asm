@@ -24,9 +24,12 @@
 @HOOK 0x005518A3 _hires_NewGameText
 @HOOK 0x005128D4 _hires_SkirmishMenu
 @HOOK 0x0054D009 _hires_StripClass
-;@HOOK 0x004BE388 _NewMissions_Handle_Hires_Buttons_A
-;@HOOK 0x004BE3B2 _NewMissions_Handle_Hires_Buttons_B
-;@HOOK 0x004BE3E6 _NewMissions_Handle_Hires_List
+@HOOK 0x004BE377 _NewMissions_Handle_Hires_Buttons_A
+@HOOK 0x004BE39E _NewMissions_Handle_Hires_Buttons_B
+@HOOK 0x0050692B _hires_NetworkJoinMenu
+;@HOOK 0x0050223E _Blacken_Screen_Border_Menu
+;@HOOK 0x0050228E _Blacken_Screen_Border_Menu2
+;@HOOK 0x0054DFF5 _StripClass_Add
 
 %define ScreenWidth     0x006016B0
 %define ScreenHeight    0x006016B4
@@ -297,6 +300,8 @@ _hires_ini:
     _hires_adjust_width 0x0054D7CB
     _hires_adjust_width 0x0054D7F1
     _hires_adjust_width 0x0054D816
+	
+;	_hires_adjust_height 0x0054D811
 
     ; credits tab background position
     _hires_adjust_width 0x00553758
@@ -317,7 +322,7 @@ _hires_ini:
     _hires_adjust_width [left_strip_offset]
 
     ; side bar strip icons offset
-    _hires_adjust_width 0x0054D08C
+    _hires_adjust_width 0x0054D08C 
 
     ; side bar strip offset left (right bar)
     _hires_adjust_width [right_strip_offset]
@@ -330,10 +335,38 @@ _hires_ini:
 
     ; power usage indicator
     _hires_adjust_width 0x00527C0F
+	
+	; new missions dialog
+	_hires_adjust_top 0x004BE7A5
+	_hires_adjust_left 0x004BE7AA
+	
+	; new missions list
+	_hires_adjust_top 0x004BE3DD
+	_hires_adjust_left 0x004BE3E7
+	
+	; new missions 'Aftermath missions' caption
+	_hires_adjust_top 0x004BE7D5
+	_hires_adjust_left 0x004BE7DA
+	
+	; new missions 'Counterstrike missions' caption
+	_hires_adjust_top 0x004BE7BF
+	_hires_adjust_left 0x004BE7C4
+	
+	; network new dialog
+;	_hires_adjust_left 0x0050B6E7
+;	_hires_adjust_top  0x0050B6EC
+	
+	; network join dialog
+	_hires_adjust_width 0x0050691A
+;	_hires_adjust_height  0x00506910
+
+	; sidebar stuff
+;	_hires_adjust_left 0x0054D7EC 
+;	_hires_adjust_left 0x0054D7F1
     
     ; kill original sidebar area (halp)
     MOV BYTE [0x0054F380], 0xC3
-
+	
     POP EDX
     POP EBX
 
@@ -391,9 +424,18 @@ _hires_SkirmishMenu:
     XOR ECX,ECX
     JMP 0x005128E0
 
+_hires_NetworkJoinMenu:
+    MOV ECX, [diff_top]
+    MOV DWORD [EBP-0x1D4], ECX
+    MOV ECX, [diff_left]
+    MOV DWORD [EBP-0x1D0], ECX
+    XOR ECX,ECX
+	JMP 0x0050693D
+	
 %define _Buffer_Clear 0x005C4DE0
 
 %define GraphicsViewPortClass_HidPage 0x006807CC
+%define GraphicBufferClass_VisiblePage 0x0068065C
 %define GraphicsViewPortClass_SeenBuff 0x006807A4
 
 %macro _hires_Clear 0
@@ -403,12 +445,62 @@ _hires_SkirmishMenu:
     ADD ESP,8
 %endmacro
 
+%macro _hires_Clear_2 0
+    PUSH 0
+    PUSH GraphicBufferClass_VisiblePage
+;	PUSH GraphicBufferClass_SeenBuffer
+    CALL _Buffer_Clear
+    ADD ESP,8
+%endmacro
+
 _hires_MainMenuClear:
-    ;_hires_Clear
+    _hires_Clear
     MOV EAX,1
     JMP 0x004F47A0
 
 _hires_MainMenuClearPalette:
-    ;_hires_Clear
+    _hires_Clear
     MOV EAX, [0x006807E8]
     JMP 0x004F7600
+
+%define Set_Logic_Page 0x005C0FE7
+	
+_Blacken_Screen_Border_Menu:
+	call 0x005C9E60
+	mov eax, 1
+
+	jmp 0x00502243
+	
+_Blacken_Screen_Border_Menu2:
+	_hires_Clear2
+	mov eax, 1
+
+	jmp 0x00502293
+
+_NewMissions_Handle_Hires_Buttons_A:
+	mov		edx, 13Ch
+	add		edx, [diff_top]
+	push	edx
+	
+	mov     ecx, 116h
+	mov     ebx, 17h
+	
+	mov		edx, 50h
+	add		edx, [diff_left]
+	push	edx
+	
+	jmp		0x004BE388
+
+_NewMissions_Handle_Hires_Buttons_B:
+	mov		edx, 13Ch
+	add		edx, [diff_top]
+	push	edx
+	
+	mov     ecx, 116h
+	mov     ebx, 13h
+	
+	mov		edx, 203h
+	add		edx, [diff_left]
+	push	edx
+	
+	jmp		0x004BE3B2

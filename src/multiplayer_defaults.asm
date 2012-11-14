@@ -4,6 +4,12 @@
 %define INIClass__Get_Bool							0x004F3ACC
 %define FileClass__FileClass                        0x004627D4
 %define FileClass__Is_Available                     0x00462A30
+%define BuildLevel									0x006016C8
+%define UnitCount									0x0067F2CE
+%define UnitCountNoBases							0x00604CE0
+%define Players										0x0067F2D2
+%define SelectedMapIndex							0x0067F2B6
+%define ListClass_Set_Selected_Index				0x004FCC40
 
 redalert_ini   db "REDALERT.INI", 0
 multiplayer_defaults_str db "MultiplayerDefaults",0
@@ -13,6 +19,15 @@ capturetheflag_str db "CaptureTheFlag",0
 crates_str db "Crates",0
 bases_str db "Bases",0
 oreregenerates_str db "OreRegenerates",0
+unitcount_str db "UnitCount",0
+techlevel_str db "TechLevel",0
+aidifficulty_str db "AIDifficulty",0
+aiplayers_str db "AIPlayers",0
+mapindex_str db "MapIndex",0
+
+FirstLoad:      db 1
+FirstLoadPlayers:      db 1
+ConfigMapIndex:      dd 0
 
 ; sizes not actually verified
 FileClass_this  TIMES 128 db 0
@@ -37,7 +52,85 @@ INIClass_this   TIMES 64 db 0
 %endmacro
 
 @HOOK 0x00535B64 _RulesClass_Multiplayer_Defaults
+;@HOOK 0x005136CE _Skirmish_Players_Slider
+;@HOOK 0x0051480E _Skirmish_Players_Slider2
+@HOOK 0x005136CE _Skirmish_Players_Slider3
+@HOOK 0x00513608 _Skirmish_UnitCount_Slider
+@HOOK 0x005138A0 _Skirmish_Selected_Map_Index
+@HOOK 0x00513163 _Skirmish_Set_AI_Difficulty
+;@HOOK 0x005146FE _Skirmish_Selected_Map_Jump_Over
+@hook 0x00513480 _Skirmish_Unit_Count_Change
+;@hook 0x00513699 _Skirmish_AI_Players_Count_Change
 
+;_Skirmish_AI_Players_Count_Change:
+;
+;	jmp		0x0051369E
+
+_Skirmish_Unit_Count_Change:
+;	mov DWORD[ebp-48Ch], 3
+	jmp 0x00513485
+
+_Skirmish_Players_Slider:
+	mov DWORD [Players], 3
+;	mov     edx, 3
+;	mov     edx, [Players]
+	lea     eax, [ebp-574h]
+	jmp 	0x005136D6
+	
+_Skirmish_Players_Slider2:	
+	mov DWORD [Players], 8
+	;	mov     edx, 2
+;	mov     edx, [Players]
+	lea     eax, [ebp-574h]
+	jmp 	0x00514816
+	
+_Skirmish_Players_Slider3:
+	cmp  byte [FirstLoadPlayers], 1
+	jne Not_First_Load_Players
+	
+	mov DWORD [FirstLoadPlayers], 0
+	INI_Get_Int multiplayer_defaults_str, aiplayers_str, 1
+	mov DWORD [Players], eax
+
+Not_First_Load_Players:
+	mov     edx, [Players]
+	lea     eax, [ebp-574h]
+	jmp 	0x005136D6
+
+_Skirmish_UnitCount_Slider:
+;	mov		DWORD [UnitCount], 100
+;	mov 	edx, 100
+	mov		edx, [UnitCount]
+	lea     eax, [ebp-4C0h]
+	jmp 	0x00513610	
+
+_Skirmish_Selected_Map_Index:
+	
+	cmp BYTE [FirstLoad], 1
+	jne Not_First_Load
+	
+	MOV BYTE [FirstLoad], 0
+	INI_Get_Int multiplayer_defaults_str, mapindex_str, 2
+	mov DWORD [SelectedMapIndex], eax
+
+Not_First_Load:
+	lea 	eax, [ebp-854h]
+	mov 	edx, [SelectedMapIndex]
+
+	call 	ListClass_Set_Selected_Index
+
+	xor 	eax, eax
+	jmp		0x005138A6
+	
+;_Skirmish_Selected_Map_Jump_Over:
+;	jmp		0x00514703
+	
+_Skirmish_Set_AI_Difficulty:
+	
+	INI_Get_Int multiplayer_defaults_str, aidifficulty_str, 1
+	mov     edx, eax
+	jmp		0x00513168
+		
 _RulesClass_Multiplayer_Defaults:
 		push    ebp
 		mov     ebp, esp
@@ -68,6 +161,12 @@ _RulesClass_Multiplayer_Defaults:
     MOV EDX, FileClass_this
     MOV EAX, INIClass_this
     CALL INIClass__Load
+	
+	
+	INI_Get_Int multiplayer_defaults_str, unitcount_str, 0
+	mov	DWORD [UnitCount], eax
+	INI_Get_Int multiplayer_defaults_str, techlevel_str, 10
+	mov DWORD [BuildLevel], eax
 
 	INI_Get_Int multiplayer_defaults_str, money_str, 10000
 		mov dword [esi+0B5h], eax ; Money
