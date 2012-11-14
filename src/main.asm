@@ -29,6 +29,7 @@ test_str  db "RUN1226M",0
 ; generic
 %include "src/arguments.asm"
 %include "src/expansions.asm"
+%include "src/music_loading.asm"
 ;%include "src/spawn.asm"
 
 %ifdef USE_NOCD
