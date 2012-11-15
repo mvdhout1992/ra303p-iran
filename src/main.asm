@@ -31,6 +31,7 @@ test_str  db "RUN1226M",0
 %include "src/expansions.asm"
 %include "src/music_loading.asm"
 %include "src/movie_loading.asm"
+%include "src/custom_missions.asm"
 ;%include "src/spawn.asm"
 
 %ifdef USE_NOCD

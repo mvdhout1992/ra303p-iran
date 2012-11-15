@@ -18,11 +18,14 @@
 
 @HOOK 0x004F5B38 _arguments
 
-;skirmish =     MOV BYTE [0x0067F2B4], 5
-
 arg_lan: db "-LAN",0
 arg_internet: db "-INTERNET",0
 arg_skirmish: db "-SKIRMISH",0
+arg_newmissions: db "-NEWMISSIONS",0
+
+newmissionsenabled db 0
+GLOBAL newmissionsenabled
+
 
 _arguments:
 .lan:
@@ -39,8 +42,17 @@ _arguments:
     MOV EAX,ESI
     CALL stristr_
     TEST EAX,EAX
-    JE .internet
+    JE .newmissions
     MOV BYTE [0x0067F2B4], 5
+    JMP .ret 
+	
+.newmissions:
+    MOV EDX, arg_newmissions
+    MOV EAX,ESI
+    CALL stristr_
+    TEST EAX,EAX
+    JE .internet
+    MOV BYTE [newmissionsenabled], 1
     JMP .ret 
 
 .internet:
