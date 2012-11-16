@@ -27,12 +27,27 @@
 @HOOK 0x004BE377 _NewMissions_Handle_Hires_Buttons_A
 @HOOK 0x004BE39E _NewMissions_Handle_Hires_Buttons_B
 @HOOK 0x0050692B _hires_NetworkJoinMenu
+@HOOK 0x00506CEE _hires_Network_Join_Button
+;@HOOK 0x00506CBC _hires_Network_Color_List
+@HOOK 0x00506BDC _hires_Network_Name_EditBox
+@HOOK 0x00506C28 _hires_Network_Country_DropList
+@HOOK 0x00506C73 _hires_Network_Channel
+@HOOK 0x0050721F _hires_Network_Join_ChatBox
+@HOOK 0x00507DEF _hires_Network_Join_DrawBox
+@HOOK 0x00507E10 _hires_Network_Join_DrawBox2
+@HOOK 0x00507BB1 _hires_Network_Join_ColorBoxes 
+@HOOK 0x00507BD2 _hires_Network_Join_ColorBoxes2
+@HOOK 0x00507C0C _hires_Network_Join_Fill_ColorBoxes
+@HOOK 0x0050253A _hires_MainMenu_AntMissions_Select
+@HOOK 0x005024AF _hires_MainMenu_Credits_Select
 ;@HOOK 0x0050223E _Blacken_Screen_Border_Menu
 ;@HOOK 0x0050228E _Blacken_Screen_Border_Menu2
 ;@HOOK 0x0054DFF5 _StripClass_Add
 
 %define ScreenWidth     0x006016B0
 %define ScreenHeight    0x006016B4
+
+%define _Buffer_Fill_Rect 0x005C23F0
 
 AdjustedWidth           dd 0
 
@@ -353,12 +368,46 @@ _hires_ini:
 	_hires_adjust_left 0x004BE7C4
 	
 	; network new dialog
-;	_hires_adjust_left 0x0050B6E7
-;	_hires_adjust_top  0x0050B6EC
+;	_hires_adjust_left 0x0050C28E
+;	_hires_adjust_top  0x0050C288
 	
 	; network join dialog
-	_hires_adjust_width 0x0050691A
-;	_hires_adjust_height  0x00506910
+;	_hires_adjust_left		0x0050690B
+;	_hires_adjust_top  	0x00506BDD
+	
+	;
+;	_hires_adjust_top 0x00506C85
+;	_hires_adjust_left 0x00506C79 ; pushes byte, need to jump..
+
+	; network new button
+	_hires_adjust_left 0x00506D43
+	_hires_adjust_top  	0x00506D34
+	
+	; network cancel button
+	_hires_adjust_left 0x00506D1A
+	_hires_adjust_top  	0x00506D0B
+	
+	; network join button
+	_hires_adjust_left 0x00506CF4
+	_hires_adjust_top  	0x00506CE5
+	
+	; network join colour list
+;	_hires_adjust_left 0x00506CCB ; disabled for now
+	
+	; network join country drop list
+	_hires_adjust_left	0x00506C35
+	
+	; network join players list
+	_hires_adjust_left 0x00506CC6
+	_hires_adjust_top 0x00506CC1
+	
+	
+	_hires_adjust_top 0x0050691F
+	_hires_adjust_left 0x00506AE6
+	
+	; network text
+;	_hires_adjust_left 0x0050C2C5 ; disabled for now
+;	_hires_adjust_top	0x0050C2C1 ; disabled for now
 
 	; sidebar stuff
 ;	_hires_adjust_left 0x0054D7EC 
@@ -371,6 +420,166 @@ _hires_ini:
     POP EBX
 
     JMP 0x00552979
+
+_hires_MainMenu_Credits_Select:
+	mov     edx, 30h ; left
+	add		edx, [diff_top]
+	push	edx
+	
+;	push    30h             ; int
+	mov     ecx, 14h
+	add		ecx, [diff_top]
+	
+	mov     eax, [0x00666904]
+	
+	mov     ebx, 12h
+	add		ebx, [diff_left]
+	
+	mov		edx, 280h
+	add		edx, [diff_left]
+	push	edx
+;	push    9Eh             ; int
+
+	jmp		0x005024C5
+	
+_hires_MainMenu_AntMissions_Select:
+	mov     eax, 64h ; left
+	add		eax, [diff_top]
+	push	eax
+;	push    64h             ; int
+
+	mov     ebx, 208h
+	add		ebx, [diff_left]
+	
+	mov     eax, [0x00666904]
+	
+	xor     ecx, ecx
+	add		ecx, [diff_top]
+	
+	mov		edx, 280h
+	add		edx, [diff_left]
+	push	edx
+	
+	jmp		0x0050254D
+
+_hires_Network_Join_Fill_ColorBoxes:	
+	mov     ebx, edi
+	imul	ebx, 5
+	add		ebx, 1
+	add		ebx, 1A4h
+	add		ebx, [diff_top]
+	jmp		0x00507C13
+	
+_hires_Network_Join_ColorBoxes:
+	mov     edx, [ebp-80h] ; top
+;	add		edx, [diff_top]
+	mov     eax, [edi+ebp-264h] ; left
+	add		eax, [diff_left]
+	jmp		0x00507BBB
+	
+_hires_Network_Join_ColorBoxes2:
+	mov     edx, [ebp-80h] ; top
+;	add		edx, [diff_top]
+	mov     eax, [edi+ebp-264h] ; left
+	add		eax, [diff_left]
+	jmp		0x00507BDC
+	
+_hires_Network_Join_DrawBox:
+	mov     edx, [ebp-148h] ; top
+	add		edx, [diff_top]
+	mov     eax, [ebp-14Ch] ; left
+	add		eax, [diff_left]
+	jmp		0x00507DFB
+	
+_hires_Network_Join_DrawBox2:
+	mov     edx, [ebp-128h] ; top
+	add		edx, [diff_top]
+	mov     eax, [ebp-12Ch] ; left
+	add		eax, [diff_left]
+	jmp		0x00507E1C
+	
+_hires_Network_Join_ChatBox:
+	mov		eax, 73h
+	add		eax, [diff_top]
+	push	eax
+	
+;	push    73h
+;	push    14h
+	
+	mov		eax, 14h
+	add		eax, [diff_left]
+	push	eax
+	
+	mov     eax, [ebp-128h]
+	jmp 0x00507229
+	
+_hires_Network_Channel:
+	mov     ecx, 43h ; top
+	add		ecx, [diff_top]
+
+	push	4Eh
+	
+	mov     ebx, 1Eh ; left
+	add		ebx, [diff_left]
+	
+	mov     edx, 66h
+  
+	push	136h
+	
+	jmp		0x00506C89
+
+_hires_Network_Country_DropList:
+	push	eax
+	push    50h
+	push    78h
+	
+	mov		ecx, 1Fh
+	add		ecx, [diff_top]
+	push	ecx
+;	push    1Fh
+	
+	jmp		0x00506C34
+
+_hires_Network_Name_EditBox:
+	
+	mov		eax, 1Fh
+	add		eax, [diff_top]
+	push	eax
+	
+	mov     eax, 0x00601694
+	xor     dh, dh
+
+;	push    5Ah             ; __int32
+	mov		edx, 5Ah
+	add		edx, [diff_left]
+	push	edx
+	
+	mov     [ebp-100h], eax
+	mov     byte [0x0067F2D6], dh
+	
+	push    16h
+
+	jmp 0x00506BF5
+	
+_hires_Network_Color_List:
+	push    16h
+
+	mov		ecx, 42h
+	add		ecx, [diff_top]
+	push	ecx
+	
+	mov     ecx, 43h
+	jmp 0x00506CC5
+
+_hires_Network_Join_Button:
+	mov     ebx, 0C0h
+	
+	mov		edx, 42h
+	add		edx, [diff_left]
+	push	edx
+		
+	mov     edx, 68h
+	jmp 0x00506CFA
 
 _hires_StripClass:
     MOV DWORD [EBX+0x104F], 0x1F0 ; left strip offset left
