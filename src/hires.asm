@@ -16,10 +16,12 @@
 
 ; derived from ra95-hires
 
+@HOOK 0x00507B47 _Fill_Rect_test
 @HOOK 0x00552974 _hires_ini
 @HOOK 0x004A9EA9 _hires_Intro
 @HOOK 0x005B3DBF _hires_MainMenu
-@HOOK 0x004F479B _hires_MainMenuClear
+@HOOK 0x004F479B _hires_MainMenuClear 
+@HOOK 0x005022C3 _hires_MainMenuClearBackground
 @HOOK 0x004F75FB _hires_MainMenuClearPalette
 @HOOK 0x005518A3 _hires_NewGameText
 @HOOK 0x005128D4 _hires_SkirmishMenu
@@ -40,14 +42,112 @@
 @HOOK 0x00507C0C _hires_Network_Join_Fill_ColorBoxes
 @HOOK 0x0050253A _hires_MainMenu_AntMissions_Select
 @HOOK 0x005024AF _hires_MainMenu_Credits_Select
+@HOOK 0x005B30D0 _hires_Deinterlace_Videos 
+@HOOK 0x005E548D _hires_Deinterlace_Videos_Fix_Bottom_Line 
+@HOOK 0x005B2FE6 _hires_Deinterlace_Videos_Always_Deinterlace
+;@HOOK 0x005B3023 _hires_Deinterlace_Videos2
+;@HOOK 0x004A8C6A _hires_Videos
+;@HOOK 0x004A8AC6 _hires_Videos2
 ;@HOOK 0x0050223E _Blacken_Screen_Border_Menu
 ;@HOOK 0x0050228E _Blacken_Screen_Border_Menu2
 ;@HOOK 0x0054DFF5 _StripClass_Add
+
+@HOOK 0x0054E9C2 _hires_Sidebar_Cameos_Draw
+@HOOK 0x0054CF42 _hires_Sidebar_Cameos_Init
+@HOOK 0x0054DFAE _hires_Sidebar_Cameos_Init_IO
+@HOOK 0x0054DFF8 _hires_Sidebar_Cameos_Init_IO2
+@HOOK 0x0054E142 _hires_Sidebar_Cameos_Activate
+@HOOK 0x0054E15D _hires_Sidebar_Cameos_Activate2
+@HOOK 0x0054E172 _hires_Sidebar_Cameos_Activate3
+@HOOK 0x0054E1CC _hires_Sidebar_Cameos_Deactivate
+@HOOK 0x0054E1E8 _hires_Sidebar_Cameos_Deactivate2
+@HOOK 0x0054E2AD _hires_Sidebar_Cameos_Scroll
+
+ExtendedSelectButtons8 TIMES 824 dd 0 
+%define DefaultSelectButtons 0x0068A2C4
+
+_hires_Sidebar_Cameos_Scroll:
+	add     edx, 4
+	cmp     edx, ebx
+	jmp		0x0054E2B2
+	
+
+_hires_Sidebar_Cameos_Deactivate2:
+;	int 3
+	cmp     ebx, 208 ; 208 / 52 = 4 items
+	jmp		0x0054E1EE
+
+_hires_Sidebar_Cameos_Deactivate:
+	imul    edx, [ecx+19h], 0D0h
+;	add		edx, DefaultSelectButtons
+	add		edx, ExtendedSelectButtons8
+	jmp		0x0054E1D9
+
+_hires_Sidebar_Cameos_Activate3:
+	cmp     ebx, 208 ; 208 / 52 = 4 items
+	jmp		0x0054E178
+	
+	
+_hires_Sidebar_Cameos_Activate2
+;	add		edx, DefaultSelectButtons
+	add		edx, ExtendedSelectButtons8
+	jmp		0x0054E163
+
+_hires_Sidebar_Cameos_Activate:
+	imul    eax, [ecx+19h], 0D0h
+;	add		eax, DefaultSelectButtons
+	add		eax, ExtendedSelectButtons8
+	jmp		0x0054E14E
+
+_hires_Sidebar_Cameos_Init_IO2:
+	cmp     esi, 6 ; 6 items
+	jl      0x0054DFAE
+	jmp		0x0054DFFD	
+
+_hires_Sidebar_Cameos_Init_IO:
+	imul    eax, [ecx+19h], 0D0h
+;	add		eax, DefaultSelectButtons
+	add		eax, ExtendedSelectButtons8
+	jmp 	0x0054DFBA
+	
+_hires_Sidebar_Cameos_Init:
+	mov     edx, 12 ; amount of total items to init
+	mov     DWORD [0x00604D68], eax
+	
+;	mov		eax, DefaultSelectButtons
+	mov		eax, ExtendedSelectButtons8
+	jmp 	0x0054CF51
+	
+_hires_Sidebar_Cameos_Draw:
+	add     eax, 6 ; 6 items
+	cmp     eax, edx
+	jmp		0x0054E9C7
 
 %define ScreenWidth     0x006016B0
 %define ScreenHeight    0x006016B4
 
 %define _Buffer_Fill_Rect 0x005C23F0
+
+%define _Buffer_Clear 0x005C4DE0
+
+%define GraphicsViewPortClass_HidPage 0x006807CC
+%define GraphicBufferClass_VisiblePage 0x0068065C
+%define GraphicsViewPortClass_SeenBuff 0x006807A4
+
+%macro hires_Clear 0
+    PUSH 0
+    PUSH GraphicsViewPortClass_HidPage
+    CALL _Buffer_Clear
+    ADD ESP,8
+%endmacro
+
+%macro hires_Clear_2 0
+    PUSH 0
+    PUSH GraphicBufferClass_VisiblePage
+;	PUSH GraphicBufferClass_SeenBuffer
+    CALL _Buffer_Clear
+    ADD ESP,8
+%endmacro
 
 AdjustedWidth           dd 0
 
@@ -155,6 +255,10 @@ _hires_ini:
 
     MOV EDX, [AdjustedWidth]
     MOV EBX, [ScreenHeight]
+	
+;	MOV ECX, 100
+;    MOV EAX, 0x004A8AE1
+;    ADD [EAX], ECX
 
     ; main menu please wait...
     _hires_adjust_top 0x004F43BF
@@ -420,6 +524,82 @@ _hires_ini:
     POP EBX
 
     JMP 0x00552979
+	
+_Fill_Rect_test:
+
+	mov al, 0
+	push	eax
+	mov     word ecx, 0 ; [ebp-0ACh] top
+	push    WORD ecx             ; __int16
+	mov     word eax, 0; [ebp-0B0h] ; left
+	push    WORD eax             ; __int16
+	mov     word edx, 1000 ; [ebp-0B4h]
+	push    WORD edx             ; __int16
+	mov     word ebx, 1500 ; [ebp-0B8h]
+	push    WORD ebx             ; __int16
+	mov		ebx, [0x006AC274] ; GraphicViewPortClass LogicPage
+	push	ebx
+	jmp	0x00507B65
+
+	
+_hires_MainMenuClearBackground:
+	int 3
+	mov al, 0
+	push	eax
+	mov     word ecx, 0 ; [ebp-0ACh] top
+	push    WORD ecx             ; __int16
+	mov     word eax, 0; [ebp-0B0h] ; left
+	push    WORD eax             ; __int16
+	mov     word edx, 1000 ; [ebp-0B4h]
+	push    WORD edx             ; __int16
+	mov     word ebx, 1500 ; [ebp-0B8h]
+	push    WORD ebx             ; __int16
+	mov		ebx, [GraphicsViewPortClass_HidPage] ; GraphicViewPortClass LogicPage
+	push	ebx
+	call	0x005C23F0
+	add     esp, 18h
+	
+	mov     eax, 1
+	jmp		0x00502243
+	
+_hires_Deinterlace_Videos_Always_Deinterlace:
+	mov     eax, ebx
+	call    0x005B2CE0 ; Read_Interpolation_Palette(char *)
+
+	cmp DWORD [0x00691730], 0
+	jz     .Jump_Over_Create_Table
+	call    0x005B2DD0 ; Create_Palette_Interpolation_Table(void)
+
+.Jump_Over_Create_Table:
+	mov     eax, ebx
+	call    0x005B3009 ; Write_Interpolation_Palette(char *)
+
+	jmp		0x005B300E
+	
+_hires_Deinterlace_Videos_Fix_Bottom_Line:
+	jmp		0x005E5498
+	
+_hires_Deinterlace_Videos:
+	mov     eax, 2 ; video mode, 2 = deinterlace
+	jmp		0x005B30D5
+	
+;_hires_Deinterlace_Videos2:	
+;	jmp     0x005B304A
+
+_hires_Videos:
+	mov     ecx, 100h
+	mov     ebx, 100h
+;	mov     edx, [ScreenWidth]
+;	mov     ebx, [ScreenHeight]
+	jmp		0x004A8C77
+	
+_hires_Videos2:
+;	mov     edx, 0
+;	mov     ebx, 0
+
+	mov     eax, 0C8h
+	mov     edi, 140h
+	jmp		0x004A8AD0
 
 _hires_MainMenu_Credits_Select:
 	mov     edx, 30h ; left
@@ -435,7 +615,7 @@ _hires_MainMenu_Credits_Select:
 	mov     ebx, 12h
 	add		ebx, [diff_left]
 	
-	mov		edx, 280h
+	mov		edx, 9Eh
 	add		edx, [diff_left]
 	push	edx
 ;	push    9Eh             ; int
@@ -605,12 +785,16 @@ _hires_MainMenu:
     JMP 0x005B3DC7
 
 _hires_Intro:
-    MOV EAX, [diff_top]
-    PUSH EAX
-    MOV EAX, [diff_left]
-    PUSH EAX
     PUSH 0
     PUSH 0
+	
+  MOV EAX, 100	
+  ;  MOV EAX, [diff_top]
+    PUSH EAX
+    MOV EAX, 100
+;    MOV EAX, [diff_left]
+    PUSH EAX
+
     JMP 0x004A9EB1
 
 _hires_NewGameText_top  dd 0x96
@@ -640,35 +824,14 @@ _hires_NetworkJoinMenu:
     MOV DWORD [EBP-0x1D0], ECX
     XOR ECX,ECX
 	JMP 0x0050693D
-	
-%define _Buffer_Clear 0x005C4DE0
-
-%define GraphicsViewPortClass_HidPage 0x006807CC
-%define GraphicBufferClass_VisiblePage 0x0068065C
-%define GraphicsViewPortClass_SeenBuff 0x006807A4
-
-%macro _hires_Clear 0
-    PUSH 0
-    PUSH GraphicsViewPortClass_HidPage
-    CALL _Buffer_Clear
-    ADD ESP,8
-%endmacro
-
-%macro _hires_Clear_2 0
-    PUSH 0
-    PUSH GraphicBufferClass_VisiblePage
-;	PUSH GraphicBufferClass_SeenBuffer
-    CALL _Buffer_Clear
-    ADD ESP,8
-%endmacro
 
 _hires_MainMenuClear:
-    _hires_Clear
+    hires_Clear
     MOV EAX,1
     JMP 0x004F47A0
 
 _hires_MainMenuClearPalette:
-    _hires_Clear
+    hires_Clear
     MOV EAX, [0x006807E8]
     JMP 0x004F7600
 
@@ -681,7 +844,7 @@ _Blacken_Screen_Border_Menu:
 	jmp 0x00502243
 	
 _Blacken_Screen_Border_Menu2:
-	_hires_Clear2
+	hires_Clear2
 	mov eax, 1
 
 	jmp 0x00502293

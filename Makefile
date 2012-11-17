@@ -13,7 +13,8 @@ tools: linker$(EXT) extpe$(EXT)
 ra95.exe: $(DAT) extpe$(EXT)
 	cp $(DAT) $(EXE)
 	./extpe$(EXT) $(EXE) .patch rwxc 4096
-	./extpe$(EXT) $(EXE) .derp rwxc 4096
+	./extpe$(EXT) $(EXE) .patch2 rwxc 4096
+	./extpe$(EXT) $(EXE) .patch3 rwxc 4096
 
 build: linker$(EXT)
 	./linker$(EXT) src/main.asm src/main.inc $(EXE) $(NASM) $(NFLAGS)
