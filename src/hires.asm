@@ -52,16 +52,16 @@
 ;@HOOK 0x0050228E _Blacken_Screen_Border_Menu2
 ;@HOOK 0x0054DFF5 _StripClass_Add
 
-@HOOK 0x0054E9C2 _hires_Sidebar_Cameos_Draw
-@HOOK 0x0054CF42 _hires_Sidebar_Cameos_Init
-@HOOK 0x0054DFAE _hires_Sidebar_Cameos_Init_IO
-@HOOK 0x0054DFF8 _hires_Sidebar_Cameos_Init_IO2
-@HOOK 0x0054E142 _hires_Sidebar_Cameos_Activate
-@HOOK 0x0054E15D _hires_Sidebar_Cameos_Activate2
-@HOOK 0x0054E172 _hires_Sidebar_Cameos_Activate3
-@HOOK 0x0054E1CC _hires_Sidebar_Cameos_Deactivate
-@HOOK 0x0054E1E8 _hires_Sidebar_Cameos_Deactivate2
-@HOOK 0x0054E2AD _hires_Sidebar_Cameos_Scroll
+;@HOOK 0x0054E9C2 _hires_Sidebar_Cameos_Draw ; This infinite loop in a linked list class when the cmp is larger than 208
+;@HOOK 0x0054CF42 _hires_Sidebar_Cameos_Init
+;@HOOK 0x0054DFAE _hires_Sidebar_Cameos_Init_IO
+;@HOOK 0x0054DFF8 _hires_Sidebar_Cameos_Init_IO2
+;@HOOK 0x0054E142 _hires_Sidebar_Cameos_Activate
+;@HOOK 0x0054E15D _hires_Sidebar_Cameos_Activate2
+;@HOOK 0x0054E172 _hires_Sidebar_Cameos_Activate3
+;@HOOK 0x0054E1CC _hires_Sidebar_Cameos_Deactivate
+;@HOOK 0x0054E1E8 _hires_Sidebar_Cameos_Deactivate2
+;@HOOK 0x0054E2AD _hires_Sidebar_Cameos_Scroll
 
 ExtendedSelectButtons8 TIMES 824 dd 0 
 %define DefaultSelectButtons 0x0068A2C4

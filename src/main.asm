@@ -60,3 +60,7 @@ test_str  db "RUN1226M",0
 %ifdef USE_LOAD_MORE_MIX_FILES
 %include "src/load_more_mix_files.asm"
 %endif
+
+%ifdef FOCUS_LOSS_KEEP_PLAYING_SOUND
+%include "src/focus_loss_keep_playing_sound.asm"
+%endif
