@@ -8,7 +8,9 @@
 ; contain herp=, THIS DEFAULT VALUE IS THE PREVIOUS VALUE OF THE VARIABLE WHICH NOW IS THE MOD MAPS' VALUE. So everytime rules.ini is loaded again the value of herp= will
 ; stay the mod map's value. Because this value is different from the default rules.ini the game goes out of sync with people who have the normal rules.ini value.
 
-; Westwood coding at its finest.
+; Westwood coding at its finest. This fix loads FunkyFr3h's OOS-FIX.ini before any other file while loading a scenario. His file contains everything that rules.ini 
+; implicitly loads (by not specifying every value and having the game use defaults) but his file explictly states every value the game uses. This explicitly mentioning 
+; every value fixes the bug because no wrong default value is loaded.
 
 @HOOK 0x0053D541	_Read_Scenario_INI_Load_OOS_FIX_INI
 

@@ -230,7 +230,7 @@ _RulesClass_Multiplayer_Defaults:
 		mov     [esi+0BDh], edx
 		shl     ecx, 1Ah
 		shr     ecx, 1Fh
-		INI_Get_Bool multiplayer_defaults_str, capturetheflag_str, 1 ; CaptureTheFlag
+		INI_Get_Bool multiplayer_defaults_str, capturetheflag_str, 0 ; CaptureTheFlag
 ;		mov	  eax, 0 
 		mov     cl, [esi+0BDh]
 		and     cl, 0DFh
