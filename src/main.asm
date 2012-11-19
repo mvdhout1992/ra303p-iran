@@ -64,3 +64,7 @@ test_str  db "RUN1226M",0
 %ifdef FOCUS_LOSS_KEEP_PLAYING_SOUND
 %include "src/focus_loss_keep_playing_sound.asm"
 %endif
+
+%ifdef LOAD_FIX_OOS_INI
+%include "src/fix_rules_oos.asm"
+%endif

@@ -11,19 +11,25 @@
 %define INIClass__Get_String                        0x004F3A34
 %define FileClass__FileClass                        0x004627D4
 %define FileClass__Is_Available                     0x00462A30
+%define	INIClass__Get_Textblock						0x004F3528 
+%define	INIClass__Get_UUBlock						0x004F3338
+%define	sprintf_									0x005B8BAA
 
 herpini_str db "ffg101ea",0
 newmissions_str db "New Missions",0
 str_newmissions_ini db "NEWMISSIONS.INI",0
 str_general db "General",0
-str_zero db "0",0
+str_one db "1",0
 str_empty db 0
+str_sprintf_format db "%d",0
+mission_index_counter dd 0
 
 FileClass_this2  TIMES 128 db 0
 INIClass_this2 TIMES 128 db 0
 
-;sprintf_buffer   TIMES 64 db 0
-newmissions_array TIMES 64 db 0 ; char newmissions_array[256][64]
+sprintf_buffer   TIMES 64 db 0
+newmissions_array TIMES 400h db 0; char newmissions_array[256][64]
+
 
 %macro INI_Get_String 5
     PUSH %5             ; dst len
@@ -69,12 +75,41 @@ New_Missions_Loading:
     MOV EAX, INIClass_this2
     CALL INIClass__Load
 	
-;	mov esi, 64*0
-	mov eax, [newmissions_array]
-	INI_Get_String str_general, str_zero, str_empty, eax, 64
-	lea eax, [newmissions_array]
-	cmp byte al, 0
-	je Ret_Normal
+;	mov eax, INIClass_this2
+;	mov ecx, 400h
+;	mov ebx, newmissions_array
+;	mov edx, DWORD str_general
+;	call	 INIClass__Get_Textblock
+
+	
+	
+	mov 	esi, [mission_index_counter]
+	inc		esi
+
+	
+	cmp dword [mission_index_counter], 3 ; hard-coded max to read inis
+	jz	Ret_Empty_String
+	
+	mov		DWORD [mission_index_counter], esi
+		
+	push    esi             ; Format
+	push    str_sprintf_format ; %d
+	lea     esi, [sprintf_buffer]
+	push    esi             ; Dest
+	
+	call    sprintf_
+	add     esp, 0Ch
+	
+;	mov esi, DWORD newmissions_array
+	imul esi, [mission_index_counter], 32
+	lea esi, [newmissions_array+esi]
+	INI_Get_String str_general, sprintf_buffer, str_empty, ESI, 32
+
+	imul esi, [mission_index_counter], 32
+	lea esi, [newmissions_array+esi]
+;	mov al, esi
+	cmp byte esi, 0
+	je Ret_Empty_String
 	
 ;	mov eax, newmissions_array
 	
@@ -82,12 +117,18 @@ New_Missions_Loading:
 	cmp dword [ebp-30h], 14h
 	jnz Ret_Empty_String
 
-	lea esi, [newmissions_array]
+
+	imul esi, [mission_index_counter], 32
+	lea esi, [newmissions_array+esi]
 	jmp 0x004BE46E
+	
+Increment_Counter_Then_Return:
+	mov		DWORD [mission_index_counter], esi
 
 Ret_Empty_String:
 	lea esi, [str_empty]
-	jnz 0x004BE46E
+;	jnz 0x004BE46E
+	jmp 0x004BE46E
 	
 _Hook_Expansion_Mission_Loading2:
 	lea esi, [herpini_str]

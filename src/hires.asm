@@ -44,7 +44,7 @@
 @HOOK 0x005024AF _hires_MainMenu_Credits_Select
 @HOOK 0x005B30D0 _hires_Deinterlace_Videos 
 @HOOK 0x005E548D _hires_Deinterlace_Videos_Fix_Bottom_Line 
-@HOOK 0x005B2FE6 _hires_Deinterlace_Videos_Always_Deinterlace
+;@HOOK 0x005B2FE6 _hires_Deinterlace_Videos_Always_Deinterlace
 ;@HOOK 0x005B3023 _hires_Deinterlace_Videos2
 ;@HOOK 0x004A8C6A _hires_Videos
 ;@HOOK 0x004A8AC6 _hires_Videos2
@@ -52,16 +52,16 @@
 ;@HOOK 0x0050228E _Blacken_Screen_Border_Menu2
 ;@HOOK 0x0054DFF5 _StripClass_Add
 
-;@HOOK 0x0054E9C2 _hires_Sidebar_Cameos_Draw ; This infinite loop in a linked list class when the cmp is larger than 208
-;@HOOK 0x0054CF42 _hires_Sidebar_Cameos_Init
-;@HOOK 0x0054DFAE _hires_Sidebar_Cameos_Init_IO
-;@HOOK 0x0054DFF8 _hires_Sidebar_Cameos_Init_IO2
-;@HOOK 0x0054E142 _hires_Sidebar_Cameos_Activate
-;@HOOK 0x0054E15D _hires_Sidebar_Cameos_Activate2
-;@HOOK 0x0054E172 _hires_Sidebar_Cameos_Activate3
-;@HOOK 0x0054E1CC _hires_Sidebar_Cameos_Deactivate
-;@HOOK 0x0054E1E8 _hires_Sidebar_Cameos_Deactivate2
-;@HOOK 0x0054E2AD _hires_Sidebar_Cameos_Scroll
+@HOOK 0x0054E9C2 _hires_Sidebar_Cameos_Draw 
+@HOOK 0x0054CF42 _hires_Sidebar_Cameos_Init
+@HOOK 0x0054DFAE _hires_Sidebar_Cameos_Init_IO
+@HOOK 0x0054DFF8 _hires_Sidebar_Cameos_Init_IO2
+@HOOK 0x0054E142 _hires_Sidebar_Cameos_Activate
+@HOOK 0x0054E15D _hires_Sidebar_Cameos_Activate2 
+@HOOK 0x0054E172 _hires_Sidebar_Cameos_Activate3 ; This has a infinite loop in a linked list class when the cmp is larger than 208
+@HOOK 0x0054E1CC _hires_Sidebar_Cameos_Deactivate
+@HOOK 0x0054E1E8 _hires_Sidebar_Cameos_Deactivate2
+@HOOK 0x0054E2AD _hires_Sidebar_Cameos_Scroll
 
 ExtendedSelectButtons8 TIMES 824 dd 0 
 %define DefaultSelectButtons 0x0068A2C4
@@ -74,7 +74,7 @@ _hires_Sidebar_Cameos_Scroll:
 
 _hires_Sidebar_Cameos_Deactivate2:
 ;	int 3
-	cmp     ebx, 208 ; 208 / 52 = 4 items
+	cmp     ebx, 312 ; 208 / 52 = 4 items
 	jmp		0x0054E1EE
 
 _hires_Sidebar_Cameos_Deactivate:
@@ -84,7 +84,7 @@ _hires_Sidebar_Cameos_Deactivate:
 	jmp		0x0054E1D9
 
 _hires_Sidebar_Cameos_Activate3:
-	cmp     ebx, 208 ; 208 / 52 = 4 items
+	cmp     ebx, 312 ; 208 / 52 = 4 items
 	jmp		0x0054E178
 	
 	
@@ -94,7 +94,7 @@ _hires_Sidebar_Cameos_Activate2
 	jmp		0x0054E163
 
 _hires_Sidebar_Cameos_Activate:
-	imul    eax, [ecx+19h], 0D0h
+	imul    eax, [ecx+19h], 312
 ;	add		eax, DefaultSelectButtons
 	add		eax, ExtendedSelectButtons8
 	jmp		0x0054E14E
@@ -105,7 +105,7 @@ _hires_Sidebar_Cameos_Init_IO2:
 	jmp		0x0054DFFD	
 
 _hires_Sidebar_Cameos_Init_IO:
-	imul    eax, [ecx+19h], 0D0h
+	imul    eax, [ecx+19h], 312
 ;	add		eax, DefaultSelectButtons
 	add		eax, ExtendedSelectButtons8
 	jmp 	0x0054DFBA
@@ -119,7 +119,7 @@ _hires_Sidebar_Cameos_Init:
 	jmp 	0x0054CF51
 	
 _hires_Sidebar_Cameos_Draw:
-	add     eax, 6 ; 6 items
+	add     eax, 4 ; 6 items
 	cmp     eax, edx
 	jmp		0x0054E9C7
 
