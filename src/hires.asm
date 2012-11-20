@@ -21,7 +21,7 @@
 @HOOK 0x004A9EA9 _hires_Intro
 @HOOK 0x005B3DBF _hires_MainMenu
 @HOOK 0x004F479B _hires_MainMenuClear 
-@HOOK 0x005022C3 _hires_MainMenuClearBackground
+@HOOK 0x004F6090 _hires_MainMenuClearBackground
 @HOOK 0x004F75FB _hires_MainMenuClearPalette
 @HOOK 0x005518A3 _hires_NewGameText
 @HOOK 0x005128D4 _hires_SkirmishMenu
@@ -52,16 +52,58 @@
 ;@HOOK 0x0050228E _Blacken_Screen_Border_Menu2
 ;@HOOK 0x0054DFF5 _StripClass_Add
 
-@HOOK 0x0054E9C2 _hires_Sidebar_Cameos_Draw 
-@HOOK 0x0054CF42 _hires_Sidebar_Cameos_Init
-@HOOK 0x0054DFAE _hires_Sidebar_Cameos_Init_IO
-@HOOK 0x0054DFF8 _hires_Sidebar_Cameos_Init_IO2
-@HOOK 0x0054E142 _hires_Sidebar_Cameos_Activate
-@HOOK 0x0054E15D _hires_Sidebar_Cameos_Activate2 
-@HOOK 0x0054E172 _hires_Sidebar_Cameos_Activate3 ; This has a infinite loop in a linked list class when the cmp is larger than 208
-@HOOK 0x0054E1CC _hires_Sidebar_Cameos_Deactivate
-@HOOK 0x0054E1E8 _hires_Sidebar_Cameos_Deactivate2
-@HOOK 0x0054E2AD _hires_Sidebar_Cameos_Scroll
+;@HOOK 0x0054E9C2 _hires_Sidebar_Cameos_Draw 
+;@HOOK 0x0054CF42 _hires_Sidebar_Cameos_Init
+;@HOOK 0x0054DFAE _hires_Sidebar_Cameos_Init_IO
+;@HOOK 0x0054DFF8 _hires_Sidebar_Cameos_Init_IO2
+;@HOOK 0x0054E142 _hires_Sidebar_Cameos_Activate
+;@HOOK 0x0054E15D _hires_Sidebar_Cameos_Activate2 
+;@HOOK 0x0054E172 _hires_Sidebar_Cameos_Activate3 ; This has a infinite loop in a linked list class when the cmp is larger than 208
+;@HOOK 0x0054E1CC _hires_Sidebar_Cameos_Deactivate
+;@HOOK 0x0054E1E8 _hires_Sidebar_Cameos_Deactivate2
+;@HOOK 0x0054E2AD _hires_Sidebar_Cameos_Scroll
+
+%define ScreenWidth     0x006016B0
+%define ScreenHeight    0x006016B4
+
+%define _Buffer_Fill_Rect 0x005C23F0
+
+%define _Buffer_Clear 0x005C4DE0
+
+%define GraphicsViewPortClass_HidPage 0x006807CC
+%define GraphicBufferClass_VisiblePage 0x0068065C
+%define GraphicsViewPortClass_SeenBuff 0x006807A4
+
+%macro hires_Clear 0
+    PUSH 0
+    PUSH GraphicsViewPortClass_HidPage
+    CALL _Buffer_Clear
+    ADD ESP,8
+%endmacro
+
+%macro hires_Clear_2 0
+    PUSH 0
+    PUSH GraphicBufferClass_VisiblePage
+;	PUSH GraphicBufferClass_SeenBuffer
+    CALL _Buffer_Clear
+    ADD ESP,8
+%endmacro
+
+str_blackbackgroundpcx db "BLACKBACKGROUND.PCX",0
+
+_hires_MainMenuClearBackground:
+	
+	mov     ecx, eax
+	push 	ecx
+	
+	mov     ebx, 0x0066995C
+	mov     edx, GraphicsViewPortClass_HidPage
+	mov     eax, str_blackbackgroundpcx
+	call    0x005B3CD8
+	
+	pop		eax
+	mov     ebx, 0x0066995C
+	jmp	0x004F6097
 
 ExtendedSelectButtons8 TIMES 824 dd 0 
 %define DefaultSelectButtons 0x0068A2C4
@@ -122,32 +164,6 @@ _hires_Sidebar_Cameos_Draw:
 	add     eax, 4 ; 6 items
 	cmp     eax, edx
 	jmp		0x0054E9C7
-
-%define ScreenWidth     0x006016B0
-%define ScreenHeight    0x006016B4
-
-%define _Buffer_Fill_Rect 0x005C23F0
-
-%define _Buffer_Clear 0x005C4DE0
-
-%define GraphicsViewPortClass_HidPage 0x006807CC
-%define GraphicBufferClass_VisiblePage 0x0068065C
-%define GraphicsViewPortClass_SeenBuff 0x006807A4
-
-%macro hires_Clear 0
-    PUSH 0
-    PUSH GraphicsViewPortClass_HidPage
-    CALL _Buffer_Clear
-    ADD ESP,8
-%endmacro
-
-%macro hires_Clear_2 0
-    PUSH 0
-    PUSH GraphicBufferClass_VisiblePage
-;	PUSH GraphicBufferClass_SeenBuffer
-    CALL _Buffer_Clear
-    ADD ESP,8
-%endmacro
 
 AdjustedWidth           dd 0
 
@@ -542,25 +558,25 @@ _Fill_Rect_test:
 	jmp	0x00507B65
 
 	
-_hires_MainMenuClearBackground:
-	int 3
-	mov al, 0
-	push	eax
-	mov     word ecx, 0 ; [ebp-0ACh] top
-	push    WORD ecx             ; __int16
-	mov     word eax, 0; [ebp-0B0h] ; left
-	push    WORD eax             ; __int16
-	mov     word edx, 1000 ; [ebp-0B4h]
-	push    WORD edx             ; __int16
-	mov     word ebx, 1500 ; [ebp-0B8h]
-	push    WORD ebx             ; __int16
-	mov		ebx, [GraphicsViewPortClass_HidPage] ; GraphicViewPortClass LogicPage
-	push	ebx
-	call	0x005C23F0
-	add     esp, 18h
+;_hires_MainMenuClearBackground:
+;	int 3
+;	mov al, 0
+;	push	eax
+;	mov     word ecx, 0 ; [ebp-0ACh] top
+;	push    WORD ecx             ; __int16
+;	mov     word eax, 0; [ebp-0B0h] ; left
+;	push    WORD eax             ; __int16
+;	mov     word edx, 1000 ; [ebp-0B4h]
+;	push    WORD edx             ; __int16
+;	mov     word ebx, 1500 ; [ebp-0B8h]
+;	push    WORD ebx             ; __int16
+;	mov		ebx, [GraphicsViewPortClass_HidPage] ; GraphicViewPortClass LogicPage
+;	push	ebx
+;	call	0x005C23F0
+;	add     esp, 18h
 	
-	mov     eax, 1
-	jmp		0x00502243
+;	mov     eax, 1
+;	jmp		0x00502243
 	
 _hires_Deinterlace_Videos_Always_Deinterlace:
 	mov     eax, ebx
@@ -776,9 +792,16 @@ _hires_StripClass:
     JMP 0x0054D033
 
 _hires_MainMenu:
-    MOV EAX, [diff_top]
-    PUSH EAX
-    MOV EAX, [diff_left]
+	MOV EBX, [diff_top]
+	MOV EAX, [diff_left]
+	CMP EDX, 190h
+	je .Jump_Background_Skip
+
+	MOV EBX, 0
+	MOV EAX, 0
+	
+.Jump_Background_Skip:    
+    PUSH EBX    
     PUSH EAX
     PUSH 0
     PUSH 0
