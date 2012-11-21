@@ -52,16 +52,28 @@
 ;@HOOK 0x0050228E _Blacken_Screen_Border_Menu2
 ;@HOOK 0x0054DFF5 _StripClass_Add
 
-;@HOOK 0x0054E9C2 _hires_Sidebar_Cameos_Draw 
-;@HOOK 0x0054CF42 _hires_Sidebar_Cameos_Init
-;@HOOK 0x0054DFAE _hires_Sidebar_Cameos_Init_IO
-;@HOOK 0x0054DFF8 _hires_Sidebar_Cameos_Init_IO2
-;@HOOK 0x0054E142 _hires_Sidebar_Cameos_Activate
-;@HOOK 0x0054E15D _hires_Sidebar_Cameos_Activate2 
-;@HOOK 0x0054E172 _hires_Sidebar_Cameos_Activate3 ; This has a infinite loop in a linked list class when the cmp is larger than 208
-;@HOOK 0x0054E1CC _hires_Sidebar_Cameos_Deactivate
-;@HOOK 0x0054E1E8 _hires_Sidebar_Cameos_Deactivate2
-;@HOOK 0x0054E2AD _hires_Sidebar_Cameos_Scroll
+@HOOK 0x0054E9C2 _hires_Sidebar_Cameos_Draw 
+@HOOK 0x0054CF42 _hires_Sidebar_Cameos_Init
+@HOOK 0x0054DFAE _hires_Sidebar_Cameos_Init_IO
+@HOOK 0x0054DFF8 _hires_Sidebar_Cameos_Init_IO2
+;@HOOK 0x0054DE8B _hires_Sidebar_Cameos_Init_IO3
+@HOOK 0x0054DEBE _hires_Sidebar_Cameos_Init_IO4
+@HOOK 0x0054DF4A _hires_Sidebar_Cameos_Init_IO5
+;@HOOK 0x0054DF15 _hires_Sidebar_Cameos_Init_IO6
+@HOOK 0x0054E142 _hires_Sidebar_Cameos_Activate
+@HOOK 0x0054E156 _hires_Sidebar_Cameos_Activate2 
+@HOOK 0x0054E172 _hires_Sidebar_Cameos_Activate3 
+@HOOK 0x0054E1CC _hires_Sidebar_Cameos_Deactivate
+@HOOK 0x0054E1E8 _hires_Sidebar_Cameos_Deactivate2
+@HOOK 0x0054E2AD _hires_Sidebar_Cameos_Scroll ; broke atm
+@HOOK 0x0054E4BE _hires_Sidebar_Cameos_AI
+@HOOK 0x0054D08B _hires_Sidebar_Cameos_Height
+;@HOOK 0x0054E72A _hires_Sidebar_Cameos_Draw_Buttons
+
+; These are per strip, there's a left and right strip in the sidebar
+%define CAMEO_ITEMS 11
+%define CAMEOS_SIZE	572 ; memory size of all cameos
+
 
 %define ScreenWidth     0x006016B0
 %define ScreenHeight    0x006016B4
@@ -89,6 +101,23 @@
     ADD ESP,8
 %endmacro
 
+_hires_Sidebar_Cameos_Draw_Buttons:
+;	cmp     ebx, 1
+;	jge     0x0054E754
+	jmp		0x0054E72F
+
+_hires_Sidebar_Cameos_Height:
+	mov     edx, 370h
+	mov     ecx, 0A0h
+	mov     esi, 210h
+	mov     edi, 0B4h
+	jmp		0x0054D09F
+
+_hires_Sidebar_Cameos_AI: ; No idea if this does anything..
+	mov     ecx, [eax+5]
+	add		eax, CAMEO_ITEMS
+	jmp		0x0054E4C4
+
 str_blackbackgroundpcx db "BLACKBACKGROUND.PCX",0
 
 _hires_MainMenuClearBackground:
@@ -108,52 +137,73 @@ _hires_MainMenuClearBackground:
 ExtendedSelectButtons8 TIMES 824 dd 0 
 %define DefaultSelectButtons 0x0068A2C4
 
+_hires_Sidebar_Cameos_Init_IO6:	 ; Down buttons
+	add     esi, 0C2h
+	add     esi, [diff_height]
+	jmp		0x0054DF1B
+
+_hires_Sidebar_Cameos_Init_IO5:	 ; Down buttons
+	add     ebx, 0C2h
+	add     ebx, [diff_height]
+	jmp		0x0054DF50
+
+_hires_Sidebar_Cameos_Init_IO4:	 ; Up buttons
+	add     ebx, 0C2h
+	add     ebx, [diff_height]
+	jmp		0x0054DEC4
+
+_hires_Sidebar_Cameos_Init_IO3:  ; Up buttons
+	add     eax, 0C2h
+	add     eax, [diff_height]
+	jmp		0x0054DE90
+
 _hires_Sidebar_Cameos_Scroll:
-	add     edx, 4
+	add     edx, CAMEO_ITEMS
 	cmp     edx, ebx
 	jmp		0x0054E2B2
 	
 
 _hires_Sidebar_Cameos_Deactivate2:
 ;	int 3
-	cmp     ebx, 312 ; 208 / 52 = 4 items
+	cmp     ebx, CAMEOS_SIZE ; 208 / 52 = 4 items
 	jmp		0x0054E1EE
 
 _hires_Sidebar_Cameos_Deactivate:
-	imul    edx, [ecx+19h], 0D0h
+	imul    edx, [ecx+19h], CAMEOS_SIZE
 ;	add		edx, DefaultSelectButtons
 	add		edx, ExtendedSelectButtons8
 	jmp		0x0054E1D9
 
 _hires_Sidebar_Cameos_Activate3:
-	cmp     ebx, 312 ; 208 / 52 = 4 items
+	cmp     ebx, CAMEOS_SIZE ; 208 / 52 = 4 items
 	jmp		0x0054E178
 	
 	
 _hires_Sidebar_Cameos_Activate2
+	imul    edx, [ecx+19h], CAMEOS_SIZE
 ;	add		edx, DefaultSelectButtons
 	add		edx, ExtendedSelectButtons8
 	jmp		0x0054E163
 
 _hires_Sidebar_Cameos_Activate:
-	imul    eax, [ecx+19h], 312
+	imul    eax, [ecx+19h], CAMEOS_SIZE
 ;	add		eax, DefaultSelectButtons
 	add		eax, ExtendedSelectButtons8
 	jmp		0x0054E14E
 
 _hires_Sidebar_Cameos_Init_IO2:
-	cmp     esi, 6 ; 6 items
+	cmp     esi, CAMEO_ITEMS ; items check
 	jl      0x0054DFAE
 	jmp		0x0054DFFD	
 
 _hires_Sidebar_Cameos_Init_IO:
-	imul    eax, [ecx+19h], 312
+	imul    eax, [ecx+19h], CAMEOS_SIZE
 ;	add		eax, DefaultSelectButtons
 	add		eax, ExtendedSelectButtons8
 	jmp 	0x0054DFBA
 	
 _hires_Sidebar_Cameos_Init:
-	mov     edx, 12 ; amount of total items to init
+	mov     edx, CAMEO_ITEMS*2 ; amount of total items to init
 	mov     DWORD [0x00604D68], eax
 	
 ;	mov		eax, DefaultSelectButtons
@@ -161,7 +211,7 @@ _hires_Sidebar_Cameos_Init:
 	jmp 	0x0054CF51
 	
 _hires_Sidebar_Cameos_Draw:
-	add     eax, 4 ; 6 items
+	add     eax, CAMEO_ITEMS; items to draw
 	cmp     eax, edx
 	jmp		0x0054E9C7
 
@@ -436,7 +486,11 @@ _hires_ini:
     _hires_adjust_width 0x0054D7F1
     _hires_adjust_width 0x0054D816
 	
-;	_hires_adjust_height 0x0054D811
+	; Bottom side bar shape height
+;	 _hires_adjust_height 0x0054D08C
+	
+	; side bar bottom shape position height
+	_hires_adjust_height 0x0054D811
 
     ; credits tab background position
     _hires_adjust_width 0x00553758
@@ -457,7 +511,7 @@ _hires_ini:
     _hires_adjust_width [left_strip_offset]
 
     ; side bar strip icons offset
-    _hires_adjust_width 0x0054D08C 
+;    _hires_adjust_width 0x0054D08C
 
     ; side bar strip offset left (right bar)
     _hires_adjust_width [right_strip_offset]
