@@ -43,7 +43,8 @@
 @HOOK 0x0050253A _hires_MainMenu_AntMissions_Select
 @HOOK 0x005024AF _hires_MainMenu_Credits_Select
 @HOOK 0x005B30D0 _hires_Deinterlace_Videos 
-@HOOK 0x005E548D _hires_Deinterlace_Videos_Fix_Bottom_Line 
+@HOOK 0x005E548D _hires_Deinterlace_Videos_Fix_Bottom_Line
+@HOOK 0x004A9EA9 _hires_Center_VQA640_Videos
 ;@HOOK 0x005B2FE6 _hires_Deinterlace_Videos_Always_Deinterlace
 ;@HOOK 0x005B3023 _hires_Deinterlace_Videos2
 ;@HOOK 0x004A8C6A _hires_Videos
@@ -70,10 +71,20 @@
 @HOOK 0x0054D08B _hires_Sidebar_Cameos_Height
 ;@HOOK 0x0054E72A _hires_Sidebar_Cameos_Draw_Buttons
 
+_hires_Center_VQA640_Videos:
+	MOV EAX, [diff_top]
+	push	eax
+	MOV EAX, [diff_left]
+	push	eax
+
+	push    0
+	push    0
+	
+	jmp		0x004A9EB1
+
 ; These are per strip, there's a left and right strip in the sidebar
 %define CAMEO_ITEMS 11
 %define CAMEOS_SIZE	572 ; memory size of all cameos
-
 
 %define ScreenWidth     0x006016B0
 %define ScreenHeight    0x006016B4
@@ -179,7 +190,7 @@ _hires_Sidebar_Cameos_Activate3:
 	jmp		0x0054E178
 	
 	
-_hires_Sidebar_Cameos_Activate2
+_hires_Sidebar_Cameos_Activate2:
 	imul    edx, [ecx+19h], CAMEOS_SIZE
 ;	add		edx, DefaultSelectButtons
 	add		edx, ExtendedSelectButtons8

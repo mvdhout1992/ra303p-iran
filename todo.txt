@@ -1,0 +1,10 @@
+1. add crc check to oos-fix.ini loading
+2. make greece and spain selectable in skirmish and lan menu
+3. make the game play sizzle3.vqa in the sneak preview menu
+4. remove queue song 26h max index checks (not sure if needed?)
+5. make deinterlacing optional
+6. add an option to skip playing english.vqa at start
+7. Test if missing music.ini file works <--- IT DOESNT, FIX THIS!!!!
+8. Investigate multiplayer music volume
+9. Add an option to enable/disable showing all music always, instead of being side specific
+10. Fix Counterstrike song names, the internal IDs are used instead of actual names

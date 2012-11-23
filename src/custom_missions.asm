@@ -30,6 +30,14 @@ INIClass_this2 TIMES 128 db 0
 sprintf_buffer   TIMES 64 db 0
 newmissions_array TIMES 400h db 0; char newmissions_array[256][64]
 
+; args: <section>, <key>, <default>, <dst>
+%macro INI_Get_Int 3
+    MOV ECX, DWORD %3
+    MOV EBX, DWORD %2
+    MOV EDX, DWORD %1
+    MOV EAX, INIClass_this
+    CALL INIClass__Get_Int
+%endmacro
 
 %macro INI_Get_String 5
     PUSH %5             ; dst len

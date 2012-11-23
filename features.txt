@@ -1,0 +1,28 @@
+1. Load any BLACKBACKGROUND.PCX files if found before TITLE.PCX title screen graphic to prevent glitching around menu borders after playing missions in certain cases.
+2. If a TITLE.PCX is found that doesn't have the same dimensions as the original TITLE.PCX file, it will be displayed on the screen in the top left, this allows people to create their own custom main menu title graphics and if them work with hi-res.
+
+3. FunkyFre3sh's OOS-FIX.INI file will be loaded (if it's found) while still being compatible online with 3.03 players not using this fix. This fix prevents desyncing after playing certain (most?) modded maps online and then playing another map. It also fixes the cause of the desync itself, namely that after playing certain modded maps/missions certain memory used by the game for its settings (e.g. unit cost) won't be reset when playing a normal map/mission. This has to do with some really terrible programming but is a bit technical to explain. Suffice to say this fixes things like the Mobile Radar Jammer gaining a Tesla weapon after playing certain Counterstrike missions, etc.
+
+4. VQA640 files are now centered, only the intro sequence with a Longbow helicopter hitting a Mammoth Tank is a VQA640 file though.
+
+5. Messages sent by other players during a match now appear for 30 seconds in the top left corner, instead of the previous 9 seconds.
+6. There are a max of 12 messages, instead of the previous 6 max. More than 7 messages shown cause minor graphicl glitching until the additional messages disappear.
+
+7. Added an redalert.ini boolean option "ShowAllMusic" under the "Options" section to enable/disable showing all music, normally the game only shows some music depending on what side you're planning as, with this option enabled, it always shows all music, except for the score, map and main menu music.
+
+8. All multiplayer settings are now configurable, inside redalert.ini add:
+[MultiplayerDefaults]
+Money=10000
+ShroudRegrows=false
+CaptureTheFlag=false
+Crates=false
+Bases=true
+OreRegenerates=true
+UnitCount=0
+TechLevel=10
+AIDifficulty=2
+AIPlayers=1
+MapIndex=2
+
+9. Extra songs can be added in a music.ini file.
+
