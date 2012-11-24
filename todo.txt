@@ -8,3 +8,5 @@
 8. Investigate multiplayer music volume
 9. Add an option to enable/disable showing all music always, instead of being side specific
 10. Fix Counterstrike song names, the internal IDs are used instead of actual names
+11. For the MapIndex Multiplayer defaults code, a check for MapIndex < Items Count needs to be added
+12. Restating a mission ingame causes graphical glitching, I think hifi's hires has a fix for it..

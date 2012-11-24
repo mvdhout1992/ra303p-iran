@@ -25,4 +25,6 @@ AIPlayers=1
 MapIndex=2
 
 9. Extra songs can be added in a music.ini file.
+10. The game now tries to load the The Lost Files movies compiled by Nyerguds.
+11. The game will now load and play sizzle3.vqa, sizzle4.vqa and introx.vqa in the sneak preview menu if found.
 
