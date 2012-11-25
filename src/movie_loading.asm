@@ -2,10 +2,18 @@
 @HOOK 0x004637FF _CCINIClass_Get_VQType
 @HOOK 0x0053A1D3 _Start_Scenario_VQName ; Might cause movie loading issues
 @HOOK 0x004F5061 _Extra_Sneak_Peaks
+@HOOK 0x004F4358 _Optional_Play_ENGLISHVQA_Intro
 
-%define strcmpi_ 		0x005B8B50
-%define	_Play_Movie_		0x004A8DCC
+%define INIClass__INIClass                          0x004C7C60 
+%define INIClass__Load                              0x004F28C4
+%define INIClass__Get_Bool							0x004F3ACC
+%define FileClass__FileClass                        0x004627D4 
+%define FileClass__Is_Available                     0x00462A30
+%define strcmpi_ 									0x005B8B50
+%define	_Play_Movie_								0x004A8DCC
+%define Play_Intro									0x004F55B0
 
+; TLF movies + sizzle3 and sizzle4
 derp_str db "derp",0
 ALLX1_str db "ALLX1",0
 ALLX2_str db "ALLX2",0
@@ -36,6 +44,21 @@ TESLATNK_str db "TESLATNK",0
 SIZZLE3_str db "SIZZLE3",0
 SIZZLE4_str db "SIZZLE4",0
 
+str_playenglishintro db"PlayEnglishIntro",0
+;str_redalert_ini db"REDALERT.INI",0
+;str_options2 db"Options",0
+FileClass_redalertini2  TIMES 128 db 0
+INIClass_redalertini2 TIMES 128 db 0
+
+; args: <section>, <key>, <default>, <dst>
+%macro INI_Get_Bool 3
+    MOV ECX, DWORD %3
+    MOV EBX, DWORD %2
+    MOV EDX, DWORD %1
+    MOV EAX, INIClass_redalertini2
+    CALL INIClass__Get_Bool
+%endmacro
+
 ; args: <video name no extension>, <index to return>
 %macro Video_Name_To_Index 2
 	lea eax, [ebp-88h]
@@ -62,6 +85,47 @@ SIZZLE4_str db "SIZZLE4",0
 	mov     eax, %1
 	call    _Play_Movie_
 %endmacro
+
+_Optional_Play_ENGLISHVQA_Intro:
+
+	push edx
+	push eax
+	push ebx
+
+	MOV EDX, str_redalert_ini
+    MOV EAX, FileClass_redalertini2
+    CALL FileClass__FileClass
+
+    ; check ini exists
+    MOV EAX, FileClass_redalertini2
+    XOR EDX, EDX
+    CALL FileClass__Is_Available
+;    TEST EAX,EAX
+;    JE .exit_error
+
+    ; initialize INIClass
+    MOV EAX, INIClass_redalertini2
+    CALL INIClass__INIClass
+
+    ; load FileClass to INIClass
+    MOV EDX, FileClass_redalertini2
+    MOV EAX, INIClass_redalertini2
+    CALL INIClass__Load
+	
+	INI_Get_Bool str_options2, str_playenglishintro, 1
+	cmp eax, 0
+	
+	pop	ebx
+	pop eax
+	pop edx
+	
+	je .Ret
+	
+	
+	call	Play_Intro
+	
+.Ret:
+	jmp		0x004F435D
 
 _Extra_Sneak_Peaks:
 	call	_Play_Movie_

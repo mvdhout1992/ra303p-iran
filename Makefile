@@ -19,6 +19,7 @@ ra95.exe: $(DAT) extpe$(EXT)
 	./extpe$(EXT) $(EXE) .patch5 rwxc 4096
 	./extpe$(EXT) $(EXE) .patch6 rwxc 4096
 	./extpe$(EXT) $(EXE) .patch7 rwxc 4096
+	./extpe$(EXT) $(EXE) .patch8 rwxc 4096
 
 build: linker$(EXT)
 	./linker$(EXT) src/main.asm src/main.inc $(EXE) $(NASM) $(NFLAGS)

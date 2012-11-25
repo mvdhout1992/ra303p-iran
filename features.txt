@@ -27,4 +27,10 @@ MapIndex=2
 9. Extra songs can be added in a music.ini file.
 10. The game now tries to load the The Lost Files movies compiled by Nyerguds.
 11. The game will now load and play sizzle3.vqa, sizzle4.vqa and introx.vqa in the sneak preview menu if found.
+12. Playing the ENGLISH.VQA intro is now optional. a new REDALERT.INI boolean option PlayEnglishIntro= under the "Options" section controls this.
+13. Fixed the in-game displayed name of various songs, Twin Cannon misnamed as "Twin" and most Counterstrike songs.
+
+14. The game now doesn't start playing another song anymore when it regains focus (via alt+tab for example).
+
+Fix for a rare issue where the game would report there is barely any free disk space left when there's plenty. The game now always thinks there is enough free disk space left.
 

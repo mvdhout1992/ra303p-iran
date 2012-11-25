@@ -30,6 +30,15 @@ str_sprintf_format2 db "%d",0
 sprintf_buffer2   TIMES 64 db 0
 music_filenames_buffer TIMES 8192 db 0 ; 128 * 32 bytes
 
+str_twincannonremix db "Twin Cannon (Remix)",0
+str_underlyingthoughts db "Underlying Thoughts",0
+str_voicerhythm2 db "Voice Rhythm 2",0
+str_shutit db "Shut It",0
+str_chaos db "Chaos",0
+str_thesecondhand db"The Second Hand",0
+str_backstab db "Backstab",0
+str_twincannon db "Twin Cannon",0
+
 %define INIClass__INIClass                          0x004C7C60 
 %define INIClass__Load                              0x004F28C4
 %define INIClass__Get_Int                           0x004F3660
@@ -69,10 +78,21 @@ music_filenames_buffer TIMES 8192 db 0 ; 128 * 32 bytes
     MOV EAX, INIClass_redalertini
     CALL INIClass__Get_Bool
 %endmacro
+	
+; args: <corrected song full name>, <index>
+%macro Correct_Song_Index_Name 2
+	cmp		dl, %2
+	mov		eax, %1
+	je		0x0056BEF8
+%endmacro
 
 _ThemeClass_Is_Allowed:
 	push edx
 
+	mov eax, [FileClass_redalertini]
+	test eax, eax
+	jnz .Done_INIClass_Loading
+	
 	MOV EDX, str_redalert_ini
     MOV EAX, FileClass_redalertini
     CALL FileClass__FileClass
@@ -93,6 +113,7 @@ _ThemeClass_Is_Allowed:
     MOV EAX, INIClass_redalertini
     CALL INIClass__Load
 	
+.Done_INIClass_Loading:
 	INI_Get_Bool str_options2, str_showallmusic, 1
 	
 	cmp eax, 0
@@ -187,6 +208,15 @@ _SoundControlsClass_Process:
 	jmp		0x00550674
 
 _ThemeClass_Full_Name:
+	Correct_Song_Index_Name str_twincannon, 17
+	Correct_Song_Index_Name str_thesecondhand, 23
+	Correct_Song_Index_Name str_backstab, 25
+	Correct_Song_Index_Name str_chaos, 26
+	Correct_Song_Index_Name str_shutit, 27
+	Correct_Song_Index_Name str_twincannonremix, 28
+	Correct_Song_Index_Name str_underlyingthoughts, 29
+	Correct_Song_Index_Name str_voicerhythm2, 30
+	
 	cmp     dl, 26h
 	jge		Return_Custom_Name
 	
@@ -206,6 +236,10 @@ Return_Custom_Name:
 
 	push edx ; save value of index
 	
+	mov eax, [FileClass_this3]
+	test eax, eax
+	jnz .Done_INIClass_Loading
+	
 	MOV EDX, musicini_str
     MOV EAX, FileClass_this3
     CALL FileClass__FileClass
@@ -215,7 +249,7 @@ Return_Custom_Name:
     XOR EDX, EDX
     CALL FileClass__Is_Available
     TEST EAX,EAX
-	JE File_Not_Available ; on file not available
+;	JE File_Not_Available ; on file not available
 
     ; initialize INIClass
     MOV EAX, INIClass_this3
@@ -225,7 +259,8 @@ Return_Custom_Name:
     MOV EDX, FileClass_this3
     MOV EAX, INIClass_this3
     CALL INIClass__Load
-		
+
+.Done_INIClass_Loading:	
 ;	cmp dword [mission_index_counter], 3 ; hard-coded max to read inis
 ;	jz	Ret_Empty_String2
 	
@@ -320,6 +355,10 @@ Return_Custom_String:
 
 	push eax ; save value of index
 	
+	mov eax, [FileClass_this3]
+	test eax, eax
+	jnz .Done_INIClass_Loading
+	
 	MOV EDX, musicini_str
     MOV EAX, FileClass_this3
     CALL FileClass__FileClass
@@ -329,7 +368,7 @@ Return_Custom_String:
     XOR EDX, EDX
     CALL FileClass__Is_Available
     TEST EAX,EAX
-	JE File_Not_Available ; on file not available
+;	JE File_Not_Available ; on file not available
 
     ; initialize INIClass
     MOV EAX, INIClass_this3
@@ -339,7 +378,8 @@ Return_Custom_String:
     MOV EDX, FileClass_this3
     MOV EAX, INIClass_this3
     CALL INIClass__Load
-		
+
+.Done_INIClass_Loading:	
 ;	cmp dword [mission_index_counter], 3 ; hard-coded max to read inis
 ;	jz	Ret_Empty_String2
 	
