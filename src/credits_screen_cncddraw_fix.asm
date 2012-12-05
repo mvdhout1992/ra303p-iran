@@ -1,0 +1,4 @@
+@HOOK	0x004BC5ED		Slide_Show_Credits_CnCDDraw_Crash_Fix
+
+Slide_Show_Credits_CnCDDraw_Crash_Fix:
+	jmp		0x004BC5F2

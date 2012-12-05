@@ -16,7 +16,6 @@
 
 ; derived from ra95-hires
 
-@HOOK 0x00507B47 _Fill_Rect_test
 @HOOK 0x00552974 _hires_ini
 @HOOK 0x004A9EA9 _hires_Intro
 @HOOK 0x005B3DBF _hires_MainMenu
@@ -28,18 +27,18 @@
 @HOOK 0x0054D009 _hires_StripClass
 @HOOK 0x004BE377 _NewMissions_Handle_Hires_Buttons_A
 @HOOK 0x004BE39E _NewMissions_Handle_Hires_Buttons_B
-@HOOK 0x0050692B _hires_NetworkJoinMenu
-@HOOK 0x00506CEE _hires_Network_Join_Button
+;@HOOK 0x0050692B _hires_NetworkJoinMenu
+;@HOOK 0x00506CEE _hires_Network_Join_Button
 ;@HOOK 0x00506CBC _hires_Network_Color_List
-@HOOK 0x00506BDC _hires_Network_Name_EditBox
-@HOOK 0x00506C28 _hires_Network_Country_DropList
-@HOOK 0x00506C73 _hires_Network_Channel
-@HOOK 0x0050721F _hires_Network_Join_ChatBox
-@HOOK 0x00507DEF _hires_Network_Join_DrawBox
-@HOOK 0x00507E10 _hires_Network_Join_DrawBox2
-@HOOK 0x00507BB1 _hires_Network_Join_ColorBoxes 
-@HOOK 0x00507BD2 _hires_Network_Join_ColorBoxes2
-@HOOK 0x00507C0C _hires_Network_Join_Fill_ColorBoxes
+;@HOOK 0x00506BDC _hires_Network_Name_EditBox
+;@HOOK 0x00506C28 _hires_Network_Country_DropList
+;@HOOK 0x00506C73 _hires_Network_Channel
+;@HOOK 0x0050721F _hires_Network_Join_ChatBox
+;@HOOK 0x00507DEF _hires_Network_Join_DrawBox
+;@HOOK 0x00507E10 _hires_Network_Join_DrawBox2
+;@HOOK 0x00507BB1 _hires_Network_Join_ColorBoxes 
+;@HOOK 0x00507BD2 _hires_Network_Join_ColorBoxes2
+;@HOOK 0x00507C0C _hires_Network_Join_Fill_ColorBoxes
 @HOOK 0x0050253A _hires_MainMenu_AntMissions_Select
 @HOOK 0x005024AF _hires_MainMenu_Credits_Select
 @HOOK 0x005B30D0 _hires_Deinterlace_Videos 
@@ -53,23 +52,25 @@
 ;@HOOK 0x0050228E _Blacken_Screen_Border_Menu2
 ;@HOOK 0x0054DFF5 _StripClass_Add
 
-@HOOK 0x0054E9C2 _hires_Sidebar_Cameos_Draw 
-@HOOK 0x0054CF42 _hires_Sidebar_Cameos_Init
-@HOOK 0x0054DFAE _hires_Sidebar_Cameos_Init_IO
-@HOOK 0x0054DFF8 _hires_Sidebar_Cameos_Init_IO2
+;@HOOK 0x0054E9C2 _hires_Sidebar_Cameos_Draw 
+;@HOOK 0x0054CF42 _hires_Sidebar_Cameos_Init
+;@HOOK 0x0054DFAE _hires_Sidebar_Cameos_Init_IO
+;@HOOK 0x0054DFF8 _hires_Sidebar_Cameos_Init_IO2
 ;@HOOK 0x0054DE8B _hires_Sidebar_Cameos_Init_IO3
-@HOOK 0x0054DEBE _hires_Sidebar_Cameos_Init_IO4
-@HOOK 0x0054DF4A _hires_Sidebar_Cameos_Init_IO5
+;@HOOK 0x0054DEBE _hires_Sidebar_Cameos_Init_IO4
+;@HOOK 0x0054DF4A _hires_Sidebar_Cameos_Init_IO5
 ;@HOOK 0x0054DF15 _hires_Sidebar_Cameos_Init_IO6
-@HOOK 0x0054E142 _hires_Sidebar_Cameos_Activate
-@HOOK 0x0054E156 _hires_Sidebar_Cameos_Activate2 
-@HOOK 0x0054E172 _hires_Sidebar_Cameos_Activate3 
-@HOOK 0x0054E1CC _hires_Sidebar_Cameos_Deactivate
-@HOOK 0x0054E1E8 _hires_Sidebar_Cameos_Deactivate2
-@HOOK 0x0054E2AD _hires_Sidebar_Cameos_Scroll ; broke atm
-@HOOK 0x0054E4BE _hires_Sidebar_Cameos_AI
-@HOOK 0x0054D08B _hires_Sidebar_Cameos_Height
+;@HOOK 0x0054E142 _hires_Sidebar_Cameos_Activate
+;@HOOK 0x0054E156 _hires_Sidebar_Cameos_Activate2 
+;@HOOK 0x0054E172 _hires_Sidebar_Cameos_Activate3 
+;@HOOK 0x0054E1CC _hires_Sidebar_Cameos_Deactivate
+;@HOOK 0x0054E1E8 _hires_Sidebar_Cameos_Deactivate2
+;@HOOK 0x0054E2AD _hires_Sidebar_Cameos_Scroll ; broke atm?
+;@HOOK 0x0054E4BE _hires_Sidebar_Cameos_AI
+;@HOOK 0x0054D08B _hires_Sidebar_Cameos_Height
 ;@HOOK 0x0054E72A _hires_Sidebar_Cameos_Draw_Buttons
+
+
 
 _hires_Center_VQA640_Videos:
 	MOV EAX, [diff_top]
@@ -113,21 +114,21 @@ _hires_Center_VQA640_Videos:
 %endmacro
 
 _hires_Sidebar_Cameos_Draw_Buttons:
-;	cmp     ebx, 1
-;	jge     0x0054E754
-	jmp		0x0054E72F
+;;	cmp     ebx, 1
+;;	jge     0x0054E754
+;	jmp		0x0054E72F
 
 _hires_Sidebar_Cameos_Height:
-	mov     edx, 370h
-	mov     ecx, 0A0h
-	mov     esi, 210h
-	mov     edi, 0B4h
-	jmp		0x0054D09F
+;	mov     edx, 370h
+;	mov     ecx, 0A0h
+;	mov     esi, 210h
+;	mov     edi, 0B4h
+;	jmp		0x0054D09F
 
 _hires_Sidebar_Cameos_AI: ; No idea if this does anything..
-	mov     ecx, [eax+5]
-	add		eax, CAMEO_ITEMS
-	jmp		0x0054E4C4
+;	mov     ecx, [eax+5]
+;	add		eax, CAMEO_ITEMS
+;	jmp		0x0054E4C4
 
 str_blackbackgroundpcx db "BLACKBACKGROUND.PCX",0
 
@@ -149,82 +150,80 @@ ExtendedSelectButtons8 TIMES 824 dd 0
 %define DefaultSelectButtons 0x0068A2C4
 
 _hires_Sidebar_Cameos_Init_IO6:	 ; Down buttons
-	add     esi, 0C2h
-	add     esi, [diff_height]
-	jmp		0x0054DF1B
+;	add     esi, 0C2h
+;	add     esi, [diff_height]
+;	jmp		0x0054DF1B
 
 _hires_Sidebar_Cameos_Init_IO5:	 ; Down buttons
-	add     ebx, 0C2h
-	add     ebx, [diff_height]
-	jmp		0x0054DF50
+;	add     ebx, 0C2h
+;	add     ebx, [diff_height]
+;	jmp		0x0054DF50
 
 _hires_Sidebar_Cameos_Init_IO4:	 ; Up buttons
-	add     ebx, 0C2h
-	add     ebx, [diff_height]
-	jmp		0x0054DEC4
+;	add     ebx, 0C2h
+;	add     ebx, [diff_height]
+;	jmp		0x0054DEC4
 
 _hires_Sidebar_Cameos_Init_IO3:  ; Up buttons
-	add     eax, 0C2h
-	add     eax, [diff_height]
-	jmp		0x0054DE90
+;	add     eax, 0C2h
+;	add     eax, [diff_height]
+;	jmp		0x0054DE90
 
 _hires_Sidebar_Cameos_Scroll:
-	add     edx, CAMEO_ITEMS
-	cmp     edx, ebx
-	jmp		0x0054E2B2
-	
+;	add     edx, CAMEO_ITEMS
+;	cmp     edx, ebx
+;	jmp		0x0054E2B2	
 
 _hires_Sidebar_Cameos_Deactivate2:
-;	int 3
-	cmp     ebx, CAMEOS_SIZE ; 208 / 52 = 4 items
-	jmp		0x0054E1EE
+;;	int 3
+;	cmp     ebx, CAMEOS_SIZE ; 208 / 52 = 4 items
+;	jmp		0x0054E1EE
 
 _hires_Sidebar_Cameos_Deactivate:
-	imul    edx, [ecx+19h], CAMEOS_SIZE
-;	add		edx, DefaultSelectButtons
-	add		edx, ExtendedSelectButtons8
-	jmp		0x0054E1D9
+;	imul    edx, [ecx+19h], CAMEOS_SIZE
+;;	add		edx, DefaultSelectButtons
+;	add		edx, ExtendedSelectButtons8
+;	jmp		0x0054E1D9
 
 _hires_Sidebar_Cameos_Activate3:
-	cmp     ebx, CAMEOS_SIZE ; 208 / 52 = 4 items
-	jmp		0x0054E178
-	
-	
+;	cmp     ebx, CAMEOS_SIZE ; 208 / 52 = 4 items
+;	jmp		0x0054E178
+		
 _hires_Sidebar_Cameos_Activate2:
-	imul    edx, [ecx+19h], CAMEOS_SIZE
-;	add		edx, DefaultSelectButtons
-	add		edx, ExtendedSelectButtons8
-	jmp		0x0054E163
+;	imul    edx, [ecx+19h], CAMEOS_SIZE
+;;	add		edx, DefaultSelectButtons
+;	add		edx, ExtendedSelectButtons8
+;	jmp		0x0054E163
 
 _hires_Sidebar_Cameos_Activate:
-	imul    eax, [ecx+19h], CAMEOS_SIZE
-;	add		eax, DefaultSelectButtons
-	add		eax, ExtendedSelectButtons8
-	jmp		0x0054E14E
+;	imul    eax, [ecx+19h], CAMEOS_SIZE
+;;	add		eax, DefaultSelectButtons
+;	add		eax, ExtendedSelectButtons8
+;	jmp		0x0054E14E
 
 _hires_Sidebar_Cameos_Init_IO2:
-	cmp     esi, CAMEO_ITEMS ; items check
-	jl      0x0054DFAE
-	jmp		0x0054DFFD	
+;	cmp     esi, CAMEO_ITEMS ; items check
+;	jl      0x0054DFAE
+;	jmp		0x0054DFFD	
 
 _hires_Sidebar_Cameos_Init_IO:
-	imul    eax, [ecx+19h], CAMEOS_SIZE
-;	add		eax, DefaultSelectButtons
-	add		eax, ExtendedSelectButtons8
-	jmp 	0x0054DFBA
+;	imul    eax, [ecx+19h], CAMEOS_SIZE
+;;	add		eax, DefaultSelectButtons
+;	add		eax, ExtendedSelectButtons8
+;	jmp 	0x0054DFBA
 	
 _hires_Sidebar_Cameos_Init:
-	mov     edx, CAMEO_ITEMS*2 ; amount of total items to init
-	mov     DWORD [0x00604D68], eax
+;	mov     edx, CAMEO_ITEMS*2 ; amount of total items to init
+;	mov     DWORD [0x00604D68], eax
 	
-;	mov		eax, DefaultSelectButtons
-	mov		eax, ExtendedSelectButtons8
-	jmp 	0x0054CF51
+;;	mov		eax, DefaultSelectButtons
+;	mov		eax, ExtendedSelectButtons8
+;	jmp 	0x0054CF51
 	
-_hires_Sidebar_Cameos_Draw:
-	add     eax, CAMEO_ITEMS; items to draw
-	cmp     eax, edx
-	jmp		0x0054E9C7
+;_hires_Sidebar_Cameos_Draw:
+;	add     eax, CAMEO_ITEMS; items to draw
+;	cmp     eax, edx
+;	jmp		0x0054E9C7
 
 AdjustedWidth           dd 0
 
@@ -501,7 +500,7 @@ _hires_ini:
 ;	 _hires_adjust_height 0x0054D08C
 	
 	; side bar bottom shape position height
-	_hires_adjust_height 0x0054D811
+;	_hires_adjust_height 0x0054D811
 
     ; credits tab background position
     _hires_adjust_width 0x00553758
@@ -522,7 +521,7 @@ _hires_ini:
     _hires_adjust_width [left_strip_offset]
 
     ; side bar strip icons offset
-;    _hires_adjust_width 0x0054D08C
+    _hires_adjust_width 0x0054D08C
 
     ; side bar strip offset left (right bar)
     _hires_adjust_width [right_strip_offset]
@@ -565,30 +564,29 @@ _hires_ini:
 ;	_hires_adjust_left 0x00506C79 ; pushes byte, need to jump..
 
 	; network new button
-	_hires_adjust_left 0x00506D43
-	_hires_adjust_top  	0x00506D34
+;	_hires_adjust_left 0x00506D43
+;	_hires_adjust_top  	0x00506D34
 	
 	; network cancel button
-	_hires_adjust_left 0x00506D1A
-	_hires_adjust_top  	0x00506D0B
+;	_hires_adjust_left 0x00506D1A
+;	_hires_adjust_top  	0x00506D0B
 	
 	; network join button
-	_hires_adjust_left 0x00506CF4
-	_hires_adjust_top  	0x00506CE5
+;	_hires_adjust_left 0x00506CF4
+;	_hires_adjust_top  	0x00506CE5
 	
 	; network join colour list
-;	_hires_adjust_left 0x00506CCB ; disabled for now
+;;	_hires_adjust_left 0x00506CCB ; disabled for now
 	
 	; network join country drop list
-	_hires_adjust_left	0x00506C35
+;	_hires_adjust_left	0x00506C35
 	
 	; network join players list
-	_hires_adjust_left 0x00506CC6
-	_hires_adjust_top 0x00506CC1
-	
-	
-	_hires_adjust_top 0x0050691F
-	_hires_adjust_left 0x00506AE6
+;	_hires_adjust_left 0x00506CC6
+;	_hires_adjust_top 0x00506CC1
+		
+;	_hires_adjust_top 0x0050691F
+;	_hires_adjust_left 0x00506AE6
 	
 	; network text
 ;	_hires_adjust_left 0x0050C2C5 ; disabled for now
@@ -661,7 +659,8 @@ _hires_Deinterlace_Videos_Fix_Bottom_Line:
 	jmp		0x005E5498
 	
 _hires_Deinterlace_Videos:
-	mov     eax, 2 ; video mode, 2 = deinterlace
+;	mov     eax, 2 ; video mode, 2 = deinterlace
+	mov 	eax, [videointerlacemode]
 	jmp		0x005B30D5
 	
 ;_hires_Deinterlace_Videos2:	
@@ -889,12 +888,14 @@ _hires_NewGameText_top  dd 0x96
 _hires_NewGameText_left dd 0x6E
 
 _hires_NewGameText:
-    _hires_adjust_top _hires_NewGameText_top
-    MOV EAX, [_hires_NewGameText_top]
+	MOV EAX, [diff_top]
+    ADD EAX,0x96
     PUSH EAX
-    _hires_adjust_left _hires_NewGameText_left
-    MOV EAX, [_hires_NewGameText_left]
+	
+	MOV EAX, [diff_left]
+    ADD EAX,0x6E
     PUSH EAX
+
     JMP 0x005518AA
 
 _hires_SkirmishMenu:

@@ -1,21 +1,36 @@
 1. add crc check to oos-fix.ini loading
-2. make greece and spain selectable in skirmish and lan menu
 5. make deinterlacing optional
-8. Investigate multiplayer music volume
-11. For the MapIndex Multiplayer defaults code, a check for MapIndex < Items Count needs to be added
+8. Investigate multiplayer music volume (don't think it's needed?)
+11. For the MapIndex Multiplayer defaults code, a check for MapIndex < Items Count needs to be added (just always set mapindex to 1 instead)
 12. Restating a mission ingame causes graphical glitching, I think hifi's hires has a fix for it..
-13. Add Surf No Mercy if it's inside data files
 14. Complete multiplayer defaults code for LAN menu
 15. add PlayEnglishIntro, multiplayer defaults and ShowAllMusic settings to config tool, and the cnc-ddraw vhack option too.
 16. Need to ask CCHyper for his video scaling/stretching code.
-17. Need to check if new missiond dialog still shows if Counterstrike expansion isn't enabled
-18. Fix custom mission list loading
-19. Load map specific tutorial.ini found else load the normal tutorial.ini file.
+17. Need to check if new missions dialog still shows when Counterstrike expansion isn't enabled
+19. Load map specific tutorial.ini if found else load the normal tutorial.ini file.
 20. Finish multiplayer defaults code
+21. Just set maplistindex to 1 instead of reading it from an ini, it has too many issues :/
 21. Fix any FileClass leaks in the custom mission list ini loading code
 22. Song shuffling is broken, the game doesn't play anything after a song ends, without song shuffling the game plays the next song like usual.
-23. Briefings are displayed during the campaign, fix!
-24. Add Greece, Spain and Turkey to selectable countries, 0, 1, 7 respectively
-25. hires join screen WIP crashes more multiplayer countries
+23. Briefings are displayed during the campaign, fix?
+24. Add Greece, Spain and Turkey to selectable countries in config tool, 0, 1, 7 respectively
+25. hires LAN join screen WIP crashes more multiplayer countries
 26. cncnet doesn't work with win95 compatibility mode, but this is needed for videos to work smoothly, make a copy of the exe without compatibility mode?
-27. 
+27. add random song starting track feature, big foot is getting a bit tiring..
+29. update config tool force single cpu text, should tell you to enable if you experience crashes instead of telling it fixes crashes (it bugs campaign movies and score screen)
+30. fix alignment of time remaining tab for missions/maps that use it.
+31. Restating a briefing ingame causes graphics glitching around the briefing, need to load blackbackground.pcx before everything else.
+
+33. Add forceAM with fast build speed option to config tool
+34. POSSIBLE ISSUE: If you disable the aftermath expansion the Force AM Rules option will be unchecked, but the rules.ini file will stay in your game folder (needs to be deleted)
+
+[19:37:39] <iran> so i was thinking and im gonna include all the expansion maps and your map pack with expansion maps (those .MPR files)
+[19:37:52] <iran> then i'll only show the expansion maps .MPR files
+[19:38:19] <iran> and add an option to display original maps, counterstrike maps, aftermath maps or not etc
+35. Rename expand, expand2, general to counterstrike, aftermath and campaign MIX
+[20:51:14] <iran> so yeah better doing what you said funky, if AM enabled use the AM ini maps else use your map pack
+
+29. add deinterlace option to config tool, code already added in patch VideoInterlaceMode in redalert.ini
+30. Need to patch the game so score screen is displayed in the top left corner. ScoreClass::Presentation() is used for score screen.
+
+31. There's some glitching on the sidebar in hires, need to compare hifi's hires with mine..

@@ -1,5 +1,4 @@
 @HOOK 0x004BE468 _Hook_Expansion_Mission_Loading
-@HOOK 0x004BE613 _Hook_Expansion_Mission_Adding
 ;@HOOK 0x004BE491 _Hook_Expansion_Mission_Loading2
 ;@HOOK 0x004BE72F _Hook_Expansion_Mission_Aftermath_Counter
 @HOOK 0x004BE548 _Hook_Expansion_Mission_Counterstrike_Counter
@@ -16,21 +15,19 @@
 %define	INIClass__Get_UUBlock						0x004F3338
 %define	sprintf_									0x005B8BAA
 
-herpini_str db "FFG21EA.INI",0
+herpini_str db "ffg101ea",0
 newmissions_str db "New Missions",0
 str_newmissions_ini db "NEWMISSIONS.INI",0
 str_general db "General",0
 str_one db "1",0
 str_empty db 0
 str_sprintf_format db "%d",0
-str_sprintf_format3 db "%s.INI",0
 mission_index_counter dd 0
 
 FileClass_this2  TIMES 128 db 0
 INIClass_this2 TIMES 128 db 0
 
 sprintf_buffer   TIMES 64 db 0
-sprintf_buffer3   TIMES 64 db 0
 newmissions_array TIMES 4096h db 0; char newmissions_array[256][64]
 
 ; args: <section>, <key>, <default>, <dst>
@@ -54,30 +51,6 @@ newmissions_array TIMES 4096h db 0; char newmissions_array[256][64]
 
 ;EXTERN newmissionsenabled ; defined in arguments.asm
 
-_Hook_Expansion_Mission_Adding:
-	lea		edi, [herpini_str]
-	mov     eax, [ebp-28h]
-	mov     edx, [ebp-28h]
-	jmp		0x004BE619
-
-_Hook_Expansion_Mission_Loading_INI:
-	mov edx, [mission_index_counter]
-	imul edx, 32
-	
-	lea     edx, [edx+newmissions_array]
-	
-	push    edx             ; Format
-	push    str_sprintf_format3 ; "%s.INI"
-	lea     esi, [sprintf_buffer3]
-	push    esi             ; Dest
-	
-	call    sprintf_
-	add     esp, 0Ch
-	
-	lea     edi, [sprintf_buffer3]
-	mov		eax, 0x006678E8
-	jmp		0x004BE527
-
 _Hook_Expansion_Mission_Loading:
 	cmp byte [ebp-24h], 1 ; Expansion type check
 	jne Ret_Normal
@@ -93,7 +66,6 @@ New_Missions_Loading:
 	cmp	 ecx, 1
 	je		.No_Substract
 	sub		ecx, 13h
-	mov DWORD [mission_index_counter], ecx
 	
 	.No_Substract
 	push	ecx ; eax is our  counter
@@ -160,7 +132,7 @@ New_Missions_Loading:
 	pop esi
 	imul esi, esi, 32
 	lea esi, [newmissions_array+esi]
-	
+	push esi
 	jmp 0x004BE46E
 
 Ret_Empty_String:

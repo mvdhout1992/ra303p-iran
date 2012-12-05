@@ -32,5 +32,22 @@ MapIndex=2
 
 14. The game now doesn't start playing another song anymore when it regains focus (via alt+tab for example).
 
-Fix for a rare issue where the game would report there is barely any free disk space left when there's plenty. The game now always thinks there is enough free disk space left.
+15. Fix for a rare issue where the game would report there is barely any free disk space left when there's plenty. The game now always thinks there is enough free disk space left.
 
+16. Greece, Spain and Turkey are now all selectable in multiplayer.
+
+17. Fix added for cnc-ddraw crash in the credits slide show screen once the first text reaches the top of the screen.
+
+18. New rules.ini AftermathFastBuildSpeed= yes/no keyword under the section [Aftermath], with this enabled the build speed will be fast even when the Aftermath expansion is installed. Enabling this option makes rules.ini incompatible with vanilla 3.03 online. If you want to use this online you need to play versus other players running this patch and the "Force AM fast build speed" rules.ini file (this is also available as a RedAlertConfig.exe option).
+
+19. New command-line arguments:
+-NEWMISSIONS: enables the new missions system explained elsewhere in this text.
+-ANTMISSIONS: Starts the ant missions campaign if the Counterstrike expansion is enabled.
+-SKIRMISH: Loads the skirmish menu.
+-LAN: Loads the LAN menu.
+
+20. Optional deinterlacing of videos, this is controlled by the VideoInterlaceMode= keyword in REDALERT.INI under the [Options] section, if set to 2 videos are deinterlaced, with 0 they're horizontally interlaced and with 1 they're supposed to be vertically interlaced (though the vertical interlacing doesn't seem to work)
+
+21. Score screen skipping with the option SkipScoreScreen= yes/no in REDALERT.INI under the [Options] section.
+
+22. The game no longer requires mpgdll.dll. This DLL is never used.

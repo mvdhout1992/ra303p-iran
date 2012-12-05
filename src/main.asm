@@ -26,6 +26,13 @@ test_str  db "RUN1226M",0
 %include "imports.inc"
 %include "string.inc"
 
+%ifdef USE_HIRES
+%include "src/hires.asm"
+%endif
+
+; loading code
+%include "src/loading.asm"
+
 ; generic
 %include "src/arguments.asm"
 %include "src/expansions.asm"
@@ -34,6 +41,8 @@ test_str  db "RUN1226M",0
 %include "src/custom_missions.asm"
 %include "src/ingame_chat_improvments.asm"
 %include "src/extra_multiplayer_countries.asm"
+%include "src/aftermath_fast_buildspeed_option.asm"
+%include "src/optional_scorescreen.asm"
 
 %ifdef USE_NOCD
 %include "src/nocd.asm"
@@ -48,10 +57,7 @@ test_str  db "RUN1226M",0
 %include "src/fence_bug.asm"
 %include "src/tags_bug.asm"
 %include "src/savegame_bug.asm"
-%endif
-
-%ifdef USE_HIRES
-%include "src/hires.asm"
+%include "src/credits_screen_cncddraw_fix.asm"
 %endif
 
 %ifdef USE_NEW_MULTIPLAYER_DEFAULTS

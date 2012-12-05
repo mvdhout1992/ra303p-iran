@@ -15,7 +15,7 @@
 %define SystemStrings					0x0066991C
 %define DropListClass__Add_Item			0x004B8628
 
-_Net_Join_Dialog_DropList_Set_Index_Fixup
+_Net_Join_Dialog_DropList_Set_Index_Fixup:
 	lea     eax, [ebp-0BDCh]
 ;	sub     edx, 2
 	
@@ -118,7 +118,7 @@ _Net_Join_Dialog_DropList_Add_Amount:
 	cmp     cl, 7 ;7
 	jmp		0x005070C5
 
-_SessionClass_Jump_Over_Side_Bounds_Check
+_SessionClass_Jump_Over_Side_Bounds_Check:
 	jmp		0x0054ACA3
 
 _Skirmish_Dialog_DropList_Set_Index_Fixup:
