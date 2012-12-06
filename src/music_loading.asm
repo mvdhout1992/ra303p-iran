@@ -8,6 +8,8 @@
 @HOOK 0x0056BFA3 _ThemeClass_Next_Song_Cond_Jump
 @HOOK 0x0055066B _SoundControlsClass_Process
 @HOOK 0x0056C240 _ThemeClass_Is_Allowed
+@HOOK 0x0056BFEC _ThemeClass_Next_Song_BL_Register_Change
+;@HOOK 0x00550668 _SoundControlClass_Process_Jump_Over_Looping_Themes
 
 bigfoot_str db "outtakes.AUD",0
 musicini_str db "MUSIC.INI",0
@@ -86,7 +88,27 @@ str_twincannon db "Twin Cannon",0
 	je		0x0056BEF8
 %endmacro
 
+_SoundControlClass_Process_Jump_Over_Looping_Themes:
+	sar     edx, 18h
+	cmp		edx, 13h
+	jz		0x00550662
+	cmp		edx, 14h
+	jz		0x00550662
+	cmp		edx, 15h
+	jz		0x00550662
+	cmp		edx, 16h
+	jz		0x00550662
+	
+	cmp     edx, 27h
+	jge     0x00550727
+	jmp		0x00550674
+
+_ThemeClass_Next_Song_BL_Register_Change:
+	mov     [ebp-0CH], dl
+	jmp     0x0056C013
+	
 _ThemeClass_Is_Allowed:
+	push edx
 	push edx
 
 	mov eax, [FileClass_redalertini]
@@ -115,17 +137,20 @@ _ThemeClass_Is_Allowed:
 	
 .Done_INIClass_Loading:
 	INI_Get_Bool str_options2, str_showallmusic, 1
-	
+	pop edx	
 	cmp eax, 0
 	je .Ret_Original_Function
 	
 	; Don't show score, map and main menu music
-	cmp dl, 19 
-	je	.Ret_False
-	cmp dl, 20
-	je	.Ret_False
-	cmp dl, 21
-	je	.Ret_False
+	; THIS DOESN'T WORK FOR SOME REASON
+	cmp dl, 13h 
+	jz	.Ret_False
+	cmp dl, 14h
+	jz	.Ret_False
+	cmp dl, 15h 
+	jz	.Ret_False
+	cmp dl, 16h 
+	jz	.Ret_False
 	
 	pop edx
 	mov eax, 1
@@ -191,6 +216,15 @@ _ThemeClass_Next_Song_RNG:
 	jmp		0x0056BFC9
 
 _SoundControlsClass_Process:
+;	cmp		edx, 13h
+;	jz		0x00550662
+;	cmp		edx, 14h
+;	jz		0x00550662
+;	cmp		edx, 15h
+;	jz		0x00550662
+;	cmp		edx, 16h
+;	jz		0x00550662
+	
 	push 	edx
 ;	push 	ebx
 	

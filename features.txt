@@ -22,7 +22,6 @@ UnitCount=0
 TechLevel=10
 AIDifficulty=2
 AIPlayers=1
-MapIndex=2
 
 9. Extra songs can be added in a music.ini file.
 10. The game now tries to load the The Lost Files movies compiled by Nyerguds.

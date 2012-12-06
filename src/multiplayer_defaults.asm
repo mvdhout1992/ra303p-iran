@@ -27,7 +27,7 @@ mapindex_str db "MapIndex",0
 
 FirstLoad:      db 1
 FirstLoadPlayers:      db 1
-ConfigMapIndex:      dd 0
+ConfigMapIndex:      dd 1
 
 ; sizes not actually verified
 FileClass_this  TIMES 128 db 0
@@ -110,8 +110,8 @@ _Skirmish_Selected_Map_Index:
 	jne Not_First_Load
 	
 	MOV BYTE [FirstLoad], 0
-	INI_Get_Int multiplayer_defaults_str, mapindex_str, 2
-	mov DWORD [SelectedMapIndex], eax
+;	INI_Get_Int multiplayer_defaults_str, mapindex_str, 2
+;	mov DWORD [SelectedMapIndex], eax
 
 Not_First_Load:
 	lea 	eax, [ebp-854h]

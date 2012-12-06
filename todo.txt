@@ -1,21 +1,17 @@
-1. add crc check to oos-fix.ini loading
-5. make deinterlacing optional
 8. Investigate multiplayer music volume (don't think it's needed?)
-11. For the MapIndex Multiplayer defaults code, a check for MapIndex < Items Count needs to be added (just always set mapindex to 1 instead)
 12. Restating a mission ingame causes graphical glitching, I think hifi's hires has a fix for it..
 14. Complete multiplayer defaults code for LAN menu
-15. add PlayEnglishIntro, multiplayer defaults and ShowAllMusic settings to config tool, and the cnc-ddraw vhack option too.
+15. add PlayEnglishIntro, multiplayer defaults and ShowAllMusic settings to config tool.
 16. Need to ask CCHyper for his video scaling/stretching code.
+16. Finish custom missions loading code, the custom missions are displayed but the internal scenarios are still played
 17. Need to check if new missions dialog still shows when Counterstrike expansion isn't enabled
 19. Load map specific tutorial.ini if found else load the normal tutorial.ini file.
 20. Finish multiplayer defaults code
-21. Just set maplistindex to 1 instead of reading it from an ini, it has too many issues :/
 21. Fix any FileClass leaks in the custom mission list ini loading code
 22. Song shuffling is broken, the game doesn't play anything after a song ends, without song shuffling the game plays the next song like usual.
 23. Briefings are displayed during the campaign, fix?
 24. Add Greece, Spain and Turkey to selectable countries in config tool, 0, 1, 7 respectively
-25. hires LAN join screen WIP crashes more multiplayer countries
-26. cncnet doesn't work with win95 compatibility mode, but this is needed for videos to work smoothly, make a copy of the exe without compatibility mode?
+25. hires LAN join screen WIP crashes with more multiplayer countries enabled
 27. add random song starting track feature, big foot is getting a bit tiring..
 29. update config tool force single cpu text, should tell you to enable if you experience crashes instead of telling it fixes crashes (it bugs campaign movies and score screen)
 30. fix alignment of time remaining tab for missions/maps that use it.
@@ -34,3 +30,6 @@
 30. Need to patch the game so score screen is displayed in the top left corner. ScoreClass::Presentation() is used for score screen.
 
 31. There's some glitching on the sidebar in hires, need to compare hifi's hires with mine..
+32. Add oos-fix to config tool
+
+33. Update the file check sum check once funky fixed oos-fix.ini

@@ -55,6 +55,14 @@ _Read_Scenario_INI_Load_OOS_FIX_INI:
 	mov     edx, CCFileClass_OOSFIX
 	mov     eax, CCINIClass_OOSFIX
 	call    CCINIClass__Load
+		
+	mov		eax, CCINIClass_OOSFIX
+	call	0x00463BD4	
+	cmp		eax, 0x1C5312AB
+	jnz		.Ret
+
+	mov 	BYTE [0x00665E02], 55h ; EngineerDamage
+	mov 	BYTE [0x00665E04], 40h ; EngineerCaptureLevel
 	
 	mov     edx, CCINIClass_OOSFIX
 	mov     eax, RulesClass__Rule
@@ -84,6 +92,7 @@ _Read_Scenario_INI_Load_OOS_FIX_INI:
 	mov     eax, RulesClass__Rule
 	call    RulesClass__Difficulty
 	
+.Ret:
 	mov     edx, RuleINI
 	mov     eax, RulesClass__Rule
 	jmp		0x0053D546
