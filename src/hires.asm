@@ -640,8 +640,8 @@ _hires_ini:
 	_hires_adjust_top 0x0053B61E
 	
 	; network new dialog
-	_hires_adjust_left 0x0050C28E
-	_hires_adjust_top  0x0050C288
+;	_hires_adjust_left 0x0050C28E
+;	_hires_adjust_top  0x0050C288
 	
 	; network join dialog
 ;	_hires_adjust_left		0x0050690B

@@ -17,3 +17,5 @@
 [16:54:05] <FunkyFr3sh> when u leave the lobby it will send a packet to all players, and it wont leave until everyone confirmed the packet
 
 38. Power bar indicator is glitched at the bottom of the sidebar under the power meter.
+
+39. Resign key doesn't work if fixed it should show the dialog.
