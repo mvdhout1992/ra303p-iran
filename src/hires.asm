@@ -576,9 +576,18 @@ _hires_ini:
 	_hires_adjust_top 0x004BE7BF
 	_hires_adjust_left 0x004BE7C4
 	
+	; screen shake
+	_hires_adjust_width 0x004AB8A4
+	_hires_adjust_width 0x004ABBFB
+	
+	_hires_adjust_width 0x004AB8C9
+	_hires_adjust_width 0x004ABC1D
+	
+	_hires_adjust_height 0x004ABBE0
+	
 	; network new dialog
-;	_hires_adjust_left 0x0050C28E
-;	_hires_adjust_top  0x0050C288
+	_hires_adjust_left 0x0050C28E
+	_hires_adjust_top  0x0050C288
 	
 	; network join dialog
 ;	_hires_adjust_left		0x0050690B

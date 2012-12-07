@@ -15,7 +15,7 @@ expand6_str db"expand6.MIX",0
 expand7_str db"expand7.MIX",0
 expand8_str db"expand8.MIX",0
 expand9_str db"expand9.MIX",0
-
+oosfixmix_str db"oos-fix.MIX",0
 
 ; args: <mix file name string>
 ;%macro Load_Mix_File 1
@@ -47,19 +47,20 @@ call    Mix_File_Load_Related_Function
 @HOOK 0x004F4479 _load_more_mix_files
 
 _load_more_mix_files:
+	;Load_Mix_File campaignmix_str
+	;Load_Mix_File aftermathmix_str ; Shock troopers don't show up ingame
+	;Load_Mix_File counterstrikemix_str
+	;Load_Mix_File smallinfantrymix_str ; Doesn't work
+	Load_Mix_File 	scoresretaliationmix_str 
+	Load_Mix_File 	moviestlf_str
 
-;Load_Mix_File campaignmix_str
-;Load_Mix_File aftermathmix_str ; Shock troopers don't show up ingame
-;Load_Mix_File counterstrikemix_str
-;Load_Mix_File smallinfantrymix_str ; Doesn't work
-Load_Mix_File scoresretaliationmix_str 
-Load_Mix_File moviestlf_str
-
-Load_Mix_File expand3_str
-Load_Mix_File expand4_str
-Load_Mix_File expand5_str
-Load_Mix_File expand6_str
-Load_Mix_File expand7_str
-Load_Mix_File expand8_str
-Load_Mix_File expand9_str
-RETN
+	Load_Mix_File 	expand3_str
+	Load_Mix_File 	expand4_str
+	Load_Mix_File 	expand5_str
+	Load_Mix_File 	expand6_str
+	Load_Mix_File 	expand7_str
+	Load_Mix_File 	expand8_str
+	Load_Mix_File 	expand9_str 
+	Load_Mix_File 	oosfixmix_str
+	RETN
+	

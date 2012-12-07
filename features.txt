@@ -9,6 +9,8 @@ Hires improvements:
 
 -The expansion missions dialogs are now adjusted for hires, instead of appearing in the top left of the screen.
 
+-Screenshake should be adjusted for high res now. (Thanks to Arda)
+
 4. VQA640 files are now centered, only the intro sequence with a Longbow helicopter hitting a Mammoth Tank is a VQA640 file though.
 
 More hires improvements to come, main things that are left are the Network/LAN menus, video stretching and/or centering, the score presentation screen and the map selection screen. If I'm able to patch cnc-ddraw I should be able to fix the last three.
@@ -31,6 +33,16 @@ UnitCount=0
 TechLevel=10
 AIDifficulty=2
 AIPlayers=1
+
+You can start a skirmish game with no AI players by setting AIPlayers to 0, note that after playing a game like this the game will automatically set the AI players slider to 1.
+
+You can start a game with a max of 2.7 billion credits, this works online too even if other players don't run my patch.
+
+If UnitCount multiplied by players is too high, the game will crash.
+
+Setting AIPlayers to higher than 7 causes the game to freeze.
+
+The CaptureTheFlag setting is also applied to skirmish, even though there's no option to enable/disable capture the flag in the skirmish menu. 
 
 9. Extra songs can be added in a music.ini file.
 10. The game now tries to load the The Lost Files movies compiled by Nyerguds.
