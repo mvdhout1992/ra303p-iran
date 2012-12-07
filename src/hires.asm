@@ -30,6 +30,7 @@
 @HOOK 0x0054D009 _hires_StripClass
 @HOOK 0x004BE377 _NewMissions_Handle_Hires_Buttons_A
 @HOOK 0x004BE39E _NewMissions_Handle_Hires_Buttons_B
+@HOOK 0x00527C19 _hires_Power_Usage_Indicator_Height
 ;@HOOK 0x0050692B _hires_NetworkJoinMenu
 ;@HOOK 0x00506CEE _hires_Network_Join_Button
 ;@HOOK 0x00506CBC _hires_Network_Color_List
@@ -728,7 +729,27 @@ _Fill_Rect_test:
 	
 ;	mov     eax, 1
 ;	jmp		0x00502243
+
+_hires_Power_Usage_Indicator_Height:
+;	sub		ecx, [diff_height]
+	cmp		ecx, 0x186
+	jge		.No_Draw
+;	cmp		ecx, 0x186
+;	je		.Adjust_Height
+	jmp		.Ret
 	
+.No_Draw:
+	jmp		0x00527C23
+	
+	
+;.Adjust_Height:
+;	sub 	ecx, 46
+
+.Ret:	
+	mov     eax, [0x006877B8]
+	call	0x004A96E8
+	jmp		0x00527C23
+
 _hires_Deinterlace_Videos_Always_Deinterlace:
 	mov     eax, ebx
 	call    0x005B2CE0 ; Read_Interpolation_Palette(char *)

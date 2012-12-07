@@ -4,18 +4,11 @@
 19. Load map specific tutorial.ini if found else load the normal tutorial.ini file.
 20. Finish multiplayer defaults code
 21. Fix any FileClass leaks in the custom mission list ini loading code
-25. hires LAN join screen WIP crashes with more multiplayer countries enabled
-
-30. Need to patch the game so score screen is displayed in the top left corner. ScoreClass::Presentation() is used for score screen. Maybe modify cnc-ddraw sretching so it works with centered stuff? Probably not a good idea.
-
-31. There's some glitching on the sidebar in hires, need to compare hifi's hires with mine..
-
-33. Update the file check sum check once funky fixed oos-fix.ini
 35. Country drop down list in network menu is hard to select on CnCNet need to extend it
 
+--------------------------------------
+25. hires LAN join screen WIP crashes with more multiplayer countries enabled
 37. [16:53:20] <FunkyFr3sh> there is one more thing that takes to long tho
 [16:54:05] <FunkyFr3sh> when u leave the lobby it will send a packet to all players, and it wont leave until everyone confirmed the packet
-
-38. Power bar indicator is glitched at the bottom of the sidebar under the power meter.
-
+33. Update the file check sum check once funky fixed oos-fix.ini
 39. Resign key doesn't work if fixed it should show the dialog.

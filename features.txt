@@ -1,4 +1,4 @@
-Hires improvements:
+Hires improvements over hifi's hires patch:
 
 -The invisible Ant Missions stereo Westwood Logo credits buttons are now adjusted for hi-res, meaning if you click their area on the main menu graphics they'll be activated, like they should.
 
@@ -6,9 +6,9 @@ Hires improvements:
 2. Same for the border around the restate mission screen
 3. Likewise for the sidebar glitching after restarting a mission.
 
-2. If a TITLE.PCX is found that doesn't have the same dimensions as the original TITLE.PCX file, it will be displayed on the screen in the top left, this allows people to create their own custom main menu title graphics and if them work with hi-res.
+2. If a TITLE.PCX is found that doesn't have the same dimensions as the original TITLE.PCX file, it will be displayed on the screen in the top left, this allows people to create their own custom main menu title graphics and have them work with hi-res.
 
--The timer tab for maps that use them (e.g. the second Allies mission) has it's width adjusted.
+-The timer tab for maps that use them (e.g. the second Allies mission) has its width adjusted.
 
 -The expansion missions dialogs are now adjusted for hires, instead of appearing in the top left of the screen.
 
@@ -16,7 +16,19 @@ Hires improvements:
 
 -The "Mission Accomplished", "Mission Failed" and "The Game is a Draw" red text now have their height and width adjusted for high res (Thanks to Arda)
 
+-The score screen is now fully displayed in the top left, instead of showing the score background in the middle
+
+-Fixed the power indicator displaying glitched when there's no power
+
 4. VQA640 files are now centered, only the intro sequence with a Longbow helicopter hitting a Mammoth Tank is a VQA640 file though.
+
+5. The crash with fences on the northern border of the map that are destroyed is fixed.(from hifi's p-series, thanks to AlexB)
+
+6. The game is now completely No-CD (from hifi's p-series)
+
+7. The game now checks if the Counterstrike expansion is enabled by searching for SCU38EA.INI, if not found the expansion isn't enabled. Likewise for the Aftermath expansion, if SCG43EA.INI is not found this expansion isn't enabled. (from hifi's p-series).
+
+8. a crash relating to the a max limit being reached (e.g. airplanes) has been fixed. (from hifi's p-series).
 
 More hires improvements to come, main things that are left are the Network/LAN menus, video stretching and/or centering, the score presentation screen and the map selection screen. If I'm able to patch cnc-ddraw I should be able to fix the last three.
 
