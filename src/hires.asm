@@ -21,8 +21,10 @@
 @HOOK 0x005B3DBF _hires_MainMenu
 @HOOK 0x004F479B _hires_MainMenuClear 
 @HOOK 0x004F6090 _hires_MainMenuClearBackground
+@HOOK 0x005B3CD8 _hires_ScoreScreenBackground
 @HOOK 0x004F75FB _hires_MainMenuClearPalette
 @HOOK 0x0053BE6C _hires_RestateMissionClearBackground
+@HOOK 0x0053B806 _hires_DoRestartMissionClearBackground
 @HOOK 0x005518A3 _hires_NewGameText
 @HOOK 0x005128D4 _hires_SkirmishMenu
 @HOOK 0x0054D009 _hires_StripClass
@@ -84,6 +86,26 @@ _hires_Center_VQA640_Videos:
 	
 	jmp		0x004A9EB1
 
+scorebackground db 0	
+
+_hires_ScoreScreenBackground:
+	cmp		eax, 0x005F01EB
+	JE		.Is_Score_Screen
+	cmp		eax, 0x005F01F8
+	JE		.Is_Score_Screen
+	JMP		.Ret
+
+.Is_Score_Screen:
+	mov 	BYTE [scorebackground], 1
+	
+.Ret:	
+	push    ebp
+	mov     ebp, esp
+	push    ecx
+	push    esi
+	push    edi
+	jmp		0x005B3CDE
+
 ; These are per strip, there's a left and right strip in the sidebar
 %define CAMEO_ITEMS 11
 %define CAMEOS_SIZE	572 ; memory size of all cameos
@@ -132,6 +154,25 @@ _hires_Sidebar_Cameos_AI: ; No idea if this does anything..
 ;	jmp		0x0054E4C4
 
 str_blackbackgroundpcx db "BLACKBACKGROUND.PCX",0
+
+	_hires_DoRestartMissionClearBackground:
+	push 	ecx
+	push	ebx
+	push	edx
+	push	eax
+	
+	mov     ebx, 0x0066995C
+	mov     edx, GraphicsViewPortClass_HidPage
+	mov     eax, str_blackbackgroundpcx
+	call    0x005B3CD8
+	
+	pop		eax
+	pop		edx
+	pop		ebx
+	pop		ecx
+	
+	mov     eax, [0x00666904]
+	jmp		0x0053B80B
 
 _hires_RestateMissionClearBackground:
 	push 	ecx
@@ -585,6 +626,19 @@ _hires_ini:
 	
 	_hires_adjust_height 0x004ABBE0
 	
+	; win "Mission Accomplished" text
+	_hires_adjust_left 0x0053B336
+	_hires_adjust_top 0x0053B32E
+	
+	; campaign win "Mission Accomplished" text
+	_hires_adjust_left 0x0053AD49
+	_hires_adjust_top 0x0053AD3F
+	
+	; lose "The Game is a Draw" text
+
+	_hires_adjust_left 0x0053B629
+	_hires_adjust_top 0x0053B61E
+	
 	; network new dialog
 	_hires_adjust_left 0x0050C28E
 	_hires_adjust_top  0x0050C288
@@ -892,13 +946,18 @@ _hires_StripClass:
 _hires_MainMenu:
 	MOV EBX, [diff_top]
 	MOV EAX, [diff_left]
+	CMP	BYTE [scorebackground], 1
+	je .Display_Top_Left
+	
 	CMP EDX, 190h
 	je .Jump_Background_Skip
 
+.Display_Top_Left:
 	MOV EBX, 0
 	MOV EAX, 0
 	
-.Jump_Background_Skip:    
+.Jump_Background_Skip:
+	MOV BYTE [scorebackground], 0
     PUSH EBX    
     PUSH EAX
     PUSH 0

@@ -3,6 +3,9 @@ Hires improvements:
 -The invisible Ant Missions stereo Westwood Logo credits buttons are now adjusted for hi-res, meaning if you click their area on the main menu graphics they'll be activated, like they should.
 
 1. Load any BLACKBACKGROUND.PCX files if found before TITLE.PCX title screen graphic to prevent glitching around menu borders after playing missions in certain cases.
+2. Same for the border around the restate mission screen
+3. Likewise for the sidebar glitching after restarting a mission.
+
 2. If a TITLE.PCX is found that doesn't have the same dimensions as the original TITLE.PCX file, it will be displayed on the screen in the top left, this allows people to create their own custom main menu title graphics and if them work with hi-res.
 
 -The timer tab for maps that use them (e.g. the second Allies mission) has it's width adjusted.
@@ -10,6 +13,8 @@ Hires improvements:
 -The expansion missions dialogs are now adjusted for hires, instead of appearing in the top left of the screen.
 
 -Screenshake should be adjusted for high res now. (Thanks to Arda)
+
+-The "Mission Accomplished", "Mission Failed" and "The Game is a Draw" red text now have their height and width adjusted for high res (Thanks to Arda)
 
 4. VQA640 files are now centered, only the intro sequence with a Longbow helicopter hitting a Mammoth Tank is a VQA640 file though.
 
