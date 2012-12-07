@@ -1,12 +1,21 @@
+Hires improvements:
+
+-The invisible Ant Missions stereo Westwood Logo credits buttons are now adjusted for hi-res, meaning if you click their area on the main menu graphics they'll be activated, like they should.
+
 1. Load any BLACKBACKGROUND.PCX files if found before TITLE.PCX title screen graphic to prevent glitching around menu borders after playing missions in certain cases.
 2. If a TITLE.PCX is found that doesn't have the same dimensions as the original TITLE.PCX file, it will be displayed on the screen in the top left, this allows people to create their own custom main menu title graphics and if them work with hi-res.
 
-3. FunkyFre3sh's OOS-FIX.INI file will be loaded (if it's found) while still being compatible online with 3.03 players not using this fix. This fix prevents desyncing after playing certain (most?) modded maps online and then playing another map. It also fixes the cause of the desync itself, namely that after playing certain modded maps/missions certain memory used by the game for its settings (e.g. unit cost) won't be reset when playing a normal map/mission. This has to do with some really terrible programming but is a bit technical to explain. Suffice to say this fixes things like the Mobile Radar Jammer gaining a Tesla weapon after playing certain Counterstrike missions, etc.
+-The timer tab for maps that use them (e.g. the second Allies mission) has it's width adjusted.
+
+-The expansion missions dialogs are now adjusted for hires, instead of appearing in the top left of the screen.
 
 4. VQA640 files are now centered, only the intro sequence with a Longbow helicopter hitting a Mammoth Tank is a VQA640 file though.
 
+More hires improvements to come, main things that are left are the Network/LAN menus, video stretching and/or centering, the score presentation screen and the map selection screen. If I'm able to patch cnc-ddraw I should be able to fix the last three.
+
+3. FunkyFre3sh's OOS-FIX.INI file will be loaded (if it's found) while still being compatible online with 3.03 players not using this fix. This fix prevents desyncing after playing certain (most?) modded maps online and then playing another map. It also fixes the cause of the desync itself, namely that after playing certain modded maps/missions certain memory used by the game for its settings (e.g. unit cost) won't be reset when playing a normal map/mission. This has to do with some really terrible programming but is a bit technical to explain. Suffice to say this fixes things like the Mobile Radar Jammer gaining a Tesla weapon after playing certain Counterstrike missions, etc.
+
 5. Messages sent by other players during a match now appear for 30 seconds in the top left corner, instead of the previous 9 seconds.
-6. There are a max of 12 messages, instead of the previous 6 max. More than 7 messages shown cause minor graphicl glitching until the additional messages disappear.
 
 7. Added an redalert.ini boolean option "ShowAllMusic" under the "Options" section to enable/disable showing all music, normally the game only shows some music depending on what side you're planning as, with this option enabled, it always shows all music, except for the score, map and main menu music.
 
@@ -49,4 +58,23 @@ AIPlayers=1
 
 21. Score screen skipping with the option SkipScoreScreen= yes/no in REDALERT.INI under the [Options] section.
 
-22. The game no longer requires mpgdll.dll. This DLL is never used.
+22. The game no longer requires mpgdll.dll. This DLL was never used.
+
+23. Added keyword SkipScoreScreen= under [Options] in REDALERT.INI, when set to 'yes' the single player and multiplayer sccore screens won't be shown.
+
+24. It's now possible to have a random starting song start after a map is loaded, the keyword RandomStartingSong= (yes/no) under [Options] in REDALERT.INI controls this.
+
+25. More MIX files are loaded now:
+
+	scores-retaliation.MIX",0
+	movies-tlf.MIX
+	expand3.MIX
+	expand4.MIX
+	expand5.MIX
+	expand6.MIX
+	expand7.MIX
+	expand8.MIX
+	expand9.MIX
+	
+26. Fixed a bug where Skirmish menu nick name/colour/side settings aren't saved when you modify them, unless you also modify your nick name. (Thanks to Arda)
+27. Fixed a bug where LAN menu nick name/colour/side settings aren't saved. You still need to create a new game or join an existing one for these settings to be saved though.

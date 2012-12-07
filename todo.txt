@@ -1,35 +1,17 @@
-8. Investigate multiplayer music volume (don't think it's needed?)
-12. Restating a mission ingame causes graphical glitching, I think hifi's hires has a fix for it..
 14. Complete multiplayer defaults code for LAN menu
-15. add PlayEnglishIntro, multiplayer defaults and ShowAllMusic settings to config tool.
-16. Need to ask CCHyper for his video scaling/stretching code.
 16. Finish custom missions loading code, the custom missions are displayed but the internal scenarios are still played
 17. Need to check if new missions dialog still shows when Counterstrike expansion isn't enabled
 19. Load map specific tutorial.ini if found else load the normal tutorial.ini file.
 20. Finish multiplayer defaults code
 21. Fix any FileClass leaks in the custom mission list ini loading code
-22. Song shuffling is broken, the game doesn't play anything after a song ends, without song shuffling the game plays the next song like usual.
-23. Briefings are displayed during the campaign, fix?
-24. Add Greece, Spain and Turkey to selectable countries in config tool, 0, 1, 7 respectively
 25. hires LAN join screen WIP crashes with more multiplayer countries enabled
-27. add random song starting track feature, big foot is getting a bit tiring..
-29. update config tool force single cpu text, should tell you to enable if you experience crashes instead of telling it fixes crashes (it bugs campaign movies and score screen)
-30. fix alignment of time remaining tab for missions/maps that use it.
-31. Restating a briefing ingame causes graphics glitching around the briefing, need to load blackbackground.pcx before everything else.
 
-33. Add forceAM with fast build speed option to config tool
-34. POSSIBLE ISSUE: If you disable the aftermath expansion the Force AM Rules option will be unchecked, but the rules.ini file will stay in your game folder (needs to be deleted)
-
-[19:37:39] <iran> so i was thinking and im gonna include all the expansion maps and your map pack with expansion maps (those .MPR files)
-[19:37:52] <iran> then i'll only show the expansion maps .MPR files
-[19:38:19] <iran> and add an option to display original maps, counterstrike maps, aftermath maps or not etc
-35. Rename expand, expand2, general to counterstrike, aftermath and campaign MIX
-[20:51:14] <iran> so yeah better doing what you said funky, if AM enabled use the AM ini maps else use your map pack
-
-29. add deinterlace option to config tool, code already added in patch VideoInterlaceMode in redalert.ini
-30. Need to patch the game so score screen is displayed in the top left corner. ScoreClass::Presentation() is used for score screen.
+30. Need to patch the game so score screen is displayed in the top left corner. ScoreClass::Presentation() is used for score screen. Maybe modify cnc-ddraw sretching so it works with centered stuff? Probably not a good idea.
 
 31. There's some glitching on the sidebar in hires, need to compare hifi's hires with mine..
-32. Add oos-fix to config tool
 
 33. Update the file check sum check once funky fixed oos-fix.ini
+35. Country drop down list in network menu is hard to select on CnCNet need to extend it
+
+37. [16:53:20] <FunkyFr3sh> there is one more thing that takes to long tho
+[16:54:05] <FunkyFr3sh> when u leave the lobby it will send a packet to all players, and it wont leave until everyone confirmed the packet

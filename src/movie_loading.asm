@@ -1,6 +1,6 @@
 @HOOK 0x004A8DE2 _Play_Movie
 @HOOK 0x004637FF _CCINIClass_Get_VQType
-@HOOK 0x0053A1D3 _Start_Scenario_VQName ; Might cause movie loading issues
+;@HOOK 0x0053A1D3 _Start_Scenario_VQName ; Not needed apparently, causes campaign to show briefings..
 @HOOK 0x004F5061 _Extra_Sneak_Peaks
 @HOOK 0x004F4358 _Optional_Play_ENGLISHVQA_Intro
 

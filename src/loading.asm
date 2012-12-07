@@ -14,6 +14,7 @@ str_redalertini5 db "REDALERT.INI",0
 str_options5 db "Options",0
 str_videointerlacemode db "VideoInterlaceMode",0
 str_skipscorescreen db "SkipScoreScreen",0
+str_randomstartingsong db "RandomStartingSong",0
 
 INIClass_redalertini5 TIMES 64 db 0
 FileClass_redalertini5	TIMES 128 db 0
@@ -21,6 +22,7 @@ FileClass_redalertini5	TIMES 128 db 0
 aftermathfastbuildspeed	db 0
 videointerlacemode	dd 2
 skipscorescreen db 0
+randomstartingsong db 0
 
 ; args: <INIClass>, <section>, <key>, <default>, <dst>
 %macro INI_Get_Bool_ 4
@@ -74,6 +76,9 @@ _Init_Game_Hook_Load:
 	
 	INI_Get_Bool_ INIClass_redalertini5, str_options5, str_skipscorescreen, 0
 	mov		[skipscorescreen], al
+	
+	INI_Get_Bool_ INIClass_redalertini5, str_options5, str_randomstartingsong, 0
+	mov		[randomstartingsong], al
 	
 	INI_Get_Bool_ 0x00666688, str_aftermath, str_aftermathfastbuildspeed, 0
 	mov		[aftermathfastbuildspeed], al

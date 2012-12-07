@@ -1,7 +1,7 @@
 @HOOK 0x004BE468 _Hook_Expansion_Mission_Loading
 @HOOK 0x004BE613 _Hook_Expansion_Mission_Adding
-;@HOOK 0x004BE491 _Hook_Expansion_Mission_Loading2
-;@HOOK 0x004BE72F _Hook_Expansion_Mission_Aftermath_Counter
+;;@HOOK 0x004BE491 _Hook_Expansion_Mission_Loading2
+;;@HOOK 0x004BE72F _Hook_Expansion_Mission_Aftermath_Counter
 @HOOK 0x004BE548 _Hook_Expansion_Mission_Counterstrike_Counter
 @HOOK 0x004BE7C8 _Hook_Expansion_Mission_Counterstrike_Caption
 @HOOK 0x00501E0E _Hook_Expansion_Mission_Counterstrike_Title

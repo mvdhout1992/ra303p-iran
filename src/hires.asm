@@ -22,6 +22,7 @@
 @HOOK 0x004F479B _hires_MainMenuClear 
 @HOOK 0x004F6090 _hires_MainMenuClearBackground
 @HOOK 0x004F75FB _hires_MainMenuClearPalette
+@HOOK 0x0053BE6C _hires_RestateMissionClearBackground
 @HOOK 0x005518A3 _hires_NewGameText
 @HOOK 0x005128D4 _hires_SkirmishMenu
 @HOOK 0x0054D009 _hires_StripClass
@@ -131,6 +132,25 @@ _hires_Sidebar_Cameos_AI: ; No idea if this does anything..
 ;	jmp		0x0054E4C4
 
 str_blackbackgroundpcx db "BLACKBACKGROUND.PCX",0
+
+_hires_RestateMissionClearBackground:
+	push 	ecx
+	push	ebx
+	push	edx
+	push	eax
+
+	mov     ebx, 0x0066995C
+	mov     edx, GraphicsViewPortClass_HidPage
+	mov     eax, str_blackbackgroundpcx
+	call    0x005B3CD8
+	
+	pop		eax
+	pop		edx
+	pop		ebx
+	pop		ecx
+	
+	mov     ebx, 0x005F9348
+	jmp		0x0053BE71
 
 _hires_MainMenuClearBackground:
 	
@@ -504,6 +524,11 @@ _hires_ini:
 
     ; credits tab background position
     _hires_adjust_width 0x00553758
+	
+	; timer tab backgroound position	
+	_hires_adjust_width 0x0055383A
+	; timer tab caption/text
+	_hires_adjust_width 0x004ACEE5
 
     ; power bar current position
     _hires_adjust_width 0x005275D9

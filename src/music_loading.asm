@@ -9,6 +9,7 @@
 @HOOK 0x0055066B _SoundControlsClass_Process
 @HOOK 0x0056C240 _ThemeClass_Is_Allowed
 @HOOK 0x0056BFEC _ThemeClass_Next_Song_BL_Register_Change
+@HOOK 0x0053A36F _Start_Scenario_Queue_Theme
 ;@HOOK 0x00550668 _SoundControlClass_Process_Jump_Over_Looping_Themes
 
 bigfoot_str db "outtakes.AUD",0
@@ -88,6 +89,25 @@ str_twincannon db "Twin Cannon",0
 	je		0x0056BEF8
 %endmacro
 
+_Start_Scenario_Queue_Theme:
+	xor		edx, edx
+	cmp		Byte [randomstartingsong], 0
+	jz		.Ret
+	mov 	eax, INIClass_this3
+	mov		edx, str_filenames
+	call	INIClass__Entry_Count
+	mov     ebx, 26h
+	add		ebx, eax
+	mov     eax, 0x00667760
+	xor     edx, edx
+	call    0x005BC960
+	mov		edx, eax
+	
+.Ret:
+	mov		eax, 0x00668248
+	call    0x0056C020
+	jmp		0x0053A376
+	
 _SoundControlClass_Process_Jump_Over_Looping_Themes:
 	sar     edx, 18h
 	cmp		edx, 13h

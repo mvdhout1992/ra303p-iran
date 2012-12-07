@@ -58,6 +58,7 @@ test_str  db "RUN1226M",0
 %include "src/tags_bug.asm"
 %include "src/savegame_bug.asm"
 %include "src/credits_screen_cncddraw_fix.asm"
+%include "src/fix_multiplayer_settings_saving.asm"
 %endif
 
 %ifdef USE_NEW_MULTIPLAYER_DEFAULTS
