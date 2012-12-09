@@ -43,6 +43,8 @@ test_str  db "RUN1226M",0
 %include "src/extra_multiplayer_countries.asm"
 %include "src/aftermath_fast_buildspeed_option.asm"
 %include "src/optional_scorescreen.asm"
+%include "src/zoom_out_radar_by_default.asm"
+;%include "src/load_ai_ini.asm" ; Changing AI settings desyncs online...
 
 %ifdef USE_NOCD
 %include "src/nocd.asm"
@@ -59,6 +61,7 @@ test_str  db "RUN1226M",0
 %include "src/savegame_bug.asm"
 %include "src/credits_screen_cncddraw_fix.asm"
 %include "src/fix_multiplayer_settings_saving.asm"
+%include "src/cancel_network_join_menu_lag_fix.asm"
 %endif
 
 %ifdef USE_NEW_MULTIPLAYER_DEFAULTS

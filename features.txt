@@ -107,3 +107,9 @@ The CaptureTheFlag setting is also applied to skirmish, even though there's no o
 	
 26. Fixed a bug where Skirmish menu nick name/colour/side settings aren't saved when you modify them, unless you also modify your nick name. (Thanks to Arda)
 27. Fixed a bug where LAN menu nick name/colour/side settings aren't saved. You still need to create a new game or join an existing one for these settings to be saved though.
+
+28. Fixed the max unit bug, this a crash when the game hits an object limit, e.g. the tank limit (fix by hifi).
+
+29. Fix lag when leaving the Network menu when there are many players in the menu, for example while playing on CnCNet.
+
+30. When first buying a Radar Dome the top of the sidebar will now show the zoomed out map, instead of the zoomed in one. Thanks to Nyerguds for showing me how he did this for his C&C95 patch and giving me pointers for Red ALert.

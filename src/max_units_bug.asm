@@ -14,9 +14,16 @@
 ; OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 ;
 
+@HOOK	0x004BEFED	_max_units_bug
+
 _max_units_bug:
 
     JE 0x004BF21B
     CMP DWORD [ECX+0x2A], 0
-    JE 0x004BF21B
+	JE	.Abandon_Production
     JMP 0x004BEFF3
+
+.Abandon_Production:
+;	mov eax, ecx
+;	call 0x004BF228
+    JMP 0x004BF21B

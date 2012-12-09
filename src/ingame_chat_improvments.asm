@@ -9,7 +9,7 @@ _Check_MessageList_Messages_Count:
 	jmp		0x005055A0
 
 _Load_MessageDelay:
-	mov     ax, 200h ; 200h = 200% -> ~30 secs
+	mov     ax, 100h ; 200h = 200% -> ~30 secs
 ;	mov     ax, [eax]
 	mov     [edx], ax
 	jmp		0x00534D5F
