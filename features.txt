@@ -2,9 +2,7 @@ Hires improvements over hifi's hires patch:
 
 -The invisible Ant Missions stereo Westwood Logo credits buttons are now adjusted for hi-res, meaning if you click their area on the main menu graphics they'll be activated, like they should.
 
-1. Load any BLACKBACKGROUND.PCX files if found before TITLE.PCX title screen graphic to prevent glitching around menu borders after playing missions in certain cases.
-2. Same for the border around the restate mission screen
-3. Likewise for the sidebar glitching after restarting a mission.
+1. Fixes for the border around the main menu graphics glitching after playing a game, graphical glitching when showing the "restate briefing" screen and some other graphical glitches. Thanks to Nyerguds for practically writing this for me!
 
 2. If a TITLE.PCX is found that doesn't have the same dimensions as the original TITLE.PCX file, it will be displayed on the screen in the top left, this allows people to create their own custom main menu title graphics and have them work with hi-res.
 
@@ -34,9 +32,11 @@ More hires improvements to come, main things that are left are the Network/LAN m
 
 3. FunkyFre3sh's OOS-FIX.INI file will be loaded (if it's found) while still being compatible online with 3.03 players not using this fix. This fix prevents desyncing after playing certain (most?) modded maps online and then playing another map. It also fixes the cause of the desync itself, namely that after playing certain modded maps/missions certain memory used by the game for its settings (e.g. unit cost) won't be reset when playing a normal map/mission. This has to do with some really terrible programming but is a bit technical to explain. Suffice to say this fixes things like the Mobile Radar Jammer gaining a Tesla weapon after playing certain Counterstrike missions, etc.
 
-5. Messages sent by other players during a match now appear for 30 seconds in the top left corner, instead of the previous 9 seconds.
+5. Messages sent by other players during a match now appear for 15 seconds in the top left corner, instead of the previous 9 seconds.
 
 7. Added an redalert.ini boolean option "ShowAllMusic" under the "Options" section to enable/disable showing all music, normally the game only shows some music depending on what side you're planning as, with this option enabled, it always shows all music, except for the score, map and main menu music.
+
+7. Capture the flag has been enabled for skirmish. Westwood added specific checks to disable this game mode for skirmish, but I don't know why. Be warned.
 
 8. All multiplayer settings are now configurable, inside redalert.ini add:
 [MultiplayerDefaults]
@@ -113,3 +113,5 @@ The CaptureTheFlag setting is also applied to skirmish, even though there's no o
 29. Fix lag when leaving the Network menu when there are many players in the menu, for example while playing on CnCNet.
 
 30. When first buying a Radar Dome the top of the sidebar will now show the zoomed out map, instead of the zoomed in one. Thanks to Nyerguds for showing me how he did this for his C&C95 patch and giving me pointers for Red ALert.
+
+31. The game will now tell you if you're hosting Aftermath or not when you have the aftermath expansion enabled. If someone without Aftermath joins your online Aftermath game, effectively changing your game into a non-Aftermath game, text will appear making it clear Aftermath is "off".

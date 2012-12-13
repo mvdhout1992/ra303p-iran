@@ -26,6 +26,9 @@ test_str  db "RUN1226M",0
 %include "imports.inc"
 %include "string.inc"
 
+; This should be included first to hopefully prevent the memory address of the byte flag from changing
+%include "src/video_stretching_helpers.asm"
+
 %ifdef USE_HIRES
 %include "src/hires.asm"
 %endif
@@ -44,7 +47,8 @@ test_str  db "RUN1226M",0
 %include "src/aftermath_fast_buildspeed_option.asm"
 %include "src/optional_scorescreen.asm"
 %include "src/zoom_out_radar_by_default.asm"
-;%include "src/load_ai_ini.asm" ; Changing AI settings desyncs online...
+%include "src/load_ai_ini.asm" ; Changing AI settings desyncs online...
+%include "src/lan_print_is_aftermath_game.asm"
 
 %ifdef USE_NOCD
 %include "src/nocd.asm"
@@ -63,6 +67,7 @@ test_str  db "RUN1226M",0
 %include "src/fix_multiplayer_settings_saving.asm"
 %include "src/cancel_network_join_menu_lag_fix.asm"
 %endif
+
 
 %ifdef USE_NEW_MULTIPLAYER_DEFAULTS
 %include "src/multiplayer_defaults.asm"

@@ -1,20 +1,22 @@
+35. Country drop down list in network menu is hard to select on CnCNet need to extend it	
+
+43. I can do counterstrike, aftermath and campaign.mix if i put an additional infantry inside hires.mix (but fix why infantry arentb eing loaded first)
+44. Figure out how to get smallinfantry.mix working as overwrite for hires.mix
+
+41. Update PortableRA build.txt
+
+43. fix crash with projectiles going off map? hifi has a fix for this
+
+44. [20:48:35] <iran> need to center the receiving file from remote host dialog
 
 
-14. Complete multiplayer defaults code for LAN menu
-16. Finish custom missions loading code, the custom missions are displayed but the internal scenarios are still played
-17. Need to check if new missions dialog still shows when Counterstrike expansion isn't enabled
-19. Load map specific tutorial.ini if found else load the normal tutorial.ini file.
-20. Finish multiplayer defaults code
-21. Fix any FileClass leaks in the custom mission list ini loading code
-35. Country drop down list in network menu is hard to select on CnCNet need to extend it
-36. Reduce the time messages appear in the top left, 30 seconds is too long according to funky
+(MAYBE DO THIS?) 46. Update config tool so single cpu is enabled if ddraw is disabled, do this by placing a clean ra95.exe in the configtoolfolder and imagecfg.exe too,
+	then make imagecfg.exe patch the ra95.exe in the game folder. To enable multi-cpu again copy the clean ra95.exe
 
-37. sam site fire smoke is misplaced and has C&C95 Nod Sam Site graphics overlayed
+52. Make the reject button send out the 'cancel game' packet to a player
 
-38. probably should set ai players to a minimum of 0 instead of 1, in skirmish.
- 
-38. Center videos and some other top left screen stuff if ddraw.ini vhack= is set to false
-
+Todo for later:
+--------------------------------------
 40. AI doesn't tech up unless player has a helipad or airfield. (needs to be a setting in rules.ini to fix this or the game will desync online)
 
 41. Probably can add minicampaigns by having the game read a new scenario keyword, like this:
@@ -22,30 +24,10 @@
 	2. then while still reading a scenario, read the keyword to set a map to load next if found
 	3. if the player loses, zero out this buffer
 	4. if the player wins, load the next map in this buffer
-	
-
-43. I can do counterstrike, aftermath and campaign.mix if i put an additional infantry inside hires.mix
-44. Figure out how to get smallinfantry.mix working as overwrite for hires.mix
-
-41. Update PortableRA build.txt
-
-
-
-43. fix crash with projectiles going off map? hifi has a fix for this
-
-44. [20:48:35] <iran> need to center the receiving file from remote host dialog
-
-
-
-46. Update config tool so single cpu is enabled if ddraw is disabled, do this by placing a clean ra95.exe in the configtoolfolder and imagecfg.exe too,
-	then make imagecfg.exe patch the ra95.exe in the game folder. To enable multi-cpu again copy the clean ra95.exe
-
-46. Update launcher to add a force cpu0 option and to show a messagebox the first time it's run
-
---------------------------------------
+38. After making AI fixes and addin them as rules.ini keywords, make a rules.ini mod with AI fixes + hard AI plus fast Aftermath build speed
+37. sam site fire smoke is misplaced and has C&C95 Nod Sam Site graphics overlayed
+24. need to fix being unable to add a custom icon to the exe
 25. hires LAN join screen WIP crashes with more multiplayer countries enabled
-37. [16:53:20] <FunkyFr3sh> there is one more thing that takes to long tho
-[16:54:05] <FunkyFr3sh> when u leave the lobby it will send a packet to all players, and it wont leave until everyone confirmed the packet
 33. Update the file check sum check once funky fixed oos-fix.ini
 39. Resign key doesn't work if fixed it should show the dialog.
 45. Add a command-line option to launch a mission directly
@@ -53,3 +35,7 @@
 45. Allying with AI doesn't work correctly because of a bug in 3.03, according to Chad123 (needs to be a setting in rules.ini to fix this or the game will desync online)
 46. Apparently AI Paranoid= is broken. (needs to be a setting in rules.ini to fix this or the game will desync online)
 13. Fix extended sidebar code, arda uses new sidebar graphics to get this right
+16. Finish custom missions loading code, the custom missions are displayed but the internal scenarios are still played
+17. Need to check if new missions dialog still shows when Counterstrike expansion isn't enabled
+19. Load map specific tutorial.ini if found else load the normal tutorial.ini file.
+21. Fix any FileClass leaks in the custom mission list ini loading code

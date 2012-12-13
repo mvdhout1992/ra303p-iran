@@ -20,11 +20,12 @@
 @HOOK 0x004A9EA9 _hires_Intro
 @HOOK 0x005B3DBF _hires_MainMenu
 @HOOK 0x004F479B _hires_MainMenuClear 
-@HOOK 0x004F6090 _hires_MainMenuClearBackground
+;@HOOK 0x004F6090 _hires_MainMenuClearBackground ; load blackbackground.pcx
+@HOOK 0x005B3DAA _Load_Title_Screen_Clear_Background
 @HOOK 0x005B3CD8 _hires_ScoreScreenBackground
 @HOOK 0x004F75FB _hires_MainMenuClearPalette
-@HOOK 0x0053BE6C _hires_RestateMissionClearBackground
-@HOOK 0x0053B806 _hires_DoRestartMissionClearBackground
+;@HOOK 0x0053BE6C _hires_RestateMissionClearBackground ; uses blackbackground.pcx, not needed anymore
+;@HOOK 0x0053B806 _hires_DoRestartMissionClearBackground ; uses blackbackground.pcx, not needed anymore
 @HOOK 0x005518A3 _hires_NewGameText
 @HOOK 0x005128D4 _hires_SkirmishMenu
 @HOOK 0x0054D009 _hires_StripClass
@@ -123,7 +124,7 @@ _hires_ScoreScreenBackground:
 %define GraphicsViewPortClass_SeenBuff 0x006807A4
 
 %macro hires_Clear 0
-    PUSH 0
+    PUSH 0ch
     PUSH GraphicsViewPortClass_HidPage
     CALL _Buffer_Clear
     ADD ESP,8
@@ -136,6 +137,13 @@ _hires_ScoreScreenBackground:
     CALL _Buffer_Clear
     ADD ESP,8
 %endmacro
+
+_Load_Title_Screen_Clear_Background:
+	mov     eax, 1
+	
+	hires_Clear
+	
+	jmp		0x005B3DAF
 
 _hires_Sidebar_Cameos_Draw_Buttons:
 ;;	cmp     ebx, 1
@@ -196,13 +204,15 @@ _hires_RestateMissionClearBackground:
 
 _hires_MainMenuClearBackground:
 	
+	hires_Clear
+		
 	mov     ecx, eax
 	push 	ecx
 	
-	mov     ebx, 0x0066995C
-	mov     edx, GraphicsViewPortClass_HidPage
-	mov     eax, str_blackbackgroundpcx
-	call    0x005B3CD8
+;	mov     ebx, 0x0066995C
+;	mov     edx, GraphicsViewPortClass_HidPage
+;	mov     eax, str_blackbackgroundpcx
+;	call    0x005B3CD8
 	
 	pop		eax
 	mov     ebx, 0x0066995C
