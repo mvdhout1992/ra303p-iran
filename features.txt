@@ -95,7 +95,12 @@ The CaptureTheFlag setting is also applied to skirmish, even though there's no o
 
 25. More MIX files are loaded now:
 
-	scores-retaliation.MIX",0
+	campaign.MIX
+	aftermath.MIX
+	counterstrike.MIX
+	smallinfantry.MIX
+	oos-fix.MIX
+	germanlanguagepack.MIX
 	movies-tlf.MIX
 	expand3.MIX
 	expand4.MIX
@@ -114,4 +119,4 @@ The CaptureTheFlag setting is also applied to skirmish, even though there's no o
 
 30. When first buying a Radar Dome the top of the sidebar will now show the zoomed out map, instead of the zoomed in one. Thanks to Nyerguds for showing me how he did this for his C&C95 patch and giving me pointers for Red ALert.
 
-31. The game will now tell you if you're hosting Aftermath or not when you have the aftermath expansion enabled. If someone without Aftermath joins your online Aftermath game, effectively changing your game into a non-Aftermath game, text will appear making it clear Aftermath is "off".
+31. The game will now tell you if you're hosting Aftermath or not when you have the aftermath expansion enabled. If someone without Aftermath joins your online Aftermath game, effectively changing your game into a non-Aftermath game, text will appear making it clear Aftermath is "off". This doesn't apply to joining games, as the needed info is only send once the game is started by the host..

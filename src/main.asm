@@ -48,7 +48,7 @@ test_str  db "RUN1226M",0
 %include "src/optional_scorescreen.asm"
 %include "src/zoom_out_radar_by_default.asm"
 %include "src/load_ai_ini.asm" ; Changing AI settings desyncs online...
-%include "src/lan_print_is_aftermath_game.asm"
+%include "src/multiplayer_print_is_aftermath_game.asm"
 
 %ifdef USE_NOCD
 %include "src/nocd.asm"

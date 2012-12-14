@@ -1,19 +1,14 @@
-35. Country drop down list in network menu is hard to select on CnCNet need to extend it	
-
-43. I can do counterstrike, aftermath and campaign.mix if i put an additional infantry inside hires.mix (but fix why infantry arentb eing loaded first)
-44. Figure out how to get smallinfantry.mix working as overwrite for hires.mix
-
 41. Update PortableRA build.txt
 
 43. fix crash with projectiles going off map? hifi has a fix for this
 
 44. [20:48:35] <iran> need to center the receiving file from remote host dialog
 
-
-(MAYBE DO THIS?) 46. Update config tool so single cpu is enabled if ddraw is disabled, do this by placing a clean ra95.exe in the configtoolfolder and imagecfg.exe too,
-	then make imagecfg.exe patch the ra95.exe in the game folder. To enable multi-cpu again copy the clean ra95.exe
-
 52. Make the reject button send out the 'cancel game' packet to a player
+
+53. my patched cnc-ddraw doesn't seem to work on windows xp
+
+54. need to adjust video stretching code to work if ddraw resolution is higher than the real resolution (when ddraw is used for resolution stretching)
 
 Todo for later:
 --------------------------------------
@@ -24,13 +19,11 @@ Todo for later:
 	2. then while still reading a scenario, read the keyword to set a map to load next if found
 	3. if the player loses, zero out this buffer
 	4. if the player wins, load the next map in this buffer
-38. After making AI fixes and addin them as rules.ini keywords, make a rules.ini mod with AI fixes + hard AI plus fast Aftermath build speed
+38. After making AI fixes and adding them as rules.ini keywords, make a rules.ini mod with AI fixes + hard AI plus fast Aftermath build speed
 37. sam site fire smoke is misplaced and has C&C95 Nod Sam Site graphics overlayed
-24. need to fix being unable to add a custom icon to the exe
 25. hires LAN join screen WIP crashes with more multiplayer countries enabled
 33. Update the file check sum check once funky fixed oos-fix.ini
 39. Resign key doesn't work if fixed it should show the dialog.
-45. Add a command-line option to launch a mission directly
 42. Create a Red Alert 1 theme pack for windows 7
 45. Allying with AI doesn't work correctly because of a bug in 3.03, according to Chad123 (needs to be a setting in rules.ini to fix this or the game will desync online)
 46. Apparently AI Paranoid= is broken. (needs to be a setting in rules.ini to fix this or the game will desync online)
