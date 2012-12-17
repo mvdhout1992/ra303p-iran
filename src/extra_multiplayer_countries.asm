@@ -10,11 +10,16 @@
 @HOOK 0x0050892F	_Net_Join_Dialog_DropList_Set_Index_Fixup2
 @HOOK 0x00508C3F	_Net_Join_Dialog_DropList_Set_Index_Fixup3
 @HOOK 0x00506C28 	_Net_Join_Dialog_DropList_Increase_Drop_List_Display_Size
+@HOOK 0x0051290B 	_Skirmish_Dialog_DropList_Increase_Drop_List_Display_Size
 ;@HOOK 0x0050C154	_Net_New_Dialog_DropList_Set_Index_Fixup
 
 %define	Extract_String					0x005C5070
 %define SystemStrings					0x0066991C
 %define DropListClass__Add_Item			0x004B8628
+
+_Skirmish_Dialog_DropList_Increase_Drop_List_Display_Size:
+	mov		esi, 70h
+	jmp		0x00512910
 
 _Net_Join_Dialog_DropList_Increase_Drop_List_Display_Size:
 	call	0x005B9330

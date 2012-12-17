@@ -119,4 +119,18 @@ The CaptureTheFlag setting is also applied to skirmish, even though there's no o
 
 30. When first buying a Radar Dome the top of the sidebar will now show the zoomed out map, instead of the zoomed in one. Thanks to Nyerguds for showing me how he did this for his C&C95 patch and giving me pointers for Red ALert.
 
-31. The game will now tell you if you're hosting Aftermath or not when you have the aftermath expansion enabled. If someone without Aftermath joins your online Aftermath game, effectively changing your game into a non-Aftermath game, text will appear making it clear Aftermath is "off". This doesn't apply to joining games, as the needed info is only send once the game is started by the host..
+31. The game will now tell you if you're hosting Aftermath or not when you have the aftermath expansion enabled. If someone without Aftermath joins your online Aftermath game (effectively changing your game into a non-Aftermath game) text will appear making it clear Aftermath is "off". This doesn't apply to joining games, as the needed info is only send once the game is started by the host..
+
+32. Added a new rules.ini keyword RemoveAITechupCheck= (yes/no) under the [AI] section, when set to yes the AI will tech up to Radar Dome and beyond even when there are no Helipads or Airfields on the map.
+
+33. Added a keyword FixAIParanoid= (yes/no) under the [AI] section of rules.ini, when set to yes the Paranoid= setting will be fixed. This Paranoid= setting controls whether all the AI should ally amongst themselves to fight you when one player is defeated. Paranoid=yes enables this, but this was broken in patch 3.03.
+
+33. Added a keyword FixAIAlly= (yes/no) under the [AI] section of rules.ini, when set to yes you can ally with AI players.
+
+34. Optional fix for the formation exploit, the slowest unit speed is used now as formation speed when this fix is enabled. The rules.ini keyword FixFormationSpeed= (yes/no) keyword under the [General] section controls whether this fix is on or off, it's off when this keyword is missing. (Taken from arda.dll.inj)
+
+35. The game will no longer delete conquer.eng if it's inside the game folder. (Taken from arda.dll.inj)
+
+36. Fix for green shadow issue on units like the Phase Transport. (Taken from Arda)
+
+37. Crash for projectile off map crash (code from hifi, original fix by AlexB)

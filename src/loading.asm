@@ -15,6 +15,11 @@ str_options5 db "Options",0
 str_videointerlacemode db "VideoInterlaceMode",0
 str_skipscorescreen db "SkipScoreScreen",0
 str_randomstartingsong db "RandomStartingSong",0
+str_ai db "AI",0
+str_removeaitechupcheck db "RemoveAITechupCheck",0
+str_fixaiparanoid db "FixAIParanoid",0
+str_fixaially db "FixAIAlly",0
+str_fixformationspeed db "FixFormationSpeed",0
 
 INIClass_redalertini5 TIMES 64 db 0
 FileClass_redalertini5	TIMES 128 db 0
@@ -23,6 +28,10 @@ aftermathfastbuildspeed	db 0
 videointerlacemode	dd 2
 skipscorescreen db 0
 randomstartingsong db 0
+removeaitechupcheck db 0
+fixaiparanoid db 0
+fixaially db 0
+fixformationspeed db 0
 
 ; args: <INIClass>, <section>, <key>, <default>, <dst>
 %macro INI_Get_Bool_ 4
@@ -83,7 +92,21 @@ _Init_Game_Hook_Load:
 	INI_Get_Bool_ 0x00666688, str_aftermath, str_aftermathfastbuildspeed, 0
 	mov		[aftermathfastbuildspeed], al
 	
-	INIClass__Get_Int_
+	INI_Get_Bool_ 0x00666688, str_ai, str_removeaitechupcheck, 0
+	mov		[removeaitechupcheck], al
+	
+	INI_Get_Bool_ 0x00666688, str_ai, str_fixaiparanoid, 0
+	mov		[fixaiparanoid], al
+	
+	INI_Get_Bool_ 0x00666688, str_ai, str_fixaially, 0
+	mov		[fixaially], al
+	
+	INI_Get_Bool_ 0x00666688, str_general, 	str_fixformationspeed, 0
+	mov		[fixformationspeed], al
+	
+
+	
+;	INIClass__Get_Int_
 	
 	pop		eax
 	pop		edx

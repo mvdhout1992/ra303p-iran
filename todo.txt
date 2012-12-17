@@ -10,9 +10,34 @@
 
 54. need to adjust video stretching code to work if ddraw resolution is higher than the real resolution (when ddraw is used for resolution stretching)
 
+56. add displaying of messages typed by yourself as an optional redalert.ini setting
+
+58. add an option to not play sound in the cncnet/network/lan lobby, the sound gets played inside MessageListClass::Add_Message(), need to modify it so it doesnt play a sound if a global variable is true and then patch the calls to it inside Net_Join_Dialog() to set the variable, also need to remove calls to the Sound_Effect() function in a few places inside Net_Join_Dialog().
+
+Invisible Explosion Fixed
+Explosion animations of warheads with Explosion=4 and Damage from 45 to 75 (inclusive) were hidden on certain buildings, also depending on the firing angle. For instance, this affected the Chrono Tank's missiles against Construction Yards.
+
+Affected explosion animations made visible.
+
+62. Need to add code to make sidebar resolution independent for saves.
+
+64. Add a dialog box for when the game is starting in LAN mode
+
+41. Add rules.ini keywords to make ai build nuke silos and service depots, replacing with kennels at:
+
+AUTO:004DA898                 mov     eax, 17h
+
+with mov eax, 1dh
+
+have them make spen too, ai might build missile subs if they have tech center
+
+42. AI doesn't build shock troopers
+
+45. Add extra colour remaps
+
 Todo for later:
 --------------------------------------
-40. AI doesn't tech up unless player has a helipad or airfield. (needs to be a setting in rules.ini to fix this or the game will desync online)
+
 
 41. Probably can add minicampaigns by having the game read a new scenario keyword, like this:
 	1. when reading a scenario, zero out of buffer to hold the map name in for the next map in the campaign
@@ -20,15 +45,27 @@ Todo for later:
 	3. if the player loses, zero out this buffer
 	4. if the player wins, load the next map in this buffer
 38. After making AI fixes and adding them as rules.ini keywords, make a rules.ini mod with AI fixes + hard AI plus fast Aftermath build speed
-37. sam site fire smoke is misplaced and has C&C95 Nod Sam Site graphics overlayed
+37. sam site fire smoke is misplaced and has C&C95 Nod Sam Site graphics overlayed (this doesn't seem noticable)
 25. hires LAN join screen WIP crashes with more multiplayer countries enabled
 33. Update the file check sum check once funky fixed oos-fix.ini
 39. Resign key doesn't work if fixed it should show the dialog.
 42. Create a Red Alert 1 theme pack for windows 7
-45. Allying with AI doesn't work correctly because of a bug in 3.03, according to Chad123 (needs to be a setting in rules.ini to fix this or the game will desync online)
-46. Apparently AI Paranoid= is broken. (needs to be a setting in rules.ini to fix this or the game will desync online)
+
 13. Fix extended sidebar code, arda uses new sidebar graphics to get this right
 16. Finish custom missions loading code, the custom missions are displayed but the internal scenarios are still played
 17. Need to check if new missions dialog still shows when Counterstrike expansion isn't enabled
 19. Load map specific tutorial.ini if found else load the normal tutorial.ini file.
 21. Fix any FileClass leaks in the custom mission list ini loading code
+
+57. add support for saving skirmish games (CCHyper said this might brveak things), this breaks a lot of things and I need to figure out why)
+
+[23:17:25] <CCHyper_> iirc, they are getting target coords as 0,0
+[23:17:46] <CCHyper_> rather than getting a target object, then fetching its coords
+[23:17:58] <CCHyper_> debug
+[23:18:03] <CCHyper_> Assign_Destination()
+[23:18:14] <CCHyper_> UnitClass::Assign_Destination()
+
+[17:49:34] <Chad1233> When you ally a AI
+[17:49:43] <Chad1233> does most of his base reveal to you?
+[17:49:52] <Chad1233> Because that's soppose to happen
+[17:50:00] <Chad1233> To a player

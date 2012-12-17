@@ -49,6 +49,8 @@ test_str  db "RUN1226M",0
 %include "src/zoom_out_radar_by_default.asm"
 %include "src/load_ai_ini.asm" ; Changing AI settings desyncs online...
 %include "src/multiplayer_print_is_aftermath_game.asm"
+%include "src/ai_fixes.asm"
+%include "src/fix_formation_glitch.asm"
 
 %ifdef USE_NOCD
 %include "src/nocd.asm"
@@ -66,6 +68,8 @@ test_str  db "RUN1226M",0
 %include "src/credits_screen_cncddraw_fix.asm"
 %include "src/fix_multiplayer_settings_saving.asm"
 %include "src/cancel_network_join_menu_lag_fix.asm"
+%include "src/skip_deleting_conquer_eng.asm"
+%include "src/green_shadow_on_cloaked_units_fix.asm"
 %endif
 
 

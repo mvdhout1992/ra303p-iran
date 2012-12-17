@@ -81,6 +81,14 @@ INIClass_this   TIMES 64 db 0
 @HOOK 0x0050BC36 _LAN_Unit_Count_Change
 @HOOK 0x0050BF87 _LAN_Selected_Map_Index
 @HOOK 0x005135AC _Skirmish_Check_CTF_Check_Item
+;@HOOK 0x00514854 _Skirmish_Check_CTF_Check_Item2 ; Doesn't work
+;@HOOK 0x0051491E _Skirmish_Check_CTF_Check_Item3 ; Doesn't work
+
+_Skirmish_Check_CTF_Check_Item3:
+	jmp		0x0051485D
+
+_Skirmish_Check_CTF_Check_Item2:
+	jmp		0x00514928
 
 _LAN_Selected_Map_Index:
 	lea 	eax, [ebp-684h]
