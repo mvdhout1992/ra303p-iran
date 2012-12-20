@@ -41,7 +41,7 @@ test_str  db "RUN1226M",0
 %include "src/expansions.asm"
 %include "src/music_loading.asm"
 %include "src/movie_loading.asm"
-%include "src/custom_missions.asm"
+;%include "src/custom_missions.asm"
 %include "src/ingame_chat_improvments.asm"
 %include "src/extra_multiplayer_countries.asm"
 %include "src/aftermath_fast_buildspeed_option.asm"
@@ -51,6 +51,7 @@ test_str  db "RUN1226M",0
 %include "src/multiplayer_print_is_aftermath_game.asm"
 %include "src/ai_fixes.asm"
 %include "src/fix_formation_glitch.asm"
+;%include "src/more_colour_remaps.asm" ; not done yet and needs a fix for a crash
 
 %ifdef USE_NOCD
 %include "src/nocd.asm"

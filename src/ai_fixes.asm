@@ -1,6 +1,18 @@
 @HOOK 0x004DAFA4	_AI_Tech_Up_Check
 @HOOK 0x004D6102	_HouseClass__Make_Ally_Computer_Paranoid_Call_Patch_Out
 @HOOK 0x004DE5D2	_HouseClass__Is_Allowed_To_Ally_AI_Player_Fix
+@HOOK 0x004BD1DD 	_EventClass__Execute_Make_Ally
+
+_EventClass__Execute_Make_Ally:
+	push	eax
+	push	edx
+	call 	0x004D6060
+	
+	pop		eax ; Pop registers in reverse order, HouseType
+	call	0x004D2CB0 ; HouseClass::As_Pointer(HousesType)
+	pop		edx ; HouseClass
+	call 	0x004D6060
+	jmp		0x004BD1E2
 
 _HouseClass__Is_Allowed_To_Ally_AI_Player_Fix:
 	cmp BYTE [fixaiparanoid], 1

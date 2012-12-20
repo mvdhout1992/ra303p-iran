@@ -30,6 +30,12 @@ INIClass_redalertini TIMES 128 db 0
 
 str_sprintf_format2 db "%d",0
 
+sprintf_buffer   TIMES 64 db 0
+str_empty db 0
+
+str_general db "General",0
+str_sprintf_format db "%d",0
+
 sprintf_buffer2   TIMES 64 db 0
 music_filenames_buffer TIMES 8192 db 0 ; 128 * 32 bytes
 

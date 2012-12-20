@@ -1,6 +1,6 @@
-41. Update PortableRA build.txt
+40. Check out the arda auto-adjust on grid stuff
 
-43. fix crash with projectiles going off map? hifi has a fix for this
+41. Update PortableRA build.txt
 
 44. [20:48:35] <iran> need to center the receiving file from remote host dialog
 
@@ -23,7 +23,13 @@ Affected explosion animations made visible.
 
 64. Add a dialog box for when the game is starting in LAN mode
 
-41. Add rules.ini keywords to make ai build nuke silos and service depots, replacing with kennels at:
+42. Add a rules.ini keyword to give allow people to get parabombs even when game isn't multiplayer
+AUTO:004D5B13                 cmp     ds:SessionClass Session, 0
+AUTO:004D5B1A                 jnz     short loc_4D5B5A
+
+check is done here
+
+41. Add rules.ini keyword to make ai build nuke silos and service depots, replacing with kennels at:
 
 AUTO:004DA898                 mov     eax, 17h
 
@@ -38,6 +44,7 @@ have them make spen too, ai might build missile subs if they have tech center
 Todo for later:
 --------------------------------------
 
+40. Add a rules.ini keyword to not have the AI sell their structures when all production facilities are destroyed
 
 41. Probably can add minicampaigns by having the game read a new scenario keyword, like this:
 	1. when reading a scenario, zero out of buffer to hold the map name in for the next map in the campaign
@@ -47,9 +54,9 @@ Todo for later:
 38. After making AI fixes and adding them as rules.ini keywords, make a rules.ini mod with AI fixes + hard AI plus fast Aftermath build speed
 37. sam site fire smoke is misplaced and has C&C95 Nod Sam Site graphics overlayed (this doesn't seem noticable)
 25. hires LAN join screen WIP crashes with more multiplayer countries enabled
-33. Update the file check sum check once funky fixed oos-fix.ini
-39. Resign key doesn't work if fixed it should show the dialog.
-42. Create a Red Alert 1 theme pack for windows 7
+33. Update the file check sum check once funky fixed oos-fix.ini (seems oos-fix.ini works fine now)
+39. Resign key doesn't work if fixed it should show the dialog. (see 0x004A54DB for dialog code)
+42. Create a Red Alert 1 theme pack for windows 7 (using the unfinished one as base)
 
 13. Fix extended sidebar code, arda uses new sidebar graphics to get this right
 16. Finish custom missions loading code, the custom missions are displayed but the internal scenarios are still played
