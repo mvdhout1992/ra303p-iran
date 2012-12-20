@@ -52,6 +52,7 @@ test_str  db "RUN1226M",0
 %include "src/ai_fixes.asm"
 %include "src/fix_formation_glitch.asm"
 ;%include "src/more_colour_remaps.asm" ; not done yet and needs a fix for a crash
+%include "src/fix_savegame_resolution_sidebar.asm"
 
 %ifdef USE_NOCD
 %include "src/nocd.asm"

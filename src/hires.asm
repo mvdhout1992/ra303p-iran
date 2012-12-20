@@ -601,7 +601,7 @@ _hires_ini:
     _hires_adjust_width 0x0054D08C
 
     ; side bar strip offset left (right bar)
-    _hires_adjust_width [right_strip_offset]
+   _hires_adjust_width [right_strip_offset]
 
     ; power indicator (darker shadow)
     _hires_adjust_width 0x005278A4
