@@ -3,14 +3,19 @@
 @HOOK	0x0050DB55	_LAN_New_Dialog_Aftermath_Text3
 @HOOK	0x00513D46	_Skirmish_Dialog_Aftermath_Text
 
-%define	Fancy_Text_Print 0x004AE7FC
-%define bAftermathMultiplayer 0x00680538
+%define	Is_Aftermath_Installed 	0x004AC024
+%define	Fancy_Text_Print 		0x004AE7FC
+%define bAftermathMultiplayer 	0x00680538
 
 ;str_aftermathgame db "Aftermath game",0
 
 startedasam: db 0
 
 _Skirmish_Dialog_Aftermath_Text:
+	call	Is_Aftermath_Installed
+	cmp		eax, 1
+	jnz		.Ret
+
 	push    216h
 	push    0
 	push	esi
@@ -24,12 +29,17 @@ _Skirmish_Dialog_Aftermath_Text:
 	call	Fancy_Text_Print
 	add     esp, 18h
 
+.Ret:
 	call Fancy_Text_Print
 	jmp		0x00513D4B
 
 _LAN_New_Dialog_Aftermath_Text:
 	call	Fancy_Text_Print
 	add     esp, 18h
+	
+	call	Is_Aftermath_Installed
+	cmp		eax, 1
+	jnz		.Ret
 	
 	cmp	DWORD [bAftermathMultiplayer], 1
 	jnz		.Ret
@@ -50,7 +60,11 @@ _LAN_New_Dialog_Aftermath_Text:
 .Ret:
 	jmp		0x0050C2B8
 
-_LAN_New_Dialog_Aftermath_Text2:	
+_LAN_New_Dialog_Aftermath_Text2:
+	call	Is_Aftermath_Installed
+	cmp		eax, 1
+	jnz		.Ret
+	
 	cmp	DWORD [bAftermathMultiplayer], 1
 	jz		.Ret
 	CMP BYTE [startedasam], 1

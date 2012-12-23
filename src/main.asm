@@ -31,6 +31,8 @@ test_str  db "RUN1226M",0
 
 %ifdef USE_HIRES
 %include "src/hires.asm"
+%include "src/fix_savegame_resolution_sidebar.asm"
+%include "src/multiplayer_print_is_aftermath_game.asm"
 %endif
 
 ; loading code
@@ -48,11 +50,9 @@ test_str  db "RUN1226M",0
 %include "src/optional_scorescreen.asm"
 %include "src/zoom_out_radar_by_default.asm"
 %include "src/load_ai_ini.asm" ; Changing AI settings desyncs online...
-%include "src/multiplayer_print_is_aftermath_game.asm"
 %include "src/ai_fixes.asm"
 %include "src/fix_formation_glitch.asm"
 ;%include "src/more_colour_remaps.asm" ; not done yet and needs a fix for a crash
-%include "src/fix_savegame_resolution_sidebar.asm"
 
 %ifdef USE_NOCD
 %include "src/nocd.asm"

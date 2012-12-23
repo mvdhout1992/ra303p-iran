@@ -1,0 +1,7 @@
+This patch couldn't have been made without the help of the following persons:
+	- hifi: Original ra303p ("p-series") patch code and assembly patching framework used by this patch
+	- CCHyper: Sharing his vast analysed Red Alert engine database with me and code contributions
+	- FunkyFr3sh: Lots of testing, suggestions, and knowledge. You're awesome, dude!
+	- Nyerguds: Contributions to the patch and sharing C&C95 engine knowledge.
+	- AlexB: Various ideas and addresses used for Arda's fixes taken from his
+		Arda project. In Additional lots of information taken from the Arda manual.

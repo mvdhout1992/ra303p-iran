@@ -404,6 +404,9 @@ _hires_ini:
     MOV EDX, [AdjustedWidth]
     MOV EBX, [ScreenHeight]
 	
+	CMP DWORD [ScreenHeight], 480
+	JZ	.Ret
+	
 ;	MOV ECX, 100
 ;    MOV EAX, 0x004A8AE1
 ;    ADD [EAX], ECX
@@ -697,7 +700,8 @@ _hires_ini:
     
     ; kill original sidebar area (halp)
     MOV BYTE [0x0054F380], 0xC3
-	
+
+.Ret:	
     POP EDX
     POP EBX
 
@@ -801,6 +805,9 @@ _hires_Videos2:
 	jmp		0x004A8AD0
 
 _hires_MainMenu_Credits_Select:
+	CMP DWORD [ScreenWidth], 640
+	JZ	.No_Change
+	
 	mov     edx, 30h ; left
 	add		edx, [diff_top]
 	push	edx
@@ -821,7 +828,15 @@ _hires_MainMenu_Credits_Select:
 
 	jmp		0x005024C5
 	
+.No_Change:
+	push    30h
+	mov     ecx, 14h
+	jmp		0x005024B6
+	
 _hires_MainMenu_AntMissions_Select:
+	CMP DWORD [ScreenWidth], 640
+	JZ	.No_Change
+	
 	mov     eax, 64h ; left
 	add		eax, [diff_top]
 	push	eax
@@ -840,6 +855,11 @@ _hires_MainMenu_AntMissions_Select:
 	push	edx
 	
 	jmp		0x0050254D
+	
+.No_Change:
+	push    64h
+	mov     ebx, 208h
+	jmp		0x00502541
 
 _hires_Network_Join_Fill_ColorBoxes:	
 	mov     ebx, edi
@@ -975,6 +995,9 @@ _hires_StripClass:
     JMP 0x0054D033
 
 _hires_MainMenu:
+	CMP DWORD [ScreenWidth], 640
+	JZ	.No_Change
+
 	MOV EBX, [diff_top]
 	MOV EAX, [diff_left]
 	CMP	BYTE [scorebackground], 1
@@ -994,6 +1017,13 @@ _hires_MainMenu:
     PUSH 0
     PUSH 0
     JMP 0x005B3DC7
+	
+.No_Change:
+	push    0
+	push    0
+	push    0
+	push    0
+	jmp		0x005B3DC7
 
 _hires_Intro:
     PUSH 0
@@ -1012,6 +1042,9 @@ _hires_NewGameText_top  dd 0x96
 _hires_NewGameText_left dd 0x6E
 
 _hires_NewGameText:
+	CMP DWORD [ScreenWidth], 640
+	JZ	.No_Change
+
 	MOV EAX, [diff_top]
     ADD EAX,0x96
     PUSH EAX
@@ -1021,14 +1054,25 @@ _hires_NewGameText:
     PUSH EAX
 
     JMP 0x005518AA
+	
+.No_Change:
+	push    96h
+	jmp		0x005518A8
 
 _hires_SkirmishMenu:
+	CMP DWORD [ScreenWidth], 640
+	JZ	.No_Change
     MOV ECX, [diff_left]
     MOV DWORD [EBP-0x1D4], ECX
     MOV ECX, [diff_top]
-    MOV DWORD [EBP-0x1D0], ECX
-    XOR ECX,ECX
+	MOV DWORD [EBP-0x1D0], ECX
+	
+	XOR ECX,ECX
     JMP 0x005128E0
+
+.No_Change:
+    MOV DWORD [EBP-0x1D4], ECX
+    JMP 0x005128DA
 
 _hires_NetworkJoinMenu:
     MOV ECX, [diff_top]
@@ -1063,6 +1107,9 @@ _Blacken_Screen_Border_Menu2:
 	jmp 0x00502293
 
 _NewMissions_Handle_Hires_Buttons_A:
+	CMP DWORD [ScreenWidth], 640
+	JZ	.No_Change
+
 	mov		edx, 13Ch
 	add		edx, [diff_top]
 	push	edx
@@ -1075,8 +1122,15 @@ _NewMissions_Handle_Hires_Buttons_A:
 	push	edx
 	
 	jmp		0x004BE388
+	
+.No_Change:
+	push    13Ch
+	jmp		0x004BE37C
 
 _NewMissions_Handle_Hires_Buttons_B:
+	CMP DWORD [ScreenWidth], 640
+	JZ	.No_Change
+	
 	mov		edx, 13Ch
 	add		edx, [diff_top]
 	push	edx
@@ -1089,3 +1143,8 @@ _NewMissions_Handle_Hires_Buttons_B:
 	push	edx
 	
 	jmp		0x004BE3B2
+	
+.No_Change:
+	push    13Ch
+	jmp		0x004BE3A3
+	

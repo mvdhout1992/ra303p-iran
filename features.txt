@@ -1,136 +1,150 @@
-Hires improvements over hifi's hires patch:
+1. Added support for playing the game at higher resolutions. The resolution settings are read from REDALERT.INI's [Options] section. The following two keywords are read:
+	Width=
+	Height=
+	
+Hires improvements over hifi's original code for this:
+	-The invisible Ant Missions stereo and Westwood Logo credits selection areas are now adjusted for hi-res, meaning if you click their area on the main menu graphics they'll be activated, like they should.
+	-Fixes for the border around the main menu graphics glitching after playing a game, graphical glitching when showing the "restate briefing" screen and some other graphical glitches. Thanks to Nyerguds for practically writing this for me!
+	- If a TITLE.PCX is found that doesn't have the same dimensions as the original TITLE.PCX file, it will be displayed on the screen in the top left, this allows people to create their own custom main menu title graphics and have them work with hi-res.
+	- The timer tab for maps that use them (e.g. the second Allies mission) has its width adjusted.
+	- The expansion missions dialogs are now adjusted for hires, instead of appearing in the top left of the screen.
+	- Screenshake should be adjusted for high res now. (Thanks to Arda.dll.inj by AlexB)
+	- The "Mission Accomplished", "Mission Failed" and "The Game is a Draw" red text now have their height and width adjusted for high res (Thanks to Arda.dll.inj by AlexB)
+	- The score screen is now fully displayed in the top left, instead of showing the score background in the middle
+	- Fixed the power indicator displaying glitched when there's no power and in certain other scenarios
+	
+More hires improvements to come, main things that are left are the Network/LAN menus, video stretching and/or centering, the score presentation screen and the map selection screen. If I'm able to patch cnc-ddraw I should be able to fix the last three.
 
--The invisible Ant Missions stereo Westwood Logo credits buttons are now adjusted for hi-res, meaning if you click their area on the main menu graphics they'll be activated, like they should.
-
-1. Fixes for the border around the main menu graphics glitching after playing a game, graphical glitching when showing the "restate briefing" screen and some other graphical glitches. Thanks to Nyerguds for practically writing this for me!
-
-2. If a TITLE.PCX is found that doesn't have the same dimensions as the original TITLE.PCX file, it will be displayed on the screen in the top left, this allows people to create their own custom main menu title graphics and have them work with hi-res.
-
--The timer tab for maps that use them (e.g. the second Allies mission) has its width adjusted.
-
--The expansion missions dialogs are now adjusted for hires, instead of appearing in the top left of the screen.
-
--Screenshake should be adjusted for high res now. (Thanks to Arda)
-
--The "Mission Accomplished", "Mission Failed" and "The Game is a Draw" red text now have their height and width adjusted for high res (Thanks to Arda)
-
--The score screen is now fully displayed in the top left, instead of showing the score background in the middle
-
--Fixed the power indicator displaying glitched when there's no power
+The original code for this high resolution feature was written by hifi.
 
 4. VQA640 files are now centered, only the intro sequence with a Longbow helicopter hitting a Mammoth Tank is a VQA640 file though.
 
-5. The crash with fences on the northern border of the map that are destroyed is fixed.(from hifi's p-series, thanks to AlexB)
+5. Fixed a crash with fences placed on the northern border of the map that are destroyed. (from hifi's p-series, thanks to AlexB)
 
-6. The game is now completely No-CD (from hifi's p-series)
+6. The game is now completely No-CD. (from hifi's p-series)
 
 7. The game now checks if the Counterstrike expansion is enabled by searching for SCU38EA.INI, if not found the expansion isn't enabled. Likewise for the Aftermath expansion, if SCG43EA.INI is not found this expansion isn't enabled. (from hifi's p-series).
 
-8. a crash relating to the a max limit being reached (e.g. airplanes) has been fixed. (from hifi's p-series).
+8. A crash relating to the a max limit being reached (e.g. that of airplanes) has been fixed. (from hifi's p-series).
 
-More hires improvements to come, main things that are left are the Network/LAN menus, video stretching and/or centering, the score presentation screen and the map selection screen. If I'm able to patch cnc-ddraw I should be able to fix the last three.
+9. FunkyFre3sh's OOS-FIX.INI file will be loaded (if it's found) while still being compatible online with 3.03 players not using this fix. This fix prevents desyncing after playing certain (most?) modded maps online and then playing another map. It also fixes the cause of the desync itself, namely that after playing certain modded maps/missions certain memory used by the game for its settings (e.g. unit cost) won't be reset when playing a normal map/mission. This has to do with some really terrible programming but is a bit technical to explain. Suffice to say this fixes things like the Mobile Radar Jammer gaining a Tesla weapon after playing certain Counterstrike expansion missions, etc.
 
-3. FunkyFre3sh's OOS-FIX.INI file will be loaded (if it's found) while still being compatible online with 3.03 players not using this fix. This fix prevents desyncing after playing certain (most?) modded maps online and then playing another map. It also fixes the cause of the desync itself, namely that after playing certain modded maps/missions certain memory used by the game for its settings (e.g. unit cost) won't be reset when playing a normal map/mission. This has to do with some really terrible programming but is a bit technical to explain. Suffice to say this fixes things like the Mobile Radar Jammer gaining a Tesla weapon after playing certain Counterstrike missions, etc.
+10. Messages sent by other players during a match now appear for 15 seconds in the top left corner now, instead of the previous 9 seconds.
 
-5. Messages sent by other players during a match now appear for 15 seconds in the top left corner, instead of the previous 9 seconds.
+11. Added an REDALERT.INI keyword ShowAllMusic= (yes/no) under the [Options] section to enable/disable showing ALL the game's music, normally the game only shows some music depending on what side you're playing as. With this option enabled it always shows all music except for the score, map and main menu music.
 
-7. Added an redalert.ini boolean option "ShowAllMusic" under the "Options" section to enable/disable showing all music, normally the game only shows some music depending on what side you're planning as, with this option enabled, it always shows all music, except for the score, map and main menu music.
+12. Capture the flag has been enabled for skirmish. Westwood added specific checks to disable ths game mode for skirmish, but I don't know why. Be warned.
 
-7. Capture the flag has been enabled for skirmish. Westwood added specific checks to disable this game mode for skirmish, but I don't know why. Be warned.
+13. All multiplayer settings are now configurable, inside redalert.ini add:
+	[MultiplayerDefaults]
+	Money=10000
+	ShroudRegrows=false
+	CaptureTheFlag=false
+	Crates=false
+	Bases=true
+	OreRegenerates=true
+	UnitCount=0
+	TechLevel=10
+	AIDifficulty=2 ; 0 = easy, 1 = Medium, 2 = Hard
+	AIPlayers=1
 
-8. All multiplayer settings are now configurable, inside redalert.ini add:
-[MultiplayerDefaults]
-Money=10000
-ShroudRegrows=false
-CaptureTheFlag=false
-Crates=false
-Bases=true
-OreRegenerates=true
-UnitCount=0
-TechLevel=10
-AIDifficulty=2
-AIPlayers=1
+Note the following:
+	-You can start a skirmish game with no AI players by setting AIPlayers to 0, note that after playing a game like this the 
+		game will automatically set the AI players slider to 1.
+	- You can start a game with a max of 2.7 billion credits, this works online too even if other players don't run my patch.
+	- If UnitCount multiplied by players is too high, the game will crash.
+	- Setting AIPlayers to higher than 7 causes the game to freeze.
 
-You can start a skirmish game with no AI players by setting AIPlayers to 0, note that after playing a game like this the game will automatically set the AI players slider to 1.
+15. Extra songs can be added to the game by adding them to a MUSIC.INI control file, it should look like:
+	; music.ini file for extra music addon
+	[Fullnames]
+	1=The Second Hand (Retaliation)
+	[Filenames]
+	1=2nd_hand.AUD
+	[Tracklength]
+	1=283 ; in seconds
+	
+Etc for every new song. Make sure there's an empty (blank) line at the end of the file or the last entry won't be read properly.
 
-You can start a game with a max of 2.7 billion credits, this works online too even if other players don't run my patch.
+16. The game now supports loading The Lost Files movies compiled by Nyerguds.
+17. The game will now load and play sizzle3.vqa, sizzle4.vqa and introx.vqa in the sneak preview menu if found.
+18. Playing the ENGLISH.VQA intro is now optional. a new REDALERT.INI boolean option PlayEnglishIntro= under the "Options" section controls this.
+19. Fixed the in-game displayed name of various songs, Twin Cannon misnamed as "Twin" and most Counterstrike songs.
 
-If UnitCount multiplied by players is too high, the game will crash.
+20. Fix for a rare issue where the game would report there is barely any free disk space left when there's plenty. The game now always thinks there is enough free disk space left.
 
-Setting AIPlayers to higher than 7 causes the game to freeze.
+21. Greece, Spain and Turkey are now all selectable in multiplayer.
 
-The CaptureTheFlag setting is also applied to skirmish, even though there's no option to enable/disable capture the flag in the skirmish menu. 
+22. Fix added for cnc-ddraw crash in the credits slide show screen once the first text reaches the top of the screen. This fix causes slight graphical glitching sadly.
 
-9. Extra songs can be added in a music.ini file.
-10. The game now tries to load the The Lost Files movies compiled by Nyerguds.
-11. The game will now load and play sizzle3.vqa, sizzle4.vqa and introx.vqa in the sneak preview menu if found.
-12. Playing the ENGLISH.VQA intro is now optional. a new REDALERT.INI boolean option PlayEnglishIntro= under the "Options" section controls this.
-13. Fixed the in-game displayed name of various songs, Twin Cannon misnamed as "Twin" and most Counterstrike songs.
+23. New RULES.INI AftermathFastBuildSpeed= yes/no keyword under the section [Aftermath], with this enabled there won't be a cap for build speed increase when you buy additional production facilities of the same type (e.g. more than two Barracks)and the Aftrmath expansion is installed. If you want to use this online you need to play versus other players running this patch and the "Force AM fast build speed" RULES.INI file (this is also available as a RedAlertConfig.exe option).
 
-14. The game now doesn't start playing another song anymore when it regains focus (via alt+tab for example).
-
-15. Fix for a rare issue where the game would report there is barely any free disk space left when there's plenty. The game now always thinks there is enough free disk space left.
-
-16. Greece, Spain and Turkey are now all selectable in multiplayer.
-
-17. Fix added for cnc-ddraw crash in the credits slide show screen once the first text reaches the top of the screen.
-
-18. New rules.ini AftermathFastBuildSpeed= yes/no keyword under the section [Aftermath], with this enabled the build speed will be fast even when the Aftermath expansion is installed. Enabling this option makes rules.ini incompatible with vanilla 3.03 online. If you want to use this online you need to play versus other players running this patch and the "Force AM fast build speed" rules.ini file (this is also available as a RedAlertConfig.exe option).
-
-19. New command-line arguments:
+24: New command-line arguments (Thanks to CCHyper):
 -NEWMISSIONS: enables the new missions system explained elsewhere in this text.
 -ANTMISSIONS: Starts the ant missions campaign if the Counterstrike expansion is enabled.
 -SKIRMISH: Loads the skirmish menu.
 -LAN: Loads the LAN menu.
 
-20. Optional deinterlacing of videos, this is controlled by the VideoInterlaceMode= keyword in REDALERT.INI under the [Options] section, if set to 2 videos are deinterlaced, with 0 they're horizontally interlaced and with 1 they're supposed to be vertically interlaced (though the vertical interlacing doesn't seem to work)
+25. Optional deinterlacing of videos, this is controlled by the VideoInterlaceMode= keyword in REDALERT.INI under the [Options] section, if set to 2 videos are deinterlaced, if set to 0 they're horizontally interlaced and when set to 1 they're supposed to be vertically interlaced (though the vertical interlacing doesn't seem to work). The game's previously unknown deinterlacing feature was discovered by AlexB, he also wrote a fix for a bit of graphical glitching at the bottom of the screen.
 
-21. Score screen skipping with the option SkipScoreScreen= yes/no in REDALERT.INI under the [Options] section.
+26. Score screen skipping with the option SkipScoreScreen= (yes/no) in REDALERT.INI under the [Options] section.
 
-22. The game no longer requires mpgdll.dll. This DLL was never used.
+27. The game no longer requires mpgdll.dll. This DLL was never used and contains MPEG-2 video loading code for a never released Red Alert 1 DVD with higher quality movies.
 
-23. Added keyword SkipScoreScreen= under [Options] in REDALERT.INI, when set to 'yes' the single player and multiplayer sccore screens won't be shown.
+28. Added a SkipScoreScreen= (yes/no) keyword under [Options] in REDALERT.INI, when set to 'yes' the single player and multiplayer sccore screens won't be shown.
 
-24. It's now possible to have a random starting song start after a map is loaded, the keyword RandomStartingSong= (yes/no) under [Options] in REDALERT.INI controls this.
+29. It's now possible to have a random starting song start after a map is loaded, the keyword RandomStartingSong= (yes/no) under [Options] in REDALERT.INI controls this.
 
-25. More MIX files are loaded now:
+30. More MIX files are loaded now:
 
 	campaign.MIX
 	aftermath.MIX
 	counterstrike.MIX
 	smallinfantry.MIX
 	oos-fix.MIX
-	germanlanguagepack.MIX
 	movies-tlf.MIX
-	expand3.MIX
-	expand4.MIX
-	expand5.MIX
-	expand6.MIX
-	expand7.MIX
-	expand8.MIX
-	expand9.MIX
 	
-26. Fixed a bug where Skirmish menu nick name/colour/side settings aren't saved when you modify them, unless you also modify your nick name. (Thanks to Arda)
-27. Fixed a bug where LAN menu nick name/colour/side settings aren't saved. You still need to create a new game or join an existing one for these settings to be saved though.
+	germanlanguagepack.MIX
+	germancensoredlanguagepack.MIX
+	germanuncensoredlanguagepack.MIX
+	spanishlanguagepack.MIX
+	frenchlanguagepack.MIX
+	italianlanguagepack.MIX
+		
+	expand3.MIX until expand10.MIX (in adition to expand.MIX and expand2.MIX)
+	movies-1.MIX until movies-10.MIX
+	
+26. Fixed a bug where Skirmish menu nick name/colour/side settings aren't saved when you modify them, unless you also modify your nick name. (Thanks to Arda.dll.inj by AlexB)
+28. Fixed a bug where LAN menu nick name/colour/side settings aren't saved. You still need to create a new game or join an existing one for these settings to be saved though.
 
-28. Fixed the max unit bug, this a crash when the game hits an object limit, e.g. the tank limit (fix by hifi).
-
-29. Fix lag when leaving the Network menu when there are many players in the menu, for example while playing on CnCNet.
+29. Fixed lag when leaving the Network/LAN menu when there are many players in the menu, for example while playing on CnCNet.
 
 30. When first buying a Radar Dome the top of the sidebar will now show the zoomed out map, instead of the zoomed in one. Thanks to Nyerguds for showing me how he did this for his C&C95 patch and giving me pointers for Red ALert.
 
-31. The game will now tell you if you're hosting Aftermath or not when you have the aftermath expansion enabled. If someone without Aftermath joins your online Aftermath game (effectively changing your game into a non-Aftermath game) text will appear making it clear Aftermath is "off". This doesn't apply to joining games, as the needed info is only send once the game is started by the host..
+31. The game will now tell you if you're hosting Aftermath or not when you have the aftermath expansion enabled. If someone without Aftermath joins your online Aftermath game (effectively changing your game into a non-Aftermath game) text will appear making it clear Aftermath is turned "off". This doesn't apply to joining games, as the needed info is only send once the game is started by the host, sadly.. 
 
-32. Added a new rules.ini keyword RemoveAITechupCheck= (yes/no) under the [AI] section, when set to yes the AI will tech up to Radar Dome and beyond even when there are no Helipads or Airfields on the map.
+32. Added a new RULES.INI keyword RemoveAITechupCheck= (yes/no) under the [AI] section, when set to yes the AI will tech up to Radar Dome and beyond even when there are no Helipads or Airfields on the map.
 
-33. Added a keyword FixAIParanoid= (yes/no) under the [AI] section of rules.ini, when set to yes the Paranoid= setting will be fixed. This Paranoid= setting controls whether all the AI should ally amongst themselves to fight you when one player is defeated. Paranoid=yes enables this, but this was broken in patch 3.03.
+33. Added a keyword FixAIParanoid= (yes/no) under the [AI] section of RULES.INI, when set to yes the Paranoid= setting will be fixed. This Paranoid= setting controls whether all the AI should ally amongst themselves to fight you when one player is defeated. Paranoid=yes enables this, but this was broken in patch 3.03.
 
-33. Added a keyword FixAIAlly= (yes/no) under the [AI] section of rules.ini, when set to yes you can ally with AI players.
+34. Added a keyword FixAIAlly= (yes/no) under the [AI] section of RULES.INI, when set to yes you can ally with AI players.
 
-34. Optional fix for the formation exploit, the slowest unit speed is used now as formation speed when this fix is enabled. The rules.ini keyword FixFormationSpeed= (yes/no) keyword under the [General] section controls whether this fix is on or off, it's off when this keyword is missing. (Taken from arda.dll.inj)
+35. Optional fix for the formation exploit, the slowest unit speed is used now as formation speed when this fix is enabled. The RULES.INI keyword FixFormationSpeed= (yes/no) keyword under the [General] section controls whether this fix is on or off, it's off when this keyword is missing. (Taken from Arda.dll.inj by AlexB)
 
-35. The game will no longer delete conquer.eng if it's inside the game folder. (Taken from arda.dll.inj)
+36. The game will no longer delete conquer.eng if it's inside the game folder. (Thanks to Arda.dll.inj by AlexB)
 
-36. Fix for green shadow issue on units like the Phase Transport. (Taken from Arda)
+37. Fix for green shadow issue on units like the Phase Transport. (Taken from Arda.dll.inj by AlexB)
 
-37. Crash for projectile off map crash (code from hifi, original fix by AlexB)
+38. Fix for projectile off map crash (code from hifi, original fix by AlexB)
+
+39. Fix for savegame loading with high resolution, when you save a game the positioning info of a bunch of sidebar elements is saved and they are loaded when you load the save game. I have no idea why Westwood made the game save and load the positioning of sidebar elements. This is fixed now. (Thanks to nyerguds for giving an explanation how he did this for C&C95)
+
+40. Support for a language pack system, the game's language is decided by the GameLanguage= keyword under the [Options] section of redalert.ini. This option determines whether a corresponding mix file for the language should be loaded, there's these following values:
+
+	1: (English)			- No additional .MIX file is loaded
+	2: (German)				- germanlanguagepack.MIX is loaded
+	3: (German censored)	- germancensoredlanguagepack.MIX is loaded
+	4: (German uncensored)	- germanuncensoredlanguagepack.MIX is loaded
+	5: (French)				- frenchlanguagepack.MIX is loaded
+	6: (Spanish)			- spanishlanguagepack.MIX is loaded
+	7: (Russian)			- russianlanguagepack.MIX is loaded

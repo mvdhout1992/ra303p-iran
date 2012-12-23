@@ -20,6 +20,7 @@ str_removeaitechupcheck db "RemoveAITechupCheck",0
 str_fixaiparanoid db "FixAIParanoid",0
 str_fixaially db "FixAIAlly",0
 str_fixformationspeed db "FixFormationSpeed",0
+str_gamelanguage db "GameLanguage",0
 
 INIClass_redalertini5 TIMES 64 db 0
 FileClass_redalertini5	TIMES 128 db 0
@@ -38,6 +39,7 @@ removeaitechupcheck db 0
 fixaiparanoid db 0
 fixaially db 0
 fixformationspeed db 0
+gamelanguage dd 1
 
 %macro Initialize_Remap_Table 1
 	xor		eax, eax
@@ -103,7 +105,7 @@ _Init_Game_Hook_Load:
 	push 	edx
 	push 	eax
 	
-	Load_INIClass str_redalertini5, FileClass_redalertini5, INIClass_redalertini5
+
 	
 	INI_Get_Int_ INIClass_redalertini5, str_options5, str_videointerlacemode, 2 ; 2 = deinterlace videos
 	mov		[videointerlacemode], al
