@@ -18,6 +18,8 @@ _HouseClass__Is_Allowed_To_Ally_AI_Player_Fix:
 	cmp BYTE [fixaiparanoid], 1
 	jz		.Allow_AI_Ally
 
+	cmp		DWORD eax, 0
+	jz		0x004DE5D8
 	test    byte [eax+42h], 2
 	jnz     0x004DE5E2 ; Assemble JMP here to fix?
 	jmp		0x004DE5D8

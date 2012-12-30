@@ -26,7 +26,7 @@ test_str  db "RUN1226M",0
 %include "imports.inc"
 %include "string.inc"
 
-; This should be included first to hopefully prevent the memory address of the byte flag from changing
+; This should be included first to hopefully prevent the memory address of the byte flags from changing
 %include "src/video_stretching_helpers.asm"
 
 %ifdef USE_HIRES
@@ -39,6 +39,9 @@ test_str  db "RUN1226M",0
 %include "src/loading.asm"
 
 ; generic
+%include "src/macros.asm"
+%include "src/debug_printing.asm"
+%include "src/pkt_loading.asm"
 %include "src/arguments.asm"
 %include "src/expansions.asm"
 %include "src/music_loading.asm"
@@ -52,6 +55,8 @@ test_str  db "RUN1226M",0
 %include "src/load_ai_ini.asm" ; Changing AI settings desyncs online...
 %include "src/ai_fixes.asm"
 %include "src/fix_formation_glitch.asm"
+%include "src/parabombs_multiplayer.asm"
+%include "src/mousewheel_scrolling.asm"
 ;%include "src/more_colour_remaps.asm" ; not done yet and needs a fix for a crash
 
 %ifdef USE_NOCD
@@ -59,7 +64,7 @@ test_str  db "RUN1226M",0
 %endif
 
 %ifdef USE_EXCEPTIONS
-%include "src/exception.asm"
+;%include "src/exception.asm"
 %endif
 
 %ifdef USE_BUGFIXES

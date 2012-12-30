@@ -16,6 +16,7 @@
 
 ; derived from ra95-hires
 
+@HOOK 0x005525D7 _Set_Screen_Height_480_NOP
 @HOOK 0x00552974 _hires_ini
 @HOOK 0x004A9EA9 _hires_Intro
 @HOOK 0x005B3DBF _hires_MainMenu
@@ -75,8 +76,6 @@
 ;@HOOK 0x0054D08B _hires_Sidebar_Cameos_Height
 ;@HOOK 0x0054E72A _hires_Sidebar_Cameos_Draw_Buttons
 
-
-
 _hires_Center_VQA640_Videos:
 	MOV EAX, [diff_top]
 	push	eax
@@ -110,7 +109,7 @@ _hires_ScoreScreenBackground:
 
 ; These are per strip, there's a left and right strip in the sidebar
 %define CAMEO_ITEMS 11
-%define CAMEOS_SIZE	572 ; memory size of all cameos
+%define CAMEOS_SIZE	572 ; memory size of all cameos in byte
 
 %define ScreenWidth     0x006016B0
 %define ScreenHeight    0x006016B4
@@ -220,6 +219,9 @@ _hires_MainMenuClearBackground:
 
 ExtendedSelectButtons8 TIMES 824 dd 0 
 %define DefaultSelectButtons 0x0068A2C4
+
+_Set_Screen_Height_480_NOP:
+	jmp		0x005525E1
 
 _hires_Sidebar_Cameos_Init_IO6:	 ; Down buttons
 ;	add     esi, 0C2h
@@ -340,8 +342,8 @@ _hires_ini:
 
     PUSH EBX
     PUSH EDX
-
-.width:
+	
+	.width:
     MOV ECX, 640            ; default
     MOV EDX, str_options    ; section
     MOV EBX, str_width      ; key
@@ -406,6 +408,9 @@ _hires_ini:
 	
 	CMP DWORD [ScreenHeight], 480
 	JZ	.Ret
+	
+	MOV EDX, [AdjustedWidth]
+    MOV EBX, [ScreenHeight]
 	
 ;	MOV ECX, 100
 ;    MOV EAX, 0x004A8AE1
@@ -584,6 +589,7 @@ _hires_ini:
 	_hires_adjust_width 0x0055383A
 	; timer tab caption/text
 	_hires_adjust_width 0x004ACEE5
+	_hires_adjust_width 0x004ACEC6
 
     ; power bar current position
     _hires_adjust_width 0x005275D9
@@ -805,7 +811,7 @@ _hires_Videos2:
 	jmp		0x004A8AD0
 
 _hires_MainMenu_Credits_Select:
-	CMP DWORD [ScreenWidth], 640
+	CMP DWORD [ScreenHeight], 480
 	JZ	.No_Change
 	
 	mov     edx, 30h ; left
@@ -834,7 +840,7 @@ _hires_MainMenu_Credits_Select:
 	jmp		0x005024B6
 	
 _hires_MainMenu_AntMissions_Select:
-	CMP DWORD [ScreenWidth], 640
+	CMP DWORD [ScreenHeight], 480
 	JZ	.No_Change
 	
 	mov     eax, 64h ; left
@@ -995,7 +1001,7 @@ _hires_StripClass:
     JMP 0x0054D033
 
 _hires_MainMenu:
-	CMP DWORD [ScreenWidth], 640
+	CMP DWORD [ScreenHeight], 480
 	JZ	.No_Change
 
 	MOV EBX, [diff_top]
@@ -1042,7 +1048,7 @@ _hires_NewGameText_top  dd 0x96
 _hires_NewGameText_left dd 0x6E
 
 _hires_NewGameText:
-	CMP DWORD [ScreenWidth], 640
+	CMP DWORD [ScreenHeight], 640
 	JZ	.No_Change
 
 	MOV EAX, [diff_top]
@@ -1060,7 +1066,7 @@ _hires_NewGameText:
 	jmp		0x005518A8
 
 _hires_SkirmishMenu:
-	CMP DWORD [ScreenWidth], 640
+	CMP DWORD [ScreenHeight], 480
 	JZ	.No_Change
     MOV ECX, [diff_left]
     MOV DWORD [EBP-0x1D4], ECX
@@ -1107,7 +1113,7 @@ _Blacken_Screen_Border_Menu2:
 	jmp 0x00502293
 
 _NewMissions_Handle_Hires_Buttons_A:
-	CMP DWORD [ScreenWidth], 640
+	CMP DWORD [ScreenHeight], 480
 	JZ	.No_Change
 
 	mov		edx, 13Ch
@@ -1128,7 +1134,7 @@ _NewMissions_Handle_Hires_Buttons_A:
 	jmp		0x004BE37C
 
 _NewMissions_Handle_Hires_Buttons_B:
-	CMP DWORD [ScreenWidth], 640
+	CMP DWORD [ScreenHeight], 480
 	JZ	.No_Change
 	
 	mov		edx, 13Ch

@@ -23,39 +23,21 @@ str_am_file db "SCG43EA.INI",0
 str_cs_file db "SCU38EA.INI",0
 
 _Is_Aftermath_Installed:
-    PUSH EBX
-    PUSH ECX
-    PUSH EDX
-    PUSH ESI
-    PUSH EDI
-
-    PUSH str_am_file
-    CALL Find_File
-    ADD ESP,4
-
-    POP EDI
-    POP ESI
-    POP EDX
-    POP ECX
-    POP EBX
-
-    RETN
-
+	cmp BYTE [aftermathenabled], 1
+	jz .Ret_True
+	
+	mov		eax, 0
+    retn
+.Ret_True:
+	mov		eax, 1
+	retn
+	
 _Is_Counterstrike_Installed:
-    PUSH EBX
-    PUSH ECX
-    PUSH EDX
-    PUSH ESI
-    PUSH EDI
-
-    PUSH str_cs_file
-    CALL Find_File
-    ADD ESP,4
-
-    POP EDI
-    POP ESI
-    POP EDX
-    POP ECX
-    POP EBX
-
-    RETN
+	cmp BYTE [counterstrikeenabled], 1
+	jz .Ret_True
+	
+	mov		eax, 0
+    retn
+.Ret_True:
+	mov		eax, 1
+	retn

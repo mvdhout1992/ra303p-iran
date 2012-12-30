@@ -14,7 +14,3 @@
 ; OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 ;
 
-[org 0x005CDD6E]
-
-; search for disk drives instead of CD
-CMP EAX,0x03

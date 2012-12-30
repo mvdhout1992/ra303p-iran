@@ -1,7 +1,3 @@
-40. Check out the arda auto-adjust on grid stuff
-
-41. Update PortableRA build.txt
-
 44. [20:48:35] <iran> need to center the receiving file from remote host dialog
 
 52. Make the reject button send out the 'cancel game' packet to a player
@@ -14,6 +10,10 @@ Invisible Explosion Fixed
 Explosion animations of warheads with Explosion=4 and Damage from 45 to 75 (inclusive) were hidden on certain buildings, also depending on the firing angle. For instance, this affected the Chrono Tank's missiles against Construction Yards. (MAKE SURE TO CHECK WHETHER THIS CAUSES DESYNCS ONLINE OR NOT)
 
 Affected explosion animations made visible.
+
+55. Make 640x480 with no black bars an option in the config tool.
+
+56. update briefing for missing campaign to new project page url
 
 64. Add a dialog box for when the game is starting in LAN mode
 
@@ -33,11 +33,6 @@ have them make spen too, ai might build missile subs if they have tech center, n
 
 42. AI doesn't build shock troopers
 
-43. 480x640 westwood logo selection and ant missions stereo selection areas are incorrectly positioned
-
-44. Make the launcher show a messagebox when run mentioning the issue with single/multiCPU. Make the message box have a checkbox to not display this messagebox in the future.
-
-45. remove the INI expansion maps
 
 46. [14:24:49] <iran> what language packs are there for red alert? I'll make the game load LANGUAGElanguagepack.mix
 [14:25:10] <iran> and for german germancensoredlanguagepack.mix and germanuncensoredlanguagepack.mix
@@ -47,8 +42,15 @@ have them make spen too, ai might build missile subs if they have tech center, n
 [19:03:48] <iran> it works by clearing the background whenever a pcx file is loaded
 [19:04:00] <iran> which is done for the credits screen with that file
 
+
+52. Allying with AI is broken. (They don't ally back)
+
+53. need to place the editor for the installer in the main game folder as people are dumb, dont forget to update shortcut
+
 Todo for later:
 --------------------------------------
+
+30. In the single player score screen sometimes the Soviet casualities number display is blue instead of red
 
 49. A few message boxes and in-game things reference "Command & Conquer" instead of "Red Alert".
 
@@ -66,7 +68,6 @@ All 3.03 patch strings are hard-coded:
 38. After making AI fixes and adding them as rules.ini keywords, make a rules.ini mod with AI fixes + hard AI plus fast Aftermath build speed
 37. sam site fire smoke is misplaced and has C&C95 Nod Sam Site graphics overlayed (this doesn't seem noticable)
 25. hires LAN join screen WIP crashes with more multiplayer countries enabled
-33. Update the file check sum check once funky fixed oos-fix.ini (seems oos-fix.ini works fine now)
 39. Resign key doesn't work if fixed it should show the dialog. (see 0x004A54DB for dialog code)
 42. Create a Red Alert 1 theme pack for windows 7 (using the unfinished one as base)
 

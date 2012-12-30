@@ -1,6 +1,7 @@
 ; Load our settings from here
 
-@HOOK	0x004F446C		_Init_Game_Hook_Load
+@HOOK	0x004F446C		_Init_Game_Hook_Load ; For rules.ini stuff
+@HOOK 	0x00551A87		_Startup_Function_Hook_Early_Load ; For redalert.ini stuff
 
 %define INIClass__INIClass                          0x004C7C60
 %define INIClass__Load                              0x004F28C4
@@ -21,6 +22,15 @@ str_fixaiparanoid db "FixAIParanoid",0
 str_fixaially db "FixAIAlly",0
 str_fixformationspeed db "FixFormationSpeed",0
 str_gamelanguage db "GameLanguage",0
+str_debuglogging db "DebugLogging",0
+str_aftermathenabled db "AftermathEnabled",0
+str_counterstrikeenabled db "CounterstrikeEnabled",0
+str_usesmallinfantry db "UseSmallInfantry",0
+str_nocd db "NoCD", 0
+str_displayoriginalmultiplayermaps db "DisplayOriginalMultiplayerMaps",0
+str_displayaftermathmultiplayermaps db "DisplayAftermathMultiplayerMaps",0
+str_displaycounterstrikemultiplayermaps db "DisplayCounterstrikeMultiplayerMaps",0
+str_parabombsinmultiplayer db "ParabombsInMultiplayer",0
 
 INIClass_redalertini5 TIMES 64 db 0
 FileClass_redalertini5	TIMES 128 db 0
@@ -40,6 +50,15 @@ fixaiparanoid db 0
 fixaially db 0
 fixformationspeed db 0
 gamelanguage dd 1
+debuglogging db 1
+counterstrikeenabled db 1
+aftermathenabled db 1
+nocdmode db 0
+usesmallinfantry db 0
+displayoriginalmultiplayermaps db 1
+displaycounterstrikemultiplayermaps db 1
+displayaftermathmultiplayermaps db 1
+parabombsinmultiplayer	db 0
 
 %macro Initialize_Remap_Table 1
 	xor		eax, eax
@@ -99,13 +118,36 @@ gamelanguage dd 1
     CALL INIClass__Load
 %endmacro
 
-_Init_Game_Hook_Load:
-	push 	ecx
-	push 	ebx
-	push 	edx
-	push 	eax
+_Startup_Function_Hook_Early_Load:
+	xor		edx, edx
+	mov		[0x006ABBC8], edx
+	Save_Registers
 	
-
+	Load_INIClass str_redalertini5, FileClass_redalertini5, INIClass_redalertini5
+	
+	INI_Get_Bool_ INIClass_redalertini5, str_options5, str_displaycounterstrikemultiplayermaps, 1
+	mov		[displaycounterstrikemultiplayermaps], al
+	
+	INI_Get_Bool_ INIClass_redalertini5, str_options5, str_displayaftermathmultiplayermaps, 1
+	mov		[displayaftermathmultiplayermaps], al
+	
+	INI_Get_Bool_ INIClass_redalertini5, str_options5, str_displayoriginalmultiplayermaps, 1
+	mov		[displayoriginalmultiplayermaps], al
+	
+	INI_Get_Bool_ INIClass_redalertini5, str_options5, str_usesmallinfantry, 0
+	mov		[usesmallinfantry], al
+	
+	INI_Get_Bool_ INIClass_redalertini5, str_options5, str_aftermathenabled, 1
+	mov		[aftermathenabled], al
+	
+	INI_Get_Bool_ INIClass_redalertini5, str_options5, str_counterstrikeenabled, 1
+	mov		[counterstrikeenabled], al
+	
+	INI_Get_Bool_ INIClass_redalertini5, str_options5, str_nocd, 0
+	mov		[nocdmode], al
+	
+	INI_Get_Bool_ INIClass_redalertini5, str_options5, str_debuglogging, 1
+	mov		[debuglogging], al
 	
 	INI_Get_Int_ INIClass_redalertini5, str_options5, str_videointerlacemode, 2 ; 2 = deinterlace videos
 	mov		[videointerlacemode], al
@@ -115,6 +157,17 @@ _Init_Game_Hook_Load:
 	
 	INI_Get_Bool_ INIClass_redalertini5, str_options5, str_randomstartingsong, 0
 	mov		[randomstartingsong], al
+	
+	Restore_Registers
+	mov     ebx, [0x006ABC10]
+	jmp		0x00551A8D
+
+_Init_Game_Hook_Load:
+	push 	ecx
+	push 	ebx
+	push 	edx
+	push 	eax
+	
 	
 	INI_Get_Bool_ 0x00666688, str_aftermath, str_aftermathfastbuildspeed, 0
 	mov		[aftermathfastbuildspeed], al
@@ -128,8 +181,13 @@ _Init_Game_Hook_Load:
 	INI_Get_Bool_ 0x00666688, str_ai, str_fixaially, 0
 	mov		[fixaially], al
 	
-	INI_Get_Bool_ 0x00666688, str_general, 	str_fixformationspeed, 0
+	INI_Get_Bool_ 0x00666688, str_general, str_fixformationspeed, 0
 	mov		[fixformationspeed], al
+	
+	INI_Get_Bool_ 0x00666688, str_general, str_parabombsinmultiplayer, 0
+	mov		[parabombsinmultiplayer], al
+	
+
 	
 ;  EXTRA COLOUR REMAP WHITE
 	Initialize_Remap_Table colorwhiteoffset

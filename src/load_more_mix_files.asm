@@ -1,4 +1,5 @@
 @HOOK 0x004F7E13 _load_more_mix_files
+@HOOK 0x004F7F26 _Conditionally_Load_Small_Infantry_MIX
 
 %define MixFileClass_CCFileClass_Retrieve 0x005B8F30
 %define MixFileClass_CCFileClass_Cache 0x005B93F0
@@ -75,6 +76,20 @@ xor     edx, edx
 call    MixFileClass_CCFileClass_Cache
 %endmacro
 
+_Conditionally_Load_Small_Infantry_MIX:
+	Save_Registers
+		
+	call    MixFileClass_CCFileClass_Retrieve
+	
+	cmp	BYTE [usesmallinfantry], 0
+	jz	.Ret
+	
+	Load_Mix_File_Cached	smallinfantrymix_str
+
+.Ret:
+	Restore_Registers
+	jmp		0x004F7F2B 
+
 _load_more_mix_files:
 	; The load order is important, files loaded first can't have their file content overwritten by files loaded later
 		
@@ -118,7 +133,7 @@ _load_more_mix_files:
 .Jump_Over:
 	
 	; SMALL INFANTRY
-	Load_Mix_File_Cached	smallinfantrymix_str
+;	Load_Mix_File_Cached	smallinfantrymix_str
 	
 	; OTHER
 	Load_Mix_File_Cached 	campaignmix_str

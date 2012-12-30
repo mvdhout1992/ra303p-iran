@@ -29,8 +29,8 @@
 %define CREATE_ALWAYS           2
 %define FILE_ATTRIBUTE_NORMAL   128
 
-str_exception_title         db "Oh noes, Red Alert just crashed!",0
-str_exception_message       db "But don't worry, sir. I saved you a crash dump file 'ra95.mdmp'. Give it to hifi, thanks.",0
+str_exception_title         db "C&C Red Alert just crashed!",0
+str_exception_message       db "A crash dump file with the name 'ra95.mdmp' has been saved. Give it to Iran for debugging, thanks.",0
 str_dbghelp_dll             db "dbghelp.dll",0
 str_MiniDumpWriteDump       db "MiniDumpWriteDump",0
 str_dump_name               db "ra95.mdmp",0
@@ -70,7 +70,7 @@ exception_pointers:
 
 _try_WinMain:
 
-    INT3
+ ;   INT3
     ; load minidump stuff
     PUSHAD
 

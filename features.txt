@@ -12,6 +12,7 @@ Hires improvements over hifi's original code for this:
 	- The "Mission Accomplished", "Mission Failed" and "The Game is a Draw" red text now have their height and width adjusted for high res (Thanks to Arda.dll.inj by AlexB)
 	- The score screen is now fully displayed in the top left, instead of showing the score background in the middle
 	- Fixed the power indicator displaying glitched when there's no power and in certain other scenarios
+	- Fixed issues with 640x480 high resolution and added option to show the black bars at the top and bottom or not
 	
 More hires improvements to come, main things that are left are the Network/LAN menus, video stretching and/or centering, the score presentation screen and the map selection screen. If I'm able to patch cnc-ddraw I should be able to fix the last three.
 
@@ -21,9 +22,9 @@ The original code for this high resolution feature was written by hifi.
 
 5. Fixed a crash with fences placed on the northern border of the map that are destroyed. (from hifi's p-series, thanks to AlexB)
 
-6. The game is now completely No-CD. (from hifi's p-series)
+6. No-CD mode can be enabled/disabled with the NoCD= (yes/no) keyword under the [Options] section of REDALERT.INI. (from hifi's p-series)
 
-7. The game now checks if the Counterstrike expansion is enabled by searching for SCU38EA.INI, if not found the expansion isn't enabled. Likewise for the Aftermath expansion, if SCG43EA.INI is not found this expansion isn't enabled. (from hifi's p-series).
+7. The Counterstrike expansion can be enabled/disabled with the CounterstrikeEnabled= (yes/no) keyword under the [Options] section of REDALERT.INI. Likewise there's a AftermathEnabled= (yes/no) keyword to enable/disable the Aftermath expansion.
 
 8. A crash relating to the a max limit being reached (e.g. that of airplanes) has been fixed. (from hifi's p-series).
 
@@ -80,7 +81,7 @@ Etc for every new song. Make sure there's an empty (blank) line at the end of th
 23. New RULES.INI AftermathFastBuildSpeed= yes/no keyword under the section [Aftermath], with this enabled there won't be a cap for build speed increase when you buy additional production facilities of the same type (e.g. more than two Barracks)and the Aftrmath expansion is installed. If you want to use this online you need to play versus other players running this patch and the "Force AM fast build speed" RULES.INI file (this is also available as a RedAlertConfig.exe option).
 
 24: New command-line arguments (Thanks to CCHyper):
--NEWMISSIONS: enables the new missions system explained elsewhere in this text.
+-NEWMISSIONS: enables the new missions system explained elsewhere in this text. (code not yet finished)
 -ANTMISSIONS: Starts the ant missions campaign if the Counterstrike expansion is enabled.
 -SKIRMISH: Loads the skirmish menu.
 -LAN: Loads the LAN menu.
@@ -148,3 +149,15 @@ Etc for every new song. Make sure there's an empty (blank) line at the end of th
 	5: (French)				- frenchlanguagepack.MIX is loaded
 	6: (Spanish)			- spanishlanguagepack.MIX is loaded
 	7: (Russian)			- russianlanguagepack.MIX is loaded
+	
+41. The game will now try to display maps from the expansions even when the expansions aren't enabled.
+
+42. Official non-expansion, Counterstrike, and Aftermath maps display in the multiplayer menus can be enabled/disabled with the following boolean (yes/no) REDALERT.INI [Options] section keywords:
+
+   DisplayOriginalMultiplayerMaps=   ; Whether to display the original 24 multiplayer maps (Load MISSIONS.PKT or not)
+   DisplayCounterstrikeMultiplayerMaps=  ; Whether to display Counterstrike multiplayer maps (Load CSTRIKE.PKT or not)
+   DisplayAftermathMultiplayerMaps=   ; Whether to display Aftermath multiplayer maps (Load AFTMATH.PKT or not)
+   
+43. Added a new RULES.INI keyword ParabombsInMultiplayer= (yes/no), when enabled it will make parabombs available in multiplayer (by default after an Airfield is bought).
+
+44. It is now possible to scroll the sidebar with the mousewheel. (code written by CCHyper)
