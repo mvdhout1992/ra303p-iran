@@ -6,6 +6,8 @@
 
 58. add an option to not play sound in the cncnet/network/lan lobby, the sound gets played inside MessageListClass::Add_Message(), need to modify it so it doesnt play a sound if a global variable is true and then patch the calls to it inside Net_Join_Dialog() to set the variable, also need to remove calls to the Sound_Effect() function in a few places inside Net_Join_Dialog().
 
+59. need to make black bars in 640x480 mode optional
+
 Invisible Explosion Fixed
 Explosion animations of warheads with Explosion=4 and Damage from 45 to 75 (inclusive) were hidden on certain buildings, also depending on the firing angle. For instance, this affected the Chrono Tank's missiles against Construction Yards. (MAKE SURE TO CHECK WHETHER THIS CAUSES DESYNCS ONLINE OR NOT)
 
@@ -16,12 +18,6 @@ Affected explosion animations made visible.
 56. update briefing for missing campaign to new project page url
 
 64. Add a dialog box for when the game is starting in LAN mode
-
-42. Add a rules.ini keyword to give allow people to get parabombs even when game isn't multiplayer
-AUTO:004D5B13                 cmp     ds:SessionClass Session, 0
-AUTO:004D5B1A                 jnz     short loc_4D5B5A
-
-check is done here
 
 41. Add rules.ini keyword to make ai build nuke silos and service depots, replacing with kennels at:
 
@@ -34,16 +30,12 @@ have them make spen too, ai might build missile subs if they have tech center, n
 42. AI doesn't build shock troopers
 
 
-46. [14:24:49] <iran> what language packs are there for red alert? I'll make the game load LANGUAGElanguagepack.mix
-[14:25:10] <iran> and for german germancensoredlanguagepack.mix and germanuncensoredlanguagepack.mix
-[14:25:20] <iran> in addition to germanlanguagepack.mix
-
 47. [19:03:39] <iran> i think it's because of the code that blacks the borders of the main menu graphic
 [19:03:48] <iran> it works by clearing the background whenever a pcx file is loaded
 [19:04:00] <iran> which is done for the credits screen with that file
 
 
-52. Allying with AI is broken. (They don't ally back)
+52. Allying with AI is broken. (They don't ally back, function at  0x004D2C48)
 
 53. need to place the editor for the installer in the main game folder as people are dumb, dont forget to update shortcut
 

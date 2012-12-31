@@ -14,7 +14,7 @@
 ; OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 ;
 
-[org 0x00711000]
+[org 0x006ED220]
 
 ;_str_version: db "3.03p4 B6 ",0
 _str_version: db "3.03p-iran ",0

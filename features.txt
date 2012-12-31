@@ -88,15 +88,13 @@ Etc for every new song. Make sure there's an empty (blank) line at the end of th
 
 25. Optional deinterlacing of videos, this is controlled by the VideoInterlaceMode= keyword in REDALERT.INI under the [Options] section, if set to 2 videos are deinterlaced, if set to 0 they're horizontally interlaced and when set to 1 they're supposed to be vertically interlaced (though the vertical interlacing doesn't seem to work). The game's previously unknown deinterlacing feature was discovered by AlexB, he also wrote a fix for a bit of graphical glitching at the bottom of the screen.
 
-26. Score screen skipping with the option SkipScoreScreen= (yes/no) in REDALERT.INI under the [Options] section.
+26. The game no longer requires mpgdll.dll. This DLL was never used and contains MPEG-2 video loading code for a never released Red Alert 1 DVD with higher quality movies.
 
-27. The game no longer requires mpgdll.dll. This DLL was never used and contains MPEG-2 video loading code for a never released Red Alert 1 DVD with higher quality movies.
+27. Added a SkipScoreScreen= (yes/no) keyword under [Options] in REDALERT.INI, when set to 'yes' the single player and multiplayer sccore screens won't be shown.
 
-28. Added a SkipScoreScreen= (yes/no) keyword under [Options] in REDALERT.INI, when set to 'yes' the single player and multiplayer sccore screens won't be shown.
+28. It's now possible to have a random starting song start after a map is loaded, the keyword RandomStartingSong= (yes/no) under [Options] in REDALERT.INI controls this.
 
-29. It's now possible to have a random starting song start after a map is loaded, the keyword RandomStartingSong= (yes/no) under [Options] in REDALERT.INI controls this.
-
-30. More MIX files are loaded now:
+29. More MIX files are loaded now:
 
 	campaign.MIX
 	aftermath.MIX
@@ -115,32 +113,33 @@ Etc for every new song. Make sure there's an empty (blank) line at the end of th
 	expand3.MIX until expand10.MIX (in adition to expand.MIX and expand2.MIX)
 	movies-1.MIX until movies-10.MIX
 	
-26. Fixed a bug where Skirmish menu nick name/colour/side settings aren't saved when you modify them, unless you also modify your nick name. (Thanks to Arda.dll.inj by AlexB)
-28. Fixed a bug where LAN menu nick name/colour/side settings aren't saved. You still need to create a new game or join an existing one for these settings to be saved though.
+30. Fixed a bug where Skirmish menu nick name/colour/side settings aren't saved when you modify them, unless you also modify your nick name. (Thanks to Arda.dll.inj by AlexB)
 
-29. Fixed lag when leaving the Network/LAN menu when there are many players in the menu, for example while playing on CnCNet.
+31. Fixed a bug where LAN menu nick name/colour/side settings aren't saved. You still need to create a new game or join an existing one for these settings to be saved though.
 
-30. When first buying a Radar Dome the top of the sidebar will now show the zoomed out map, instead of the zoomed in one. Thanks to Nyerguds for showing me how he did this for his C&C95 patch and giving me pointers for Red ALert.
+32. Fixed lag when leaving the Network/LAN menu when there are many players in the menu, for example while playing on CnCNet.
 
-31. The game will now tell you if you're hosting Aftermath or not when you have the aftermath expansion enabled. If someone without Aftermath joins your online Aftermath game (effectively changing your game into a non-Aftermath game) text will appear making it clear Aftermath is turned "off". This doesn't apply to joining games, as the needed info is only send once the game is started by the host, sadly.. 
+33. When first buying a Radar Dome the top of the sidebar will now show the zoomed out map, instead of the zoomed in one. Thanks to Nyerguds for showing me how he did this for his C&C95 patch and giving me pointers for Red ALert.
 
-32. Added a new RULES.INI keyword RemoveAITechupCheck= (yes/no) under the [AI] section, when set to yes the AI will tech up to Radar Dome and beyond even when there are no Helipads or Airfields on the map.
+34. The game will now tell you if you're hosting Aftermath or not when you have the aftermath expansion enabled. If someone without Aftermath joins your online Aftermath game (effectively changing your game into a non-Aftermath game) text will appear making it clear Aftermath is turned "off". This doesn't apply to joining games, as the needed info is only send once the game is started by the host, sadly.. 
 
-33. Added a keyword FixAIParanoid= (yes/no) under the [AI] section of RULES.INI, when set to yes the Paranoid= setting will be fixed. This Paranoid= setting controls whether all the AI should ally amongst themselves to fight you when one player is defeated. Paranoid=yes enables this, but this was broken in patch 3.03.
+35. Added a new RULES.INI keyword RemoveAITechupCheck= (yes/no) under the [AI] section, when set to yes the AI will tech up to Radar Dome and beyond even when there are no Helipads or Airfields on the map.
 
-34. Added a keyword FixAIAlly= (yes/no) under the [AI] section of RULES.INI, when set to yes you can ally with AI players.
+36. Added a keyword FixAIParanoid= (yes/no) under the [AI] section of RULES.INI, when set to yes the Paranoid= setting will be fixed. This Paranoid= setting controls whether all the AI should ally amongst themselves to fight you when one player is defeated. Paranoid=yes enables this, but this was broken in patch 3.03.
 
-35. Optional fix for the formation exploit, the slowest unit speed is used now as formation speed when this fix is enabled. The RULES.INI keyword FixFormationSpeed= (yes/no) keyword under the [General] section controls whether this fix is on or off, it's off when this keyword is missing. (Taken from Arda.dll.inj by AlexB)
+37. Added a keyword FixAIAlly= (yes/no) under the [AI] section of RULES.INI, when set to yes you can ally with AI players.
 
-36. The game will no longer delete conquer.eng if it's inside the game folder. (Thanks to Arda.dll.inj by AlexB)
+38. Optional fix for the formation exploit, the slowest unit speed is used now as formation speed when this fix is enabled. The RULES.INI keyword FixFormationSpeed= (yes/no) keyword under the [General] section controls whether this fix is on or off, it's off when this keyword is missing. (Taken from Arda.dll.inj by AlexB)
 
-37. Fix for green shadow issue on units like the Phase Transport. (Taken from Arda.dll.inj by AlexB)
+39. The game will no longer delete conquer.eng if it's inside the game folder. (Thanks to Arda.dll.inj by AlexB)
 
-38. Fix for projectile off map crash (code from hifi, original fix by AlexB)
+40. Fix for green shadow issue on units like the Phase Transport. (Taken from Arda.dll.inj by AlexB)
 
-39. Fix for savegame loading with high resolution, when you save a game the positioning info of a bunch of sidebar elements is saved and they are loaded when you load the save game. I have no idea why Westwood made the game save and load the positioning of sidebar elements. This is fixed now. (Thanks to nyerguds for giving an explanation how he did this for C&C95)
+41. Fix for projectile off map crash (code from hifi, original fix by AlexB)
 
-40. Support for a language pack system, the game's language is decided by the GameLanguage= keyword under the [Options] section of redalert.ini. This option determines whether a corresponding mix file for the language should be loaded, there's these following values:
+42. Fix for savegame loading with high resolution, when you save a game the positioning info of a bunch of sidebar elements is saved and they are loaded when you load the save game. I have no idea why Westwood made the game save and load the positioning of sidebar elements. This is fixed now. (Thanks to nyerguds for giving an explanation how he did this for C&C95)
+
+43. Support for a language pack system, the game's language is decided by the GameLanguage= keyword under the [Options] section of redalert.ini. This option determines whether a corresponding mix file for the language should be loaded, there's these following values:
 
 	1: (English)			- No additional .MIX file is loaded
 	2: (German)				- germanlanguagepack.MIX is loaded
@@ -150,14 +149,14 @@ Etc for every new song. Make sure there's an empty (blank) line at the end of th
 	6: (Spanish)			- spanishlanguagepack.MIX is loaded
 	7: (Russian)			- russianlanguagepack.MIX is loaded
 	
-41. The game will now try to display maps from the expansions even when the expansions aren't enabled.
+44. The game will now try to display maps from the expansions even when the expansions aren't enabled.
 
-42. Official non-expansion, Counterstrike, and Aftermath maps display in the multiplayer menus can be enabled/disabled with the following boolean (yes/no) REDALERT.INI [Options] section keywords:
+45. Official non-expansion, Counterstrike, and Aftermath maps display in the multiplayer menus can be enabled/disabled with the following boolean (yes/no) REDALERT.INI [Options] section keywords:
 
    DisplayOriginalMultiplayerMaps=   ; Whether to display the original 24 multiplayer maps (Load MISSIONS.PKT or not)
    DisplayCounterstrikeMultiplayerMaps=  ; Whether to display Counterstrike multiplayer maps (Load CSTRIKE.PKT or not)
    DisplayAftermathMultiplayerMaps=   ; Whether to display Aftermath multiplayer maps (Load AFTMATH.PKT or not)
    
-43. Added a new RULES.INI keyword ParabombsInMultiplayer= (yes/no), when enabled it will make parabombs available in multiplayer (by default after an Airfield is bought).
+46. Added a new RULES.INI keyword ParabombsInMultiplayer= (yes/no), when enabled it will make parabombs available in multiplayer (by default after an Airfield is bought).
 
-44. It is now possible to scroll the sidebar with the mousewheel. (code written by CCHyper)
+47. It is now possible to scroll the sidebar with the mousewheel. (code written by CCHyper)

@@ -1048,7 +1048,7 @@ _hires_NewGameText_top  dd 0x96
 _hires_NewGameText_left dd 0x6E
 
 _hires_NewGameText:
-	CMP DWORD [ScreenHeight], 640
+	CMP DWORD [ScreenHeight], 480
 	JZ	.No_Change
 
 	MOV EAX, [diff_top]

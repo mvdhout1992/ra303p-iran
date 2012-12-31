@@ -12,17 +12,6 @@ tools: linker$(EXT) extpe$(EXT)
 
 ra95.exe: $(DAT) extpe$(EXT)
 	cp $(DAT) $(EXE)
-	./extpe$(EXT) $(EXE) .patch rwxc 4096
-	./extpe$(EXT) $(EXE) .patch2 rwxc 4096
-	./extpe$(EXT) $(EXE) .patch3 rwxc 4096
-	./extpe$(EXT) $(EXE) .patch4 rwxc 4096
-	./extpe$(EXT) $(EXE) .patch5 rwxc 4096
-	./extpe$(EXT) $(EXE) .patch6 rwxc 4096
-	./extpe$(EXT) $(EXE) .patch7 rwxc 4096
-	./extpe$(EXT) $(EXE) .patch8 rwxc 4096
-	./extpe$(EXT) $(EXE) .patch9 rwxc 4096
-	./extpe$(EXT) $(EXE) .patch10 rwxc 4096
-	./extpe$(EXT) $(EXE) .patch11 rwxc 4096
 
 build: linker$(EXT)
 	./linker$(EXT) src/main.asm src/main.inc $(EXE) $(NASM) $(NFLAGS)

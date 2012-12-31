@@ -31,6 +31,7 @@ str_displayoriginalmultiplayermaps db "DisplayOriginalMultiplayerMaps",0
 str_displayaftermathmultiplayermaps db "DisplayAftermathMultiplayerMaps",0
 str_displaycounterstrikemultiplayermaps db "DisplayCounterstrikeMultiplayerMaps",0
 str_parabombsinmultiplayer db "ParabombsInMultiplayer",0
+str_mousewheelscrolling db "MouseWheelScrolling",0
 
 INIClass_redalertini5 TIMES 64 db 0
 FileClass_redalertini5	TIMES 128 db 0
@@ -59,6 +60,7 @@ displayoriginalmultiplayermaps db 1
 displaycounterstrikemultiplayermaps db 1
 displayaftermathmultiplayermaps db 1
 parabombsinmultiplayer	db 0
+mousewheelscrolling db 0
 
 %macro Initialize_Remap_Table 1
 	xor		eax, eax
@@ -124,6 +126,9 @@ _Startup_Function_Hook_Early_Load:
 	Save_Registers
 	
 	Load_INIClass str_redalertini5, FileClass_redalertini5, INIClass_redalertini5
+	
+	INI_Get_Bool_ INIClass_redalertini5, str_options5, str_mousewheelscrolling, 0
+	mov		[mousewheelscrolling], al
 	
 	INI_Get_Bool_ INIClass_redalertini5, str_options5, str_displaycounterstrikemultiplayermaps, 1
 	mov		[displaycounterstrikemultiplayermaps], al

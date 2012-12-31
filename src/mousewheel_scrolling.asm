@@ -6,7 +6,7 @@ Scrolling db 0
 %define GameActive				0x00669924
 
 _Mouse_Wheel_Sidebar_Scrolling:
-	cmp		DWORD [GameActive], 1
+	cmp		BYTE [mousewheelscrolling], 1
 	jnz		.out
 	mov     esi, [ebp+0Ch]
 	cmp     esi, 20Ah               ;WM_MOUSEHWHEEL
