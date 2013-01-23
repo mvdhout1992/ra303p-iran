@@ -3,7 +3,6 @@
 Scrolling db 0
 
 %define HouseClass_PlayerPtr 	0x00669958
-%define GameActive				0x00669924
 
 _Mouse_Wheel_Sidebar_Scrolling:
 	cmp		BYTE [mousewheelscrolling], 1
@@ -12,7 +11,7 @@ _Mouse_Wheel_Sidebar_Scrolling:
 	cmp     esi, 20Ah               ;WM_MOUSEHWHEEL
 	jnz 	.out
  
-	mov     ecx, HouseClass_PlayerPtr
+	mov     ecx, [HouseClass_PlayerPtr]
 	test    ecx, ecx
 	jz		.out
  

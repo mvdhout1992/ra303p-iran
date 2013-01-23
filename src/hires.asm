@@ -108,8 +108,8 @@ _hires_ScoreScreenBackground:
 	jmp		0x005B3CDE
 
 ; These are per strip, there's a left and right strip in the sidebar
-%define CAMEO_ITEMS 11
-%define CAMEOS_SIZE	572 ; memory size of all cameos in byte
+%define CAMEO_ITEMS 30
+%define CAMEOS_SIZE	1560 ; memory size of all cameos in byte
 
 %define ScreenWidth     0x006016B0
 %define ScreenHeight    0x006016B4
@@ -145,21 +145,21 @@ _Load_Title_Screen_Clear_Background:
 	jmp		0x005B3DAF
 
 _hires_Sidebar_Cameos_Draw_Buttons:
-;;	cmp     ebx, 1
-;;	jge     0x0054E754
-;	jmp		0x0054E72F
+	cmp     ebx, 1
+	jge     0x0054E754
+	jmp		0x0054E72F
 
 _hires_Sidebar_Cameos_Height:
-;	mov     edx, 370h
-;	mov     ecx, 0A0h
-;	mov     esi, 210h
-;	mov     edi, 0B4h
-;	jmp		0x0054D09F
+	mov     edx, 370h
+	mov     ecx, 0A0h
+	mov     esi, 210h
+	mov     edi, 0B4h
+	jmp		0x0054D09F
 
 _hires_Sidebar_Cameos_AI: ; No idea if this does anything..
-;	mov     ecx, [eax+5]
-;	add		eax, CAMEO_ITEMS
-;	jmp		0x0054E4C4
+	mov     ecx, [eax+5]
+	add		eax, CAMEO_ITEMS
+	jmp		0x0054E4C4
 
 str_blackbackgroundpcx db "BLACKBACKGROUND.PCX",0
 
@@ -224,80 +224,80 @@ _Set_Screen_Height_480_NOP:
 	jmp		0x005525E1
 
 _hires_Sidebar_Cameos_Init_IO6:	 ; Down buttons
-;	add     esi, 0C2h
-;	add     esi, [diff_height]
-;	jmp		0x0054DF1B
+	add     esi, 0C2h
+	add     esi, [diff_height]
+	jmp		0x0054DF1B
 
 _hires_Sidebar_Cameos_Init_IO5:	 ; Down buttons
-;	add     ebx, 0C2h
-;	add     ebx, [diff_height]
-;	jmp		0x0054DF50
+	add     ebx, 0C2h
+	add     ebx, [diff_height]
+	jmp		0x0054DF50
 
 _hires_Sidebar_Cameos_Init_IO4:	 ; Up buttons
-;	add     ebx, 0C2h
-;	add     ebx, [diff_height]
-;	jmp		0x0054DEC4
+	add     ebx, 0C2h
+	add     ebx, [diff_height]
+	jmp		0x0054DEC4
 
 _hires_Sidebar_Cameos_Init_IO3:  ; Up buttons
-;	add     eax, 0C2h
-;	add     eax, [diff_height]
-;	jmp		0x0054DE90
+	add     eax, 0C2h
+	add     eax, [diff_height]
+	jmp		0x0054DE90
 
 _hires_Sidebar_Cameos_Scroll:
-;	add     edx, CAMEO_ITEMS
-;	cmp     edx, ebx
-;	jmp		0x0054E2B2	
+	add     edx, CAMEO_ITEMS
+	cmp     edx, ebx
+	jmp		0x0054E2B2	
 
 _hires_Sidebar_Cameos_Deactivate2:
 ;;	int 3
-;	cmp     ebx, CAMEOS_SIZE ; 208 / 52 = 4 items
-;	jmp		0x0054E1EE
+	cmp     ebx, CAMEOS_SIZE ; 208 / 52 = 4 items
+	jmp		0x0054E1EE
 
 _hires_Sidebar_Cameos_Deactivate:
-;	imul    edx, [ecx+19h], CAMEOS_SIZE
+	imul    edx, [ecx+19h], CAMEOS_SIZE
 ;;	add		edx, DefaultSelectButtons
-;	add		edx, ExtendedSelectButtons8
-;	jmp		0x0054E1D9
+	add		edx, ExtendedSelectButtons8
+	jmp		0x0054E1D9
 
 _hires_Sidebar_Cameos_Activate3:
-;	cmp     ebx, CAMEOS_SIZE ; 208 / 52 = 4 items
-;	jmp		0x0054E178
+	cmp     ebx, CAMEOS_SIZE ; 208 / 52 = 4 items
+	jmp		0x0054E178
 		
 _hires_Sidebar_Cameos_Activate2:
-;	imul    edx, [ecx+19h], CAMEOS_SIZE
+	imul    edx, [ecx+19h], CAMEOS_SIZE
 ;;	add		edx, DefaultSelectButtons
-;	add		edx, ExtendedSelectButtons8
-;	jmp		0x0054E163
+	add		edx, ExtendedSelectButtons8
+	jmp		0x0054E163
 
 _hires_Sidebar_Cameos_Activate:
-;	imul    eax, [ecx+19h], CAMEOS_SIZE
+	imul    eax, [ecx+19h], CAMEOS_SIZE
 ;;	add		eax, DefaultSelectButtons
-;	add		eax, ExtendedSelectButtons8
-;	jmp		0x0054E14E
+	add		eax, ExtendedSelectButtons8
+	jmp		0x0054E14E
 
 _hires_Sidebar_Cameos_Init_IO2:
-;	cmp     esi, CAMEO_ITEMS ; items check
-;	jl      0x0054DFAE
-;	jmp		0x0054DFFD	
+	cmp     esi, CAMEO_ITEMS ; items check
+	jl      0x0054DFAE
+	jmp		0x0054DFFD	
 
 _hires_Sidebar_Cameos_Init_IO:
-;	imul    eax, [ecx+19h], CAMEOS_SIZE
+	imul    eax, [ecx+19h], CAMEOS_SIZE
 ;;	add		eax, DefaultSelectButtons
-;	add		eax, ExtendedSelectButtons8
-;	jmp 	0x0054DFBA
+	add		eax, ExtendedSelectButtons8
+	jmp 	0x0054DFBA
 	
 _hires_Sidebar_Cameos_Init:
-;	mov     edx, CAMEO_ITEMS*2 ; amount of total items to init
-;	mov     DWORD [0x00604D68], eax
+	mov     edx, CAMEO_ITEMS*2 ; amount of total items to init
+	mov     DWORD [0x00604D68], eax
 	
 ;;	mov		eax, DefaultSelectButtons
-;	mov		eax, ExtendedSelectButtons8
-;	jmp 	0x0054CF51
+	mov		eax, ExtendedSelectButtons8
+	jmp 	0x0054CF51
 	
-;_hires_Sidebar_Cameos_Draw:
-;	add     eax, CAMEO_ITEMS; items to draw
-;	cmp     eax, edx
-;	jmp		0x0054E9C7
+_hires_Sidebar_Cameos_Draw:
+	add     eax, CAMEO_ITEMS; items to draw
+	cmp     eax, edx
+	jmp		0x0054E9C7
 
 AdjustedWidth           dd 0
 
@@ -406,8 +406,8 @@ _hires_ini:
     MOV EDX, [AdjustedWidth]
     MOV EBX, [ScreenHeight]
 	
-	CMP DWORD [ScreenHeight], 480
-	JZ	.Ret
+;	CMP DWORD [ScreenHeight], 480
+;	JZ	.Ret
 	
 	MOV EDX, [AdjustedWidth]
     MOV EBX, [ScreenHeight]
@@ -811,8 +811,8 @@ _hires_Videos2:
 	jmp		0x004A8AD0
 
 _hires_MainMenu_Credits_Select:
-	CMP DWORD [ScreenHeight], 480
-	JZ	.No_Change
+;	CMP DWORD [ScreenHeight], 480
+;	JZ	.No_Change
 	
 	mov     edx, 30h ; left
 	add		edx, [diff_top]
@@ -840,8 +840,8 @@ _hires_MainMenu_Credits_Select:
 	jmp		0x005024B6
 	
 _hires_MainMenu_AntMissions_Select:
-	CMP DWORD [ScreenHeight], 480
-	JZ	.No_Change
+;	CMP DWORD [ScreenHeight], 480
+;	JZ	.No_Change
 	
 	mov     eax, 64h ; left
 	add		eax, [diff_top]
@@ -1001,8 +1001,8 @@ _hires_StripClass:
     JMP 0x0054D033
 
 _hires_MainMenu:
-	CMP DWORD [ScreenHeight], 480
-	JZ	.No_Change
+;	CMP DWORD [ScreenHeight], 480
+;	JZ	.No_Change
 
 	MOV EBX, [diff_top]
 	MOV EAX, [diff_left]
@@ -1048,8 +1048,8 @@ _hires_NewGameText_top  dd 0x96
 _hires_NewGameText_left dd 0x6E
 
 _hires_NewGameText:
-	CMP DWORD [ScreenHeight], 480
-	JZ	.No_Change
+;	CMP DWORD [ScreenHeight], 480
+;	JZ	.No_Change
 
 	MOV EAX, [diff_top]
     ADD EAX,0x96
@@ -1066,8 +1066,8 @@ _hires_NewGameText:
 	jmp		0x005518A8
 
 _hires_SkirmishMenu:
-	CMP DWORD [ScreenHeight], 480
-	JZ	.No_Change
+;	CMP DWORD [ScreenHeight], 480
+;	JZ	.No_Change
     MOV ECX, [diff_left]
     MOV DWORD [EBP-0x1D4], ECX
     MOV ECX, [diff_top]
@@ -1113,8 +1113,8 @@ _Blacken_Screen_Border_Menu2:
 	jmp 0x00502293
 
 _NewMissions_Handle_Hires_Buttons_A:
-	CMP DWORD [ScreenHeight], 480
-	JZ	.No_Change
+;	CMP DWORD [ScreenHeight], 480
+;	JZ	.No_Change
 
 	mov		edx, 13Ch
 	add		edx, [diff_top]
@@ -1134,8 +1134,8 @@ _NewMissions_Handle_Hires_Buttons_A:
 	jmp		0x004BE37C
 
 _NewMissions_Handle_Hires_Buttons_B:
-	CMP DWORD [ScreenHeight], 480
-	JZ	.No_Change
+;	CMP DWORD [ScreenHeight], 480
+;	JZ	.No_Change
 	
 	mov		edx, 13Ch
 	add		edx, [diff_top]

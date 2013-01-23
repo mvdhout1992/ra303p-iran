@@ -92,6 +92,25 @@ _Load_Game_Init_IO:
 	
 	MOV DWORD [EBX+0x104F], ecx ; left strip offset left
 	MOV DWORD [EBX+0x132B], edx ; right strip offset left
+
+	mov 	ebx, 0
+	mov		eax, 0
+	
+.Loop:
+	inc		ebx
+	mov 	[ExtendedSelectButtons+12+eax], ecx
+	add 	eax, 52
+	cmp 	ebx, CAMEO_ITEMS
+	jle		.Loop
+	
+	sub		eax, 52
+
+.Loop2:	
+	inc		ebx
+	mov 	[ExtendedSelectButtons+12+eax], edx
+	add 	eax, 52
+	cmp 	ebx, CAMEO_ITEMS*2
+	jle		.Loop2
 	
 	MOV [selectbuttons+12], ecx
 	MOV [selectbuttons+52+12], ecx

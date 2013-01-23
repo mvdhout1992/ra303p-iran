@@ -32,6 +32,9 @@ str_displayaftermathmultiplayermaps db "DisplayAftermathMultiplayerMaps",0
 str_displaycounterstrikemultiplayermaps db "DisplayCounterstrikeMultiplayerMaps",0
 str_parabombsinmultiplayer db "ParabombsInMultiplayer",0
 str_mousewheelscrolling db "MouseWheelScrolling",0
+str_evacinmp db "EvacInMP",0
+str_alternativeriflesound db "AlternativeRifleSound",0
+str_usegrenadethrowingsound db "UseGrenadeThrowingSound",0
 
 INIClass_redalertini5 TIMES 64 db 0
 FileClass_redalertini5	TIMES 128 db 0
@@ -54,13 +57,16 @@ gamelanguage dd 1
 debuglogging db 1
 counterstrikeenabled db 1
 aftermathenabled db 1
-nocdmode db 0
+nocdmode db 1
 usesmallinfantry db 0
 displayoriginalmultiplayermaps db 1
 displaycounterstrikemultiplayermaps db 1
 displayaftermathmultiplayermaps db 1
 parabombsinmultiplayer	db 0
 mousewheelscrolling db 0
+evacinmp db 1
+alternativeriflesound db 0
+usegrenadethrowingsound db 0
 
 %macro Initialize_Remap_Table 1
 	xor		eax, eax
@@ -148,7 +154,7 @@ _Startup_Function_Hook_Early_Load:
 	INI_Get_Bool_ INIClass_redalertini5, str_options5, str_counterstrikeenabled, 1
 	mov		[counterstrikeenabled], al
 	
-	INI_Get_Bool_ INIClass_redalertini5, str_options5, str_nocd, 0
+	INI_Get_Bool_ INIClass_redalertini5, str_options5, str_nocd, 1
 	mov		[nocdmode], al
 	
 	INI_Get_Bool_ INIClass_redalertini5, str_options5, str_debuglogging, 1
@@ -162,6 +168,12 @@ _Startup_Function_Hook_Early_Load:
 	
 	INI_Get_Bool_ INIClass_redalertini5, str_options5, str_randomstartingsong, 0
 	mov		[randomstartingsong], al
+	
+	INI_Get_Bool_ INIClass_redalertini5, str_options5, str_alternativeriflesound, 0
+	mov		[alternativeriflesound], al
+	
+	INI_Get_Bool_ INIClass_redalertini5, str_options5, str_usegrenadethrowingsound, 0
+	mov		[usegrenadethrowingsound], al
 	
 	Restore_Registers
 	mov     ebx, [0x006ABC10]
@@ -192,6 +204,8 @@ _Init_Game_Hook_Load:
 	INI_Get_Bool_ 0x00666688, str_general, str_parabombsinmultiplayer, 0
 	mov		[parabombsinmultiplayer], al
 	
+	INI_Get_Bool_ 0x00666688, str_general, str_evacinmp, 1
+	mov		[evacinmp], al
 
 	
 ;  EXTRA COLOUR REMAP WHITE

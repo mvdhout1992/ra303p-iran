@@ -167,17 +167,6 @@ _ThemeClass_Is_Allowed:
 	cmp eax, 0
 	je .Ret_Original_Function
 	
-	; Don't show score, map and main menu music
-	; THIS DOESN'T WORK FOR SOME REASON
-	cmp dl, 13h 
-	jz	.Ret_False
-	cmp dl, 14h
-	jz	.Ret_False
-	cmp dl, 15h 
-	jz	.Ret_False
-	cmp dl, 16h 
-	jz	.Ret_False
-	
 	pop edx
 	mov eax, 1
 	retn
@@ -268,22 +257,22 @@ _SoundControlsClass_Process:
 	jmp		0x00550674
 
 _ThemeClass_Full_Name:
-	Correct_Song_Index_Name str_twincannon, 17
-	Correct_Song_Index_Name str_thesecondhand, 23
-	Correct_Song_Index_Name str_backstab, 25
-	Correct_Song_Index_Name str_chaos, 26
-	Correct_Song_Index_Name str_shutit, 27
-	Correct_Song_Index_Name str_twincannonremix, 28
-	Correct_Song_Index_Name str_underlyingthoughts, 29
-	Correct_Song_Index_Name str_voicerhythm2, 30
+;	Correct_Song_Index_Name str_twincannon, 17
+;	Correct_Song_Index_Name str_thesecondhand, 23
+;	Correct_Song_Index_Name str_backstab, 25
+;	Correct_Song_Index_Name str_chaos, 26
+;	Correct_Song_Index_Name str_shutit, 27
+;	Correct_Song_Index_Name str_twincannonremix, 28
+;	Correct_Song_Index_Name str_underlyingthoughts, 29
+;	Correct_Song_Index_Name str_voicerhythm2, 30
 	
-	cmp     dl, 26h
-	jge		Return_Custom_Name
+;	cmp     dl, 26h
+;	jge		Return_Custom_Name
 	
 	cmp     dl, 27h
-	jge     0x0056BEF6
+	jge     Return_Custom_Name
 	
-	jmp		0x0056BEA7
+	jmp		0x0056BEA9
 	
 Return_Custom_Name:
 ;	mov eax, bigfoot_str
@@ -405,10 +394,10 @@ _ThemeClass_File_Name:
 	test    al, al
 	jl      0x0056C144
 	
-	cmp 	al, 26h
+	cmp 	al, 27h
 	jge Return_Custom_String
-	cmp     al, 27h
-	jge     0x0056C144
+;	cmp     al, 27h
+;	jge     0x0056C144
 	jmp		0x0056C11E
 
 Return_Custom_String:

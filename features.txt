@@ -12,7 +12,6 @@ Hires improvements over hifi's original code for this:
 	- The "Mission Accomplished", "Mission Failed" and "The Game is a Draw" red text now have their height and width adjusted for high res (Thanks to Arda.dll.inj by AlexB)
 	- The score screen is now fully displayed in the top left, instead of showing the score background in the middle
 	- Fixed the power indicator displaying glitched when there's no power and in certain other scenarios
-	- Fixed issues with 640x480 high resolution and added option to show the black bars at the top and bottom or not
 	
 More hires improvements to come, main things that are left are the Network/LAN menus, video stretching and/or centering, the score presentation screen and the map selection screen. If I'm able to patch cnc-ddraw I should be able to fix the last three.
 
@@ -28,7 +27,7 @@ The original code for this high resolution feature was written by hifi.
 
 8. A crash relating to the a max limit being reached (e.g. that of airplanes) has been fixed. (from hifi's p-series).
 
-9. FunkyFre3sh's OOS-FIX.INI file will be loaded (if it's found) while still being compatible online with 3.03 players not using this fix. This fix prevents desyncing after playing certain (most?) modded maps online and then playing another map. It also fixes the cause of the desync itself, namely that after playing certain modded maps/missions certain memory used by the game for its settings (e.g. unit cost) won't be reset when playing a normal map/mission. This has to do with some really terrible programming but is a bit technical to explain. Suffice to say this fixes things like the Mobile Radar Jammer gaining a Tesla weapon after playing certain Counterstrike expansion missions, etc.
+9. FunkyFr3sh's OOS-FIX.INI file will be loaded (if it's found) while still being compatible online with 3.03 players not using this fix. This fix prevents desyncing after playing certain (most?) modded maps online and then playing another map. It also fixes the cause of the desync itself, namely that after playing certain modded maps/missions certain memory used by the game for its settings (e.g. unit cost) won't be reset when playing a normal map/mission. This has to do with some really terrible programming but is a bit technical to explain. Suffice to say this fixes things like the Mobile Radar Jammer gaining a Tesla weapon after playing certain Counterstrike expansion missions, etc.
 
 10. Messages sent by other players during a match now appear for 15 seconds in the top left corner now, instead of the previous 9 seconds.
 
@@ -157,6 +156,18 @@ Etc for every new song. Make sure there's an empty (blank) line at the end of th
    DisplayCounterstrikeMultiplayerMaps=  ; Whether to display Counterstrike multiplayer maps (Load CSTRIKE.PKT or not)
    DisplayAftermathMultiplayerMaps=   ; Whether to display Aftermath multiplayer maps (Load AFTMATH.PKT or not)
    
-46. Added a new RULES.INI keyword ParabombsInMultiplayer= (yes/no), when enabled it will make parabombs available in multiplayer (by default after an Airfield is bought).
+46. Added a new RULES.INI keyword ParabombsInMultiplayer= (yes/no) under the [General] section, when enabled it will make parabombs available in multiplayer (by default after an Airfield is bought).
 
 47. It is now possible to scroll the sidebar with the mousewheel. (code written by CCHyper)
+
+48. The Image= keyword now works in a map file, instead of just globally in RULES.INI.
+
+49. Added a new global RULES.INI keyword EvacInMP= (yes/no), when enabled GRNL and Einstein get evacuated if they enter a Chinook in multiplayer. If disabled this doesn't happen. Enabled by default to stay compatible with 3.03 online.
+
+50. Building icons/cameos are now loaded even when a building is TechLevel -1 in RULES.INI under [General]. This fixes an issue where enabling building buildings like the Construction Yard with a map mod still caused the icon/cameo graphics not to be loaded for clicking the structure in the sidebar. This was fixed by patching out a specific check that didn't load these graphics if TecehLevel was equal to -1 on the building. Other objects in the game like infantry use the same loading logic, but without this extra check.
+
+51. Added REDALERT.INI keyword AlternativeRifleSound= (yes/no) under [Options]. If enabled the Rifle Infantry will use an alternative firing sound. MGUNINF1 will be used as firing sound. This overwrites the M1Carbine's Report= setting in RULES.INI.
+
+52. Added REDALERT.INI keyword UseGrenadeThrowingSound= (yes/no) under [Options]. If enabled the Grenadier will have a throwing sound when throwing his grenades. This overrides the Grenade's Report= setting in RULES.INI.
+
+53. Added REDALERT.INI keyword UseBetaTeslaTank= (yes/no) under [Options]. If enabled betateslatank.MIX will be loaded by the game.

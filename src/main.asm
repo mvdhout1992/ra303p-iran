@@ -33,6 +33,7 @@ test_str  db "RUN1226M",0
 %include "src/hires.asm"
 %include "src/fix_savegame_resolution_sidebar.asm"
 %include "src/multiplayer_print_is_aftermath_game.asm"
+%include "src/extended_sidebar.asm"
 %endif
 
 ; loading code
@@ -40,7 +41,11 @@ test_str  db "RUN1226M",0
 
 ; generic
 %include "src/macros.asm"
-%include "src/debug_printing.asm"
+%include "src/image_keyword_fix.asm"
+;%include "src/debug_printing.asm" ; Seems to cause crash
+%include "src/extra_sounds.asm"
+%include "src/evac_in_mp.asm"
+%include "src/mouse_fixes.asm"
 %include "src/pkt_loading.asm"
 %include "src/arguments.asm"
 %include "src/expansions.asm"
@@ -77,6 +82,7 @@ test_str  db "RUN1226M",0
 %include "src/cancel_network_join_menu_lag_fix.asm"
 %include "src/skip_deleting_conquer_eng.asm"
 %include "src/green_shadow_on_cloaked_units_fix.asm"
+%include "src/always_load_building_icons.asm"
 %endif
 
 
