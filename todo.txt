@@ -15,7 +15,6 @@
 [19:32:40] <poksi> File size: 213.0KB - Content-Type: application/zip
 [19:32:52] <FunkyFr3sh> language packs: http://redalert95.tk/a/rand/ra-german.7z
 
-7. add a check for einstein and GRNL evac whether the game is single player or not
 
 44. [20:48:35] <iran> need to center the receiving file from remote host dialog
 

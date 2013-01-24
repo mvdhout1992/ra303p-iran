@@ -27,8 +27,8 @@
 @HOOK 0x005278B7	_PowerClass_Draw_it_hires5
 ;@HOOK 0x005277A6	_PowerClass_Draw_It_hires3
 ;@HOOK 0x00527A67	_PowerClass_Draw_it_hires6
-@HOOK 0x0052787E	_PowerClass_Draw_it_hires7
-@HOOK 0x0052785C	_PowerClass_Draw_it_hires8
+;@HOOK 0x0052787E	_PowerClass_Draw_it_hires7
+;@HOOK 0x0052785C	_PowerClass_Draw_it_hires8
 @HOOK 0x0052789B	_PowerClass_Draw_it_hires9
 @HOOK 0x00527C19	_PowerClass_Draw_it_hires10
 @HOOK 0x00527771	_PowerClass_Draw_it_hires11
@@ -39,6 +39,7 @@ CurrentStripFrame dd 0 ; variable used for strip.shp frame
 CurrentStripDrawPosition dd 0 ; variable for strip.shp drawing height position
 CurrentPowerBarDrawPosition dd 0 ; variable used for pwrbar.shp no power bar drawing height position
 CurrentPowerBarDrawPosition2 dd 0 ; variable used for pwrbar.shp with power bar drawing height position
+PowerBarBottomPos dd 0 ; variable used for 
 
 powerext_str db "POWEREXT.SHP",0
 side4na_str db "SIDE4NA.SHP",0
@@ -77,23 +78,31 @@ _PowerClass_Draw_it_hires11:
 
 _PowerClass_Draw_it_hires10:
 	mov    	eax, [0x006877B8] ; ds:void *PowerClass::PowerShape
-	cmp		ecx, 0x223
+	cmp		DWORD [ebp-2Ch], 0
 	je		.No_Draw
+
+.Draw:	
+	call   	0x004A96E8 ; CC_Draw_Shape(void *,int,int,int,WindowNumberType,void *,void *,DirType,long)
+	jmp		0x00527C23
 	
-	call   0x004A96E8 ; CC_Draw_Shape(void *,int,int,int,WindowNumberType,void *,void *,DirType,long)
-	
-.No_Draw:		
+.No_Draw:
+;	cmp		DWORD [IngameHeight], 400
+;	jne		.Draw
 	jmp		0x00527C23
 	
 
 _PowerClass_Draw_it_hires9:
-	mov     edx, 15Fh
-	add		edx, [diff_height]
+;	mov     edx, 15Fh
+;	add		edx, [diff_height]
+	mov		DWORD edx, [PowerBarBottomPos]
 	jmp		0x005278A0
 
 _PowerClass_Draw_it_hires8:
 	imul	edx, 8
 	mov     eax, edx
+;	mov		ebx, [IngameHeight]
+;	idiv	ebx, 400
+;	imul	
 	jmp		0x00527863
 
 _PowerClass_Draw_it_hires7:
@@ -108,8 +117,9 @@ _PowerClass_Draw_it_hires6:
 	jmp		0x00527A70
 
 _PowerClass_Draw_it_hires5:
-	mov     eax, 15Fh
-	add		eax, [diff_height]
+;	mov     eax, 15Fh
+;	add		eax, [diff_height]
+	mov		DWORD eax, [PowerBarBottomPos]
 	jmp		0x005278BC
 
 _PowerClass_Draw_it_hires4:
@@ -270,8 +280,7 @@ _Load_Game_hires: ; Fix up button vertical position and visible icon area size w
 	
 	mov DWORD ebx, [CameoItems]
 	imul	ebx, 48
-	add		ebx, 181
-	add		ebx, 1
+	add		ebx, 180
 	mov [downbuttons+16], ebx ; Up and down buttons height
 	mov [downbuttons+16+56], ebx	
 	mov [upbuttons+16], ebx
@@ -461,7 +470,7 @@ _SidebarClass_One_TIme_Icon_Area_Size_hires: ; Calculate CameoItems and set Stri
 	push	edi
 	
 	mov		eax, [IngameHeight]
-	sub		eax, 181
+	sub		eax, 180
 	sub		eax, 27
 	cdq                ; sign-extend EAX into EDX
 	mov		ebx, 48
@@ -482,6 +491,13 @@ _SidebarClass_One_TIme_Icon_Area_Size_hires: ; Calculate CameoItems and set Stri
 	mov		edx, 48
 	imul	eax, edx
 	mov 	DWORD [StripBarAreaVerticalSize], eax
+	
+	mov DWORD ecx, [CameoItems]
+	imul	ecx, 48
+	add		ecx, 27
+	add		ecx, 181
+	sub		ecx, 49
+	mov		DWORD [PowerBarBottomPos], ecx
 	
 	pop		edi
 	pop		esi
