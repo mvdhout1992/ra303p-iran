@@ -31,6 +31,7 @@
 @HOOK 0x0052785C	_PowerClass_Draw_it_hires8
 @HOOK 0x0052789B	_PowerClass_Draw_it_hires9
 @HOOK 0x00527C19	_PowerClass_Draw_it_hires10
+@HOOK 0x00527771	_PowerClass_Draw_it_hires11
 
 CameoItems dd 0 ; Cameo icons to draw the per strip
 CurrentStripIndex dd 0 ; variable used for strip.shp drawing
@@ -68,9 +69,15 @@ Strip2Shape dd 0
 
 ExtendedSelectButtons TIMES 824 dd 0
 
+_PowerClass_Draw_it_hires11:
+	mov     ebx, 18Eh
+	add		ebx, [diff_height]
+	sub		ebx, 47
+	jmp		0x00527776
+
 _PowerClass_Draw_it_hires10:
-	mov    eax, [0x006877B8] ; ds:void *PowerClass::PowerShape
-	cmp		ecx, 0x18a
+	mov    	eax, [0x006877B8] ; ds:void *PowerClass::PowerShape
+	cmp		ecx, 0x223
 	je		.No_Draw
 	
 	call   0x004A96E8 ; CC_Draw_Shape(void *,int,int,int,WindowNumberType,void *,void *,DirType,long)
