@@ -17,6 +17,7 @@
 ; derived from ra95-hires
 
 @HOOK 0x005525D7 _Set_Screen_Height_480_NOP
+@HOOK 0x005525E6 _No_Black_Bars_In_640x480
 @HOOK 0x00552974 _hires_ini
 @HOOK 0x004A9EA9 _hires_Intro
 @HOOK 0x005B3DBF _hires_MainMenu
@@ -32,7 +33,7 @@
 @HOOK 0x0054D009 _hires_StripClass
 @HOOK 0x004BE377 _NewMissions_Handle_Hires_Buttons_A
 @HOOK 0x004BE39E _NewMissions_Handle_Hires_Buttons_B
-@HOOK 0x00527C19 _hires_Power_Usage_Indicator_Height
+;@HOOK 0x00527C19 _hires_Power_Usage_Indicator_Height
 ;@HOOK 0x0050692B _hires_NetworkJoinMenu
 ;@HOOK 0x00506CEE _hires_Network_Join_Button
 ;@HOOK 0x00506CBC _hires_Network_Color_List
@@ -75,6 +76,9 @@
 ;@HOOK 0x0054E4BE _hires_Sidebar_Cameos_AI
 ;@HOOK 0x0054D08B _hires_Sidebar_Cameos_Height
 ;@HOOK 0x0054E72A _hires_Sidebar_Cameos_Draw_Buttons
+
+_No_Black_Bars_In_640x480:
+	jmp		0x00552628
 
 _hires_Center_VQA640_Videos:
 	MOV EAX, [diff_top]
@@ -1048,8 +1052,8 @@ _hires_NewGameText_top  dd 0x96
 _hires_NewGameText_left dd 0x6E
 
 _hires_NewGameText:
-;	CMP DWORD [ScreenHeight], 480
-;	JZ	.No_Change
+	CMP DWORD [ScreenHeight], 480
+	JZ	.No_Change
 
 	MOV EAX, [diff_top]
     ADD EAX,0x96
@@ -1066,8 +1070,6 @@ _hires_NewGameText:
 	jmp		0x005518A8
 
 _hires_SkirmishMenu:
-;	CMP DWORD [ScreenHeight], 480
-;	JZ	.No_Change
     MOV ECX, [diff_left]
     MOV DWORD [EBP-0x1D4], ECX
     MOV ECX, [diff_top]

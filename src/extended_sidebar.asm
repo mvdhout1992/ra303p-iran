@@ -14,14 +14,15 @@
 ;@HOOK 0x004A6407	_StripClass_AI_hires
 @HOOK 0x0054E000	_StripClass_Init_IO_Up_Down_Buttons_hires
 @HOOK 0x0054E2AD	_StripClass_Scroll_hires
-@HOOK 0x0054E72A	_StripClass_Draw_It_hires3
+;@HOOK 0x0054E74F	_StripClass_Draw_It_hires3
 @HOOK 0x0054D644	_SidebarClass_Add_hires
 @HOOK 0x00538FD1	_Load_Game_hires
-;@HOOK 0x004A579D	_StripClass_Draw_It_hires4
+@HOOK 0x0054D803	_SidebarClass_Draw_It
 @HOOK 0x00527756	_PowerClass_Draw_It_hires
 @HOOK 0x00527743	_PowerClass_Draw_It_hires2
 @HOOK 0x0054EC67	_StripClass_Recalc_hires
 @HOOK 0x0052761D	_PowerClass_One_Time
+@HOOK 0x0054D353	_SidebarClass_Reload_Sidebar_hires
 ;@HOOK 0x005277A6	_PowerClass_Draw_It_hires3
 
 CameoItems dd 0 ; Cameo icons to draw the per strip
@@ -32,7 +33,14 @@ CurrentPowerBarDrawPosition dd 0 ; variable used for pwrbar.shp no power bar dra
 CurrentPowerBarDrawPosition2 dd 0 ; variable used for pwrbar.shp with power bar drawing height position
 
 powerext_str db "POWEREXT.SHP",0
+side4na_str db "SIDE4NA.SHP",0
+side4us_str db "SIDE4US.SHP",0
+strip2na_str db "STRIP2NA.SHP",0
+strip2us_str db "STRIP2US.SHP",0
+
 PowerTileShape dd 0
+Side4Shape dd 0
+Strip2Shape dd 0
 
 ; These are per strip, there's a left and right strip in the sidebar
 ; 208 / 52 = 4 items
@@ -52,6 +60,44 @@ PowerTileShape dd 0
 ;[23:58:42] <iran> IngameHeight-181-27 / 48 for total amount of possible icons
 
 ExtendedSelectButtons TIMES 824 dd 0
+
+_SidebarClass_Reload_Sidebar_hires: ; Load side specific graphics
+	mov     eax, [edx+3Eh]
+	sar     eax, 18h
+	push	eax		; save eax
+	
+	CMP		DWORD eax, 2	
+	jz 		.Load_Soviet_Sidebar
+
+	CMP		DWORD eax, 4	
+	jz 		.Load_Soviet_Sidebar
+	
+	CMP		DWORD eax, 9
+	jz 		.Load_Soviet_Sidebar
+	
+	mov     eax, side4na_str
+	call    0x005B9330 ; MixFileClass<CCFileClass>::Finder(char *)
+	mov    [Side4Shape], eax
+	
+	mov     eax, strip2na_str
+	call    0x005B9330 ; MixFileClass<CCFileClass>::Finder(char *)
+	mov    [Strip2Shape], eax
+
+	pop		eax	; restore eax
+	jmp		0x0054D359
+	
+.Load_Soviet_Sidebar:	
+	
+	mov     eax, side4us_str
+	call    0x005B9330 ; MixFileClass<CCFileClass>::Finder(char *)
+	mov    [Side4Shape], eax
+	
+	mov     eax, strip2us_str
+	call    0x005B9330 ; MixFileClass<CCFileClass>::Finder(char *)
+	mov    [Strip2Shape], eax
+	
+	pop		eax	; restore eax
+	jmp		0x0054D359
 
 _PowerClass_One_Time:
 	mov     [0x006877BC], eax ; ds:void *PowerClass::PowerBarShape
@@ -102,13 +148,18 @@ _PowerClass_Draw_It_hires2: ; Draw the whole powerbar graphics with power bar ti
 	jmp		0x00527748
 
 _StripClass_Recalc_hires: ; Fix graphical glitching when selling conyard and other situations
-	mov		esi, MouseClass_Map
-	lea     eax, [esi+103Eh]
-	call	0x0054E2CC ; StripClass::Flag_To_Redraw
+;	mov		esi, MouseClass_Map
+;	lea     eax, [esi+103Eh]
+;	call	0x0054E2CC ; StripClass::Flag_To_Redraw
 
-	mov		esi, MouseClass_Map
-	lea     eax, [esi+131Ah]
-	call	0x0054E2CC ; StripClass::Flag_To_Redraw
+	mov     eax, MouseClass_Map
+	call    0x004CAFF4 ; GScreenClass::Flag_To_Redraw(int)
+;	mov     eax, MouseClass_Map
+;	call    0x004CB110 ; GScreenClass::Render(void)
+
+;	mov		esi, MouseClass_Map
+;	lea     eax, [esi+131Ah]
+;	call	0x0054E2CC ; StripClass::Flag_To_Redraw
 
 	pop     edi
 	pop     esi
@@ -126,26 +177,32 @@ _PowerClass_Draw_It_hires:
 	sub		ecx, 112
 	jmp		0x0052775B
 	
-_StripClass_Draw_It_hires4:
-	mov		DWORD [CurrentStripDrawPosition], 114h
+_SidebarClass_Draw_It:
+	mov		DWORD [CurrentStripDrawPosition], 276
 .Loop:
-	push    0
-	push    0
-	push    10h
+
+	push    100h            ; __int32
+	push    0               ; Rotation
+	push    0               ; __int32
+	push    0               ; __int32
+	push    10h             ; __int32
 	mov		DWORD ecx, [CurrentStripDrawPosition]
-	mov     eax, [0x005587E8] ; ds:void *SidebarClass::SidebarShape2
-	push    0
-	mov     ebx, [edi+374h]
-	xor     edx, edx
-	call    0x0042D7DC ; CC_Draw_Shape(void *,int,int,int,WindowNumberType,void *,void *,DirType,long)
+	mov     ebx, 1E0h
+	add		ebx, [diff_width]
+	push    0               ; __int32
+	mov     eax, [Side4Shape]
+	mov     edx, edi
+	call    0x004A96E8 ; CC_Draw_Shape(void *,int,int,int,WindowNumberType,void *,void *,DirType,long)
 	
 	add		DWORD [CurrentStripDrawPosition], 48
 	mov		DWORD ecx, [CurrentStripDrawPosition]
-	cmp		ecx, DWORD [IngameHeight]
+	mov		DWORD ebx, [IngameHeight]
+	sub		ebx, 75
+	cmp		ecx, ebx
 	jle		.Loop
 	
 	mov		DWORD [CurrentStripDrawPosition], 0
-	jmp		0x004A57BC
+	jmp		0x0054D828
 
 _Load_Game_hires: ; Fix up button vertical position and visible icon area size when loading save games
 	push	ebx
@@ -174,7 +231,10 @@ _Load_Game_hires: ; Fix up button vertical position and visible icon area size w
 	cmp     edx, ebx
 	jle     .No_Cameo_list_Left_Strip_Reset
 	
-	mov		DWORD [eax+2Ch], 0 ; Reset it
+;	mov		ebx, [eax+35h]
+;	sub		ebx, [CameoItems]
+;	mov		DWORD [eax+25h], ebx ; Set it to the legit max scroll
+	mov		DWORD [eax+25h], 0 ; Reset it
 	
 .No_Cameo_list_Left_Strip_Reset:
 
@@ -188,7 +248,10 @@ _Load_Game_hires: ; Fix up button vertical position and visible icon area size w
 	cmp     edx, ebx
 	jle     .No_Cameo_list_Right_Strip_Reset	
 	
-	mov		DWORD [eax+2Ch], 0 ; Reset it
+;	mov		ebx, [eax+35h]
+;	sub		ebx, [CameoItems]
+;	mov		DWORD [eax+25h], ebx ; Set it to the legit max scroll
+	mov		DWORD [eax+25h], 0 ; Reset it
 	
 .No_Cameo_list_Right_Strip_Reset
 	
@@ -214,7 +277,8 @@ _SidebarClass_Add_hires: ; Fix graphical glitching when new icons are added to s
 	jmp		0x0054D64B
 
 _StripClass_Draw_It_hires3: ; Draw strip.shp background over each cameo
-
+	call    0x004A96E8 ; CC_Draw_Shape(void *,int,int,int,WindowNumberType,void *,void *,DirType,long)
+	
 	mov 	DWORD [CurrentStripIndex], 0
 .Loop:
 
@@ -222,9 +286,11 @@ _StripClass_Draw_It_hires3: ; Draw strip.shp background over each cameo
 	push    0
 	push    0
 	push    0
-	mov     eax, [0x0068A464]; ds:void *SidebarClass::StripClass::LogoShapes
+	mov		eax, [Strip2Shape]
+;	mov     eax, [0x0068A464]; ds:void *SidebarClass::StripClass::LogoShapes
 	push    10h             ; __int32
-	mov     ecx, [esi+15h]
+	mov     ecx, 372
+	
 	mov		ebx, [CurrentStripIndex]
 	imul	ebx, 48
 	add		ecx, ebx

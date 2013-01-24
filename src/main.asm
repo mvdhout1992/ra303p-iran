@@ -46,6 +46,7 @@ test_str  db "RUN1226M",0
 %include "src/extra_sounds.asm"
 %include "src/evac_in_mp.asm"
 %include "src/mouse_fixes.asm"
+%include "src/custom_paradrop_superweapon.asm"
 %include "src/pkt_loading.asm"
 %include "src/arguments.asm"
 %include "src/expansions.asm"
