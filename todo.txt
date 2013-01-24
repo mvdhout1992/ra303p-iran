@@ -10,7 +10,7 @@
 
 5. SuperClass::Discharged(int) might be responsible for starting super weapon recharging, should patch it out to check, can be used to make super weapons multiple time use
 
-6. add hack that sets 640x480 to 640x479 stretched to 640x480
+6. ThemeClass::Is_Allowed() needs to be patched so score theme, map theme and intro theme aren't allowed.
 
 [19:32:40] <poksi> File size: 213.0KB - Content-Type: application/zip
 [19:32:52] <FunkyFr3sh> language packs: http://redalert95.tk/a/rand/ra-german.7z

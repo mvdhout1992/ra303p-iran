@@ -23,7 +23,14 @@
 @HOOK 0x0054EC67	_StripClass_Recalc_hires
 @HOOK 0x0052761D	_PowerClass_One_Time
 @HOOK 0x0054D353	_SidebarClass_Reload_Sidebar_hires
+;@HOOK 0x00527C19	_PowerClass_Draw_it_hires4
+@HOOK 0x005278B7	_PowerClass_Draw_it_hires5
 ;@HOOK 0x005277A6	_PowerClass_Draw_It_hires3
+;@HOOK 0x00527A67	_PowerClass_Draw_it_hires6
+@HOOK 0x0052787E	_PowerClass_Draw_it_hires7
+@HOOK 0x0052785C	_PowerClass_Draw_it_hires8
+@HOOK 0x0052789B	_PowerClass_Draw_it_hires9
+@HOOK 0x00527C19	_PowerClass_Draw_it_hires10
 
 CameoItems dd 0 ; Cameo icons to draw the per strip
 CurrentStripIndex dd 0 ; variable used for strip.shp drawing
@@ -60,6 +67,48 @@ Strip2Shape dd 0
 ;[23:58:42] <iran> IngameHeight-181-27 / 48 for total amount of possible icons
 
 ExtendedSelectButtons TIMES 824 dd 0
+
+_PowerClass_Draw_it_hires10:
+	mov    eax, [0x006877B8] ; ds:void *PowerClass::PowerShape
+	cmp		ecx, 0x18a
+	je		.No_Draw
+	
+	call   0x004A96E8 ; CC_Draw_Shape(void *,int,int,int,WindowNumberType,void *,void *,DirType,long)
+	
+.No_Draw:		
+	jmp		0x00527C23
+	
+
+_PowerClass_Draw_it_hires9:
+	mov     edx, 15Fh
+	add		edx, [diff_height]
+	jmp		0x005278A0
+
+_PowerClass_Draw_it_hires8:
+	imul	edx, 8
+	mov     eax, edx
+	jmp		0x00527863
+
+_PowerClass_Draw_it_hires7:
+	imul	esi, 8
+	mov     eax, esi
+	jmp		0x00527885
+
+_PowerClass_Draw_it_hires6:
+	mov     ecx, [0x0060BA70] ; ds:int HardwareFills
+	add		eax, [diff_height]
+	mov     [ebp-34h], eax
+	jmp		0x00527A70
+
+_PowerClass_Draw_it_hires5:
+	mov     eax, 15Fh
+	add		eax, [diff_height]
+	jmp		0x005278BC
+
+_PowerClass_Draw_it_hires4:
+	mov     eax, [0x006877B8] ; ds:void *PowerClass::PowerShape
+	add		ecx, [diff_height]
+	jmp		0x00527C1E
 
 _SidebarClass_Reload_Sidebar_hires: ; Load side specific graphics
 	mov     eax, [edx+3Eh]
