@@ -14,7 +14,7 @@
 ;@HOOK 0x004A6407	_StripClass_AI_hires
 @HOOK 0x0054E000	_StripClass_Init_IO_Up_Down_Buttons_hires
 @HOOK 0x0054E2AD	_StripClass_Scroll_hires
-;@HOOK 0x0054E74F	_StripClass_Draw_It_hires3
+@HOOK 0x0054E74F	_StripClass_Draw_It_hires3
 @HOOK 0x0054D644	_SidebarClass_Add_hires
 @HOOK 0x00538FD1	_Load_Game_hires
 @HOOK 0x0054D803	_SidebarClass_Draw_It
@@ -27,8 +27,8 @@
 @HOOK 0x005278B7	_PowerClass_Draw_it_hires5
 ;@HOOK 0x005277A6	_PowerClass_Draw_It_hires3
 ;@HOOK 0x00527A67	_PowerClass_Draw_it_hires6
-;@HOOK 0x0052787E	_PowerClass_Draw_it_hires7
-;@HOOK 0x0052785C	_PowerClass_Draw_it_hires8
+@HOOK 0x00527885	_PowerClass_Draw_it_hires7
+@HOOK 0x00527863	_PowerClass_Draw_it_hires8
 @HOOK 0x0052789B	_PowerClass_Draw_it_hires9
 @HOOK 0x00527C19	_PowerClass_Draw_it_hires10
 @HOOK 0x00527771	_PowerClass_Draw_it_hires11
@@ -98,17 +98,52 @@ _PowerClass_Draw_it_hires9:
 	jmp		0x005278A0
 
 _PowerClass_Draw_it_hires8:
-	imul	edx, 8
-	mov     eax, edx
-;	mov		ebx, [IngameHeight]
-;	idiv	ebx, 400
-;	imul	
-	jmp		0x00527863
+	push	ebx
+	push	edx
+	
+	imul	eax, 100
+	mov		ebx, 130
+	cdq                ; sign-extend EAX into EDX
+	idiv	ebx
+	mov		DWORD ebx, [PowerBarBottomPos]
+	sub		ebx, 220
+	imul	eax, ebx
+
+	mov		ebx, 100
+	cdq                ; sign-extend EAX into EDX
+	idiv	ebx
+	
+	pop		edx
+	pop		ebx
+	
+	add     eax, edx
+	mov     edx, eax
+	shl     eax, 4
+	jmp		0x0052786A
 
 _PowerClass_Draw_it_hires7:
-	imul	esi, 8
-	mov     eax, esi
-	jmp		0x00527885
+	push	ebx
+	push	edx
+	
+	imul	eax, 100
+	mov		ebx, 130
+	cdq                ; sign-extend EAX into EDX
+	idiv	ebx
+	mov		DWORD ebx, [PowerBarBottomPos]
+	sub		ebx, 220
+	imul	eax, ebx
+
+	mov		ebx, 100
+	cdq                ; sign-extend EAX into EDX
+	idiv	ebx
+	
+	pop		edx
+	pop		ebx
+
+	add     eax, esi
+	mov     edx, eax
+	shl     edx, 4
+	jmp		0x0052788C
 
 _PowerClass_Draw_it_hires6:
 	mov     ecx, [0x0060BA70] ; ds:int HardwareFills
@@ -344,7 +379,7 @@ _SidebarClass_Add_hires: ; Fix graphical glitching when new icons are added to s
 _StripClass_Draw_It_hires3: ; Draw strip.shp background over each cameo
 	call    0x004A96E8 ; CC_Draw_Shape(void *,int,int,int,WindowNumberType,void *,void *,DirType,long)
 	
-	mov 	DWORD [CurrentStripIndex], 0
+	mov 	DWORD [CurrentStripIndex], 372
 .Loop:
 
 	push    100h
@@ -354,23 +389,21 @@ _StripClass_Draw_It_hires3: ; Draw strip.shp background over each cameo
 	mov		eax, [Strip2Shape]
 ;	mov     eax, [0x0068A464]; ds:void *SidebarClass::StripClass::LogoShapes
 	push    10h             ; __int32
-	mov     ecx, 372
 	
-	mov		ebx, [CurrentStripIndex]
-	imul	ebx, 48
-	add		ecx, ebx
+	mov		ecx, [CurrentStripIndex]
+	
 	mov     ebx, [esi+11h]
 	push    0               ; __int32
 	mov     edx, [esi+19h]
 	add     ebx, 4
 	call    0x004A96E8 ; CC_Draw_Shape(void *,int,int,int,WindowNumberType,void *,void *,DirType,long)
 	
-	inc		DWORD [CurrentStripIndex]
-	
-	mov		DWORD eax, [CurrentStripIndex]
-	mov		DWORD ecx, [CameoItems]
-	cmp		eax, ecx
-	jl		.Loop
+	add		DWORD [CurrentStripIndex], 48
+	mov		DWORD ecx, [CurrentStripIndex]
+	mov		DWORD ebx, [IngameHeight]
+	sub		ebx, 75
+	cmp		ecx, ebx
+	jle		.Loop
 		
 	mov		DWORD [CurrentStripIndex], 0
 	
@@ -496,7 +529,7 @@ _SidebarClass_One_TIme_Icon_Area_Size_hires: ; Calculate CameoItems and set Stri
 	imul	ecx, 48
 	add		ecx, 27
 	add		ecx, 181
-	sub		ecx, 49
+	sub		ecx, 42
 	mov		DWORD [PowerBarBottomPos], ecx
 	
 	pop		edi
