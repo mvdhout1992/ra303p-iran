@@ -9,6 +9,7 @@ campaignmix_str db"campaign.MIX",0
 aftermathmix_str db"aftermath.MIX",0
 counterstrikemix_str db"counterstrike.MIX",0
 smallinfantrymix_str db"smallinfantry.MIX",0
+betateslatankmix_str db"betateslatank.MIX",0
 oosfixmix_str db"oos-fix.MIX",0
 moviestlf_str db"movies-tlf.MIX",0
 
@@ -81,6 +82,12 @@ _Conditionally_Load_Small_Infantry_MIX:
 		
 	call    MixFileClass_CCFileClass_Retrieve
 	
+	cmp	BYTE [usebetateslatank], 0
+	jz	.Load_Smallinfantry_MIX
+	
+	Load_Mix_File_Cached	betateslatankmix_str
+	
+.Load_Smallinfantry_MIX:
 	cmp	BYTE [usesmallinfantry], 0
 	jz	.Ret
 	

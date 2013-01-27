@@ -12,6 +12,8 @@ Hires improvements over hifi's original code for this:
 	- The "Mission Accomplished", "Mission Failed" and "The Game is a Draw" red text now have their height and width adjusted for high res (Thanks to Arda.dll.inj by AlexB)
 	- The score screen is now fully displayed in the top left, instead of showing the score background in the middle
 	- Fixed the power indicator displaying glitched when there's no power and in certain other scenarios
+	- Added extended sidebar (using graphics and memory addresses taken from Arda, by AlexB)
+	- 640x480 does npt show black bars on the top and bottom of the screen anymore.
 	
 More hires improvements to come, main things that are left are the Network/LAN menus, video stretching and/or centering, the score presentation screen and the map selection screen. If I'm able to patch cnc-ddraw I should be able to fix the last three.
 
@@ -171,3 +173,7 @@ Etc for every new song. Make sure there's an empty (blank) line at the end of th
 52. Added REDALERT.INI keyword UseGrenadeThrowingSound= (yes/no) under [Options]. If enabled the Grenadier will have a throwing sound when throwing his grenades. This overrides the Grenade's Report= setting in RULES.INI.
 
 53. Added REDALERT.INI keyword UseBetaTeslaTank= (yes/no) under [Options]. If enabled betateslatank.MIX will be loaded by the game.
+
+54. Fixed a bug with loading movies2.mix. If movies1.mix is found this file wasn't loaded. Now it always is loaded. This affects The First Decade where the Soviet campaign movies (stored in movies2.mix) would never play because TFD Red Alert 1 comes with both MIX files.
+
+55. The game will now try to read ARAZOID.AUD and ARAZIOD.AUD. The game originally would only load ARAZOID.AUD but because the file name is misspelled as 'ARAZIOD.AUD' in the game's data files it was never read and the song didn't work inside the game.

@@ -84,6 +84,7 @@ test_str  db "RUN1226M",0
 %include "src/skip_deleting_conquer_eng.asm"
 %include "src/green_shadow_on_cloaked_units_fix.asm"
 %include "src/always_load_building_icons.asm"
+%include "src/movies2_loading_bug.asm"
 %endif
 
 

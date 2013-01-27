@@ -2,34 +2,42 @@
 @HOOK 0x004D6102	_HouseClass__Make_Ally_Computer_Paranoid_Call_Patch_Out
 @HOOK 0x004DE5D2	_HouseClass__Is_Allowed_To_Ally_AI_Player_Fix
 @HOOK 0x004BD1DD 	_EventClass__Execute_Make_Ally
-;@HOOK 0x004D9FE8	_Fix_AI_Attacking_Top_Left_Bug
-;@HOOK 0x004D9EFA	_Fix_AI_Attacking_Top_Left_Bug2
-;@HOOK 0x00580F04	_Fix_AI_Attacking_Top_Left_Bug3
+;@HOOK 0x00459283	_Fix_AI_Attacking_Top_Left_Bug
+;@HOOK 0x004591D5	_Fix_AI_Attacking_Top_Left_Bug2
 
 %define HouseClass__Where_To_Go 			0x004DD9FC
 %define DriveClass__Assign_Destination 		0x004B67C8
 
-_Fix_AI_Attacking_Top_Left_Bug3:
-	cmp		edx, 0
-	jz		.Ret
-	
-	call 	DriveClass__Assign_Destination
-	jmp		0x00580F09
-
-.Ret:
-	jmp		0x00580F09
 
 _Fix_AI_Attacking_Top_Left_Bug2:
-	call	HouseClass__Where_To_Go
+	push	edx
+	push	eax
+	call	0x004DD9FC ;  const HouseClass::Where_To_Go(FootClass *)
 	cmp		eax, 0
-	jz		0x004D9F0B
-	jmp		0x004D9EFF 
-
+	jz		.Jump_Back	
+	
+	add		esp, 8
+	jmp		0x004591DA
+	
+.Jump_Back:
+	pop		eax
+	pop		edx
+	jmp		0x004591D5
+	
 _Fix_AI_Attacking_Top_Left_Bug:
-	call	HouseClass__Where_To_Go
+	push	edx
+	push	eax
+	call	0x004DD9FC ;  const HouseClass::Where_To_Go(FootClass *)
 	cmp		eax, 0
-	je		0x004D9FF9
-	jmp		0x004D9FED 
+	jz		.Jump_Back
+
+	add		esp, 8
+	jmp		0x00459288
+	
+.Jump_Back:
+	pop		eax
+	pop		edx
+	jmp		0x00459283
 
 _EventClass__Execute_Make_Ally:
 	push	eax

@@ -1,5 +1,3 @@
-- The custom graphics for extended sidebar are in WOLAPI.mix, they should be inside redalert.mix but that doesn't load for some reason
-
 1. Corrupted fail video for first allies mission
 
 2. Check out patching out check at 0x004D70B8, this might be responsible for noy allowing you to chronoshift enemies
@@ -8,9 +6,11 @@
 
 4. at 0x004D70C9 there seems to be checks for what you can chronoshift or not
 
-5. SuperClass::Discharged(int) might be responsible for starting super weapon recharging, should patch it out to check, can be used to make super weapons multiple time use
+5. Have the game conditionally load betateslatank.mix
 
-6. ThemeClass::Is_Allowed() needs to be patched so score theme, map theme and intro theme aren't allowed.
+6. Add extra options to new extra options tab in config tool
+
+7. Should update threading issue dialog in launcher to have a "don't display this warning again" checkbox and modify so it only doesnt show again if that is ticked isntead of just showing the dialog box once.
 
 [19:32:40] <poksi> File size: 213.0KB - Content-Type: application/zip
 [19:32:52] <FunkyFr3sh> language packs: http://redalert95.tk/a/rand/ra-german.7z

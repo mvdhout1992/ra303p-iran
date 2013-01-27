@@ -28,6 +28,10 @@ INIClass_this3 TIMES 128 db 0
 FileClass_redalertini  TIMES 128 db 0
 INIClass_redalertini TIMES 128 db 0
 
+FileClass_Arazoid	TIMES 128 db 0
+str_arazoidaud	db "ARAZOID.AUD",0
+str_araziodaud	db "ARAZIOD.AUD",0
+
 str_sprintf_format2 db "%d",0
 
 sprintf_buffer   TIMES 64 db 0
@@ -134,6 +138,15 @@ _ThemeClass_Next_Song_BL_Register_Change:
 	jmp     0x0056C013
 	
 _ThemeClass_Is_Allowed:
+	cmp		dl, 13h
+	jz		.Ret_False2
+	cmp		dl, 14h
+	jz		.Ret_False2
+	cmp		dl, 15h
+	jz		.Ret_False2
+	cmp		dl, 16h
+	jz		.Ret_False2
+	
 	push edx
 	push edx
 
@@ -172,6 +185,10 @@ _ThemeClass_Is_Allowed:
 	retn
 .Ret_False:
 	pop edx
+	mov eax, 0
+	retn
+	
+.Ret_False2:
 	mov eax, 0
 	retn
 
@@ -394,11 +411,40 @@ _ThemeClass_File_Name:
 	test    al, al
 	jl      0x0056C144
 	
+	cmp		al, 18h
+	je		.Arazoid_Fix
+	
 	cmp 	al, 27h
 	jge Return_Custom_String
 ;	cmp     al, 27h
 ;	jge     0x0056C144
 	jmp		0x0056C11E
+	
+.Arazoid_Fix:
+	MOV EDX, str_arazoidaud
+    MOV EAX, FileClass_Arazoid
+    CALL FileClass__FileClass
+	
+	MOV EAX, FileClass_Arazoid
+    XOR EDX, EDX
+    CALL FileClass__Is_Available
+    TEST EAX,EAX
+	jnz	.Arazoid
+	
+	MOV		EAX, str_araziodaud
+	JMP		.Ret_Arazoid_Fix
+	
+.Arazoid:
+	MOV		EAX, str_arazoidaud
+	JMP		.Ret_Arazoid_Fix
+
+.Ret_Arazoid_Fix:
+	lea     esp, [ebp-0Ch]
+	pop     edx
+	pop     ecx
+	pop     ebx
+	pop     ebp
+	retn
 
 Return_Custom_String:
 
