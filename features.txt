@@ -166,7 +166,7 @@ Etc for every new song. Make sure there's an empty (blank) line at the end of th
 
 49. Added a new global RULES.INI keyword EvacInMP= (yes/no), when enabled GRNL and Einstein get evacuated if they enter a Chinook in multiplayer. If disabled this doesn't happen. Enabled by default to stay compatible with 3.03 online.
 
-50. Building icons/cameos are now loaded even when a building is TechLevel -1 in RULES.INI under [General]. This fixes an issue where enabling building buildings like the Construction Yard with a map mod still caused the icon/cameo graphics not to be loaded for clicking the structure in the sidebar. This was fixed by patching out a specific check that didn't load these graphics if TecehLevel was equal to -1 on the building. Other objects in the game like infantry use the same loading logic, but without this extra check.
+50. Building icons/cameos are now loaded even when a building is TechLevel -1 in RULES.INI under [General]. This fixes an issue where enabling building buildings like the Construction Yard with a map mod still caused the icon/cameo graphics not to be loaded for the structure in the sidebar. This was fixed by patching out a specific check that didn't load these graphics if TecehLevel was equal to -1 on the building. Other objects in the game like infantry use the same loading logic, but without this extra check.
 
 51. Added REDALERT.INI keyword AlternativeRifleSound= (yes/no) under [Options]. If enabled the Rifle Infantry will use an alternative firing sound. MGUNINF1 will be used as firing sound. This overwrites the M1Carbine's Report= setting in RULES.INI.
 
@@ -176,4 +176,10 @@ Etc for every new song. Make sure there's an empty (blank) line at the end of th
 
 54. Fixed a bug with loading movies2.mix. If movies1.mix is found this file wasn't loaded. Now it always is loaded. This affects The First Decade where the Soviet campaign movies (stored in movies2.mix) would never play because TFD Red Alert 1 comes with both MIX files.
 
-55. The game will now try to read ARAZOID.AUD and ARAZIOD.AUD. The game originally would only load ARAZOID.AUD but because the file name is misspelled as 'ARAZIOD.AUD' in the game's data files it was never read and the song didn't work inside the game.
+55. The game will now try to read ARAZOID.AUD and ARAZIOD.AUD. The game originally would only load ARAZOID.AUD but because the file name is misspelled as 'ARAZIOD.AUD' in the game's data files it was never read and the song didn't work inside the game because of this.
+
+56. The resign hotkey now actually works. There wasn't any code to do anything when the resign hotkey was pressed, even though the game read this hotkey from REDALERT.INI and also put it back in REDALERT.INI.
+
+57. Added a new hotkey to toggle the sidebar on/off. This works like pressing the TAB keyboard key in C&C95. This key can be set with KeySidebarToggle= under [WinHotkeys] in REDALERT.INI.
+
+58. Un-hardcoded the 1-0 keys on the keyboard. The hotkey checking code for handling teams checked both the REDALERT.INI key for the corresponding team and a hard-coded keyboard key for some reason. The checks for hard-coded keyboard keys have been patched out. This essentially allows you to change what the 1-0 keyboard keys are assigned to do, like is possible with the other keyboard keys.

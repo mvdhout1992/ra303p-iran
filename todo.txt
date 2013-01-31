@@ -1,20 +1,23 @@
-1. Corrupted fail video for first allies mission
-
 2. Check out patching out check at 0x004D70B8, this might be responsible for noy allowing you to chronoshift enemies
 
 3. For Iron Curtain check patching a jump to 0x004D6F0A at 0x004D6EEC
 
 4. at 0x004D70C9 there seems to be checks for what you can chronoshift or not
 
-5. Have the game conditionally load betateslatank.mix
-
-6. Add extra options to new extra options tab in config tool
-
 7. Should update threading issue dialog in launcher to have a "don't display this warning again" checkbox and modify so it only doesnt show again if that is ticked isntead of just showing the dialog box once.
+
+8. Figure out what the AutoScroll option does
+
+9. Update forceAM and forceAMfastbuildspeed rules.ini files to use updated oos-fix.ini to prevent issues with barrels in single player etc
+
+10. center receiving/sending remote file dialog
+
+11. center reconnecting dialog ingame
+
+12. investigate making ra1 sidebar toggleable on/off, need to patch out a recording mode check at 0x0054DA88 probably
 
 [19:32:40] <poksi> File size: 213.0KB - Content-Type: application/zip
 [19:32:52] <FunkyFr3sh> language packs: http://redalert95.tk/a/rand/ra-german.7z
-
 
 44. [20:48:35] <iran> need to center the receiving file from remote host dialog
 
@@ -72,7 +75,6 @@ All 3.03 patch strings are hard-coded:
 39. Resign key doesn't work if fixed it should show the dialog. (see 0x004A54DB for dialog code)
 42. Create a Red Alert 1 theme pack for windows 7 (using the unfinished one as base)
 
-13. Fix extended sidebar code, arda uses new sidebar graphics to get this right
 16. Finish custom missions loading code, the custom missions are displayed but the internal scenarios are still played
 17. Need to check if new missions dialog still shows when Counterstrike expansion isn't enabled
 19. Load map specific tutorial.ini if found else load the normal tutorial.ini file.
