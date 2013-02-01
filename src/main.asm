@@ -53,7 +53,7 @@ test_str  db "RUN1226M",0
 %include "src/expansions.asm"
 %include "src/music_loading.asm"
 %include "src/movie_loading.asm"
-;%include "src/custom_missions.asm"
+%include "src/custom_missions.asm"
 %include "src/ingame_chat_improvments.asm"
 %include "src/extra_multiplayer_countries.asm"
 %include "src/aftermath_fast_buildspeed_option.asm"

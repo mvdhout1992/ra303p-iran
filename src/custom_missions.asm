@@ -1,218 +1,235 @@
-@HOOK 0x004BE468 _Hook_Expansion_Mission_Loading
-@HOOK 0x004BE613 _Hook_Expansion_Mission_Adding
-;;@HOOK 0x004BE491 _Hook_Expansion_Mission_Loading2
-;;@HOOK 0x004BE72F _Hook_Expansion_Mission_Aftermath_Counter
-@HOOK 0x004BE548 _Hook_Expansion_Mission_Counterstrike_Counter
-@HOOK 0x004BE7C8 _Hook_Expansion_Mission_Counterstrike_Caption
-@HOOK 0x00501E0E _Hook_Expansion_Mission_Counterstrike_Title
+@HOOK	0x004BE468 		_Custom_Missions_Load_Mission_Name
+@HOOK	0x004BE491 		_Custom_Missions_Load_Mission_Name2
+@HOOK	0x004BE929		_Custom_Missions_Hook_Function_End
+@HOOK	0x004BE548		_Custom_Missions_Amount_To_Read
+@HOOK	0x004BE732		_Custom_Missions_Amount_To_Read2
+@HOOK	0x004BE132		_Custom_Missions_Dont_Prepend_Side
+@HOOK	0x004BE147		_Custom_Missions_Dont_Prepend_Side2
+@HOOK	0x00501E0E		_Custom_Missions_Custom_Missions_Button_Name
+@HOOK	0x004BE7C8		_Custom_Missions_Custom_Missions_Dialog_Name
+@HOOK	0x004BE7DE		_Custom_Missions_Expansion_Missions_Dialog_Name
+@HOOK	0x00501E3F		_Custom_Missions_Expansion_Missions_Button_Name
+@HOOK	0x0053D6AA 		_Custom_Missions_Load_Map_Specific_Tutorial_Text
+@HOOK	0x00501DB3		_Custom_Missions_Enable_Custom_Missions_Button
+@HOOK	0x00501DDB		_Custom_Missions_Enable_Expansion_Missions_Button
 
-%define INIClass__INIClass                          0x004C7C60
-%define INIClass__Load                              0x004F28C4
-%define INIClass__Get_Int                           0x004F3660
-%define INIClass__Get_String                        0x004F3A34
-%define FileClass__FileClass                        0x004627D4
-%define FileClass__Is_Available                     0x00462A30
-%define	INIClass__Get_Textblock						0x004F3528 
-%define	INIClass__Get_UUBlock						0x004F3338
-%define	sprintf_									0x005B8BAA
+%define	strdup_		0x005C3900
 
-herpini_str db "FFG21EA.INI",0
-newmissions_str db "New Missions",0
-str_newmissions_ini db "NEWMISSIONS.INI",0
-str_general db "General",0
-str_one db "1",0
-str_empty db 0
-str_sprintf_format db "%d",0
-str_sprintf_format3 db "%s.INI",0
-mission_index_counter dd 0
+str_sprintf_format3 db "cmu%dea",0
+str_s_format  db "%s",0
+sprintf_buffer3 TIMES 512 db 0
+sprintf_key_buffer TIMES 512 db 0
+strdup_text_buffer TIMES 512 db 0
+MissionCounter	dd	0
+tutorial_text_buffer  TIMES 512 db 0
+FileClass_TutorialText  TIMES 128 db 0
+INIClass_TutorialText TIMES 128 db 0
 
-FileClass_this2  TIMES 128 db 0
-INIClass_this2 TIMES 128 db 0
+str_custommissions db "Custom Missions",0
+str_expansionissions db "Expansions Missions",0
+str_tutorialFile db "TutorialFile",0
 
-sprintf_buffer   TIMES 64 db 0
-sprintf_buffer3   TIMES 64 db 0
-newmissions_array TIMES 4096h db 0; char newmissions_array[256][64]
+_Custom_Missions_Enable_Expansion_Missions_Button:
+	call	0x004BE090 ;  Expansion_CS_Present(void)
+	cmp		eax, 1
+	jz		.Return_True
+	
+	call	0x004BE09C ;  Expansion_AM_Present(void)
+	cmp		eax, 1
+	jz		.Return_True
+	
+	mov 	eax, 0
+	jmp		0x00501DE0
+	
+.Return_True:
+	mov 	eax, 1
+	jmp		0x00501DE0
 
-; args: <section>, <key>, <default>, <dst>
-%macro INI_Get_Int 3
-    MOV ECX, DWORD %3
-    MOV EBX, DWORD %2
-    MOV EDX, DWORD %1
-    MOV EAX, INIClass_this
-    CALL INIClass__Get_Int
-%endmacro
+_Custom_Missions_Enable_Custom_Missions_Button:
+	mov		eax, 1
+	jmp		0x00501DB8	
 
-%macro INI_Get_String 5
-    PUSH %5             ; dst len
-    PUSH %4             ; dst
-    MOV ECX, DWORD %3   ; default
-    MOV EBX, DWORD %2   ; key
-    MOV EDX, DWORD %1   ; section
-    MOV EAX, INIClass_this2
+_Custom_Missions_Load_Map_Specific_Tutorial_Text:
+	Save_Registers
+
+	PUSH 512             ; dst len
+    PUSH tutorial_text_buffer             ; dst
+    MOV ECX, 0x005EC00F   ; default, "TUTORIAL.INI"
+    MOV EBX, str_tutorialFile   ; key, "TutorialFile"
+    MOV EDX, 0x005EFFA5  ; section, "Basic"
+	lea     eax, [ebp-8Ch] ; ScenarioFileClass
     CALL INIClass__Get_String
-%endmacro
-
-;EXTERN newmissionsenabled ; defined in arguments.asm
-
-_Hook_Expansion_Mission_Adding:
-	lea		edi, [herpini_str]
-	mov     eax, [ebp-28h]
-	mov     edx, [ebp-28h]
-	jmp		0x004BE619
-
-_Hook_Expansion_Mission_Loading_INI:
-	mov edx, [mission_index_counter]
-	imul edx, 32
 	
-	lea     edx, [edx+newmissions_array]
+	mov eax, [FileClass_TutorialText]
+	test eax, eax
 	
-	push    edx             ; Format
-	push    str_sprintf_format3 ; "%s.INI"
+	MOV EDX, tutorial_text_buffer
+    MOV EAX, FileClass_TutorialText
+    CALL FileClass__FileClass
+
+    ; check ini exists
+    MOV EAX, FileClass_TutorialText
+    XOR EDX, EDX
+;	JE File_Not_Available ; on file not available
+
+    ; initialize INIClass
+    MOV EAX, INIClass_TutorialText
+    CALL INIClass__INIClass
+
+    ; load FileClass to INIClass
+    MOV EDX, FileClass_TutorialText
+    MOV EAX, INIClass_TutorialText
+    CALL INIClass__Load
+	
+	xor		edi, edi
+	xor		esi, esi
+	jmp		.LoopStart
+	
+.Loop:
+	inc     edi
+	add     esi, 4
+	cmp     edi, 0E1h
+	jge     .Out
+	
+.LoopStart:
+	push    edi             ; Format
+	push    0x005EC01C    ; "%d"
+	mov    eax, sprintf_key_buffer
+	xor     ecx, ecx
+	push    eax             ; Dest
+	MOV 	DWORD [ESI+0x666304], ECX
+	call    sprintf_
+
+	add     esp, 0Ch
+	mov    ebx, sprintf_key_buffer
+	push    80h
+	mov    eax, strdup_text_buffer
+	mov     edx, 0x005EC020 ; "Tutorial"
+	push    eax
+	mov     ecx, 0x005EC01F ; offset empty_string
+	mov     eax, INIClass_TutorialText
+	CALL INIClass__Get_String
+	test    eax, eax
+	jz      .Loop
+	mov     eax, strdup_text_buffer
+	call    strdup_
+	MOV 	DWORD [ESI+0x666304],EAX
+	jmp     .Loop
+
+.Out:
+	Restore_Registers
+	lea     edx, [ebp-8Ch]
+	jmp		0x0053D6B0
+
+_Custom_Missions_Expansion_Missions_Button_Name
+	mov		ebx, str_expansionissions
+	jmp		0x00501E44
+
+_Custom_Missions_Expansion_Missions_Dialog_Name:
+	mov		eax, str_expansionissions
+	jmp		0x004BE7E3
+
+_Custom_Missions_Custom_Missions_Dialog_Name
+	mov		eax, str_custommissions
+	jmp		0x004BE7CD
+
+_Custom_Missions_Custom_Missions_Button_Name:
+	mov		ebx, str_custommissions
+	jmp		0x00501E13
+
+_Custom_Missions_Load_Mission_Name:
+	cmp		DWORD [ebp-24h], 0 ; Expansion type
+	jz		.Do_Normal_Read
+	
+	Save_Registers
+	mov		esi, DWORD [MissionCounter]
+	inc		DWORD [MissionCounter]
+	push    esi             ; Format
+	push    str_sprintf_format3 ; %d
 	lea     esi, [sprintf_buffer3]
 	push    esi             ; Dest
 	
 	call    sprintf_
 	add     esp, 0Ch
+	Restore_Registers
+	mov		esi, sprintf_buffer3
+	jmp		0x004BE46E
 	
-	lea     edi, [sprintf_buffer3]
-	mov		eax, 0x006678E8
-	jmp		0x004BE527
-
-_Hook_Expansion_Mission_Loading:
-	cmp byte [ebp-24h], 1 ; Expansion type check
-	jne Ret_Normal
-	cmp byte [newmissionsenabled], 1
-	je New_Missions_Loading
-
-Ret_Normal:	
-	mov esi, [esi+00601400h]
-	jmp 0x004BE46E
-
-New_Missions_Loading:
-;	inc		eax
-	cmp	 ecx, 1
-	je		.No_Substract
-	sub		ecx, 13h
-	mov DWORD [mission_index_counter], ecx
+.Do_Normal_Read:
+	MOV ESI, DWORD [ESI+0x601400]
+	jmp		0x004BE46E
 	
-	.No_Substract
-	push	ecx ; eax is our  counter
-	
-	;initialize FileClass
-    MOV EDX, str_newmissions_ini
-    MOV EAX, FileClass_this2
-    CALL FileClass__FileClass
+_Custom_Missions_Load_Mission_Name2:
+	cmp		DWORD [ebp-24h], 0 ; Expansion type
+	jz		.Do_Normal_Read
+	mov		esi, sprintf_buffer3
+	jmp		0x004BE497
 
-    ; check ini exists
-    MOV EAX, FileClass_this2
-    XOR EDX, EDX
-    CALL FileClass__Is_Available
-    TEST EAX,EAX
-	JE Ret_Normal ; on file not available
+.Do_Normal_Read:	
+	MOV ESI, DWORD [ESI+0x601400]
+	jmp		0x004BE497
+	
+_Custom_Missions_Hook_Function_End:
+	mov		DWORD [MissionCounter], 0
+	pop     edi
+	pop     esi
+	pop     edx
+	pop     ecx
+	pop     ebx
+	pop     ebp
+	retn
+	
+_Custom_Missions_Amount_To_Read:
+	cmp		DWORD [ebp-24h], 0 ; Expansion type
+	jz		.Not_Custom_Missions_Dialog
+	
+	cmp     edi, 999h
+	jge     0x004BE552
+	jmp		0x004BE54D
 
-    ; initialize INIClass
-    MOV EAX, INIClass_this2
-    CALL INIClass__INIClass
+.Not_Custom_Missions_Dialog:
+	mov		ebx, 0
+	
+	call	0x004BE090 ;  Expansion_CS_Present(void)
+	cmp		eax, 1
+	jz		.CS_Present
+	
+	mov		ebx, 24h
+	
+.CS_Present:
+	mov		eax, ebx
+	cmp     edi, eax
+	jge     0x004BE552
+	jmp		0x004BE54D
+	
+_Custom_Missions_Amount_To_Read2:	
+	mov     [ebp-30h], ecx
+	
+	cmp		DWORD [ebp-24h], 0 ; Expansion type
+	jz		.Not_Custom_Missions_Dialog
+	
+	cmp     ecx, 900h
+	jmp		0x004BE738 
+	
+.Not_Custom_Missions_Dialog:
+	mov		ebx, 36h
 
-    ; load FileClass to INIClass
-    MOV EDX, FileClass_this2
-    MOV EAX, INIClass_this2
-    CALL INIClass__Load
-	
-	pop	esi
-	push esi ; esi contains counter
+	call	0x004BE09C ;  Expansion_AM_Present(void)
+	cmp		eax, 1
+	jz		.AM_Present
 
+	mov		ebx, 24h
 	
-;	cmp esi, 3 ; hard-coded max to read inis
-;	jz	Ret_Empty_String
+.AM_Present:
+	mov		eax, ebx
+	cmp     ecx, eax
+	jmp		0x004BE738 
 	
-;	mov		DWORD [mission_index_counter], esi
-		
-	push    esi             ; Format
-	push    str_sprintf_format ; %d
-	lea     esi, [sprintf_buffer]
-	push    esi             ; Dest
+_Custom_Missions_Dont_Prepend_Side:
+	push    str_s_format      ; "%s"
+	jmp		0x004BE138
 	
-	call    sprintf_
+_Custom_Missions_Dont_Prepend_Side2:
+	mov     ax, [edi+2Ch]
 	add     esp, 0Ch
-	
-;	mov esi, DWORD newmissions_array
-	pop	esi
-	push esi
-	imul esi, esi, 32
-	lea esi, [newmissions_array+esi]
-	INI_Get_String str_general, sprintf_buffer, str_empty, ESI, 32
-
-	pop esi
-	push esi
-	imul esi, esi, 32
-	lea esi, [newmissions_array+esi]
-;	mov al, esi
-	cmp byte esi, 0
-	je Ret_Empty_String
-	
-;	mov eax, newmissions_array
-	
-;	mov esi, eax
-;	cmp dword [ebp-30h], 14h
-;	jnz Ret_Empty_String
-
-	pop esi
-	imul esi, esi, 32
-	lea esi, [newmissions_array+esi]
-	
-	jmp 0x004BE46E
-
-Ret_Empty_String:
-	lea esi, [str_empty]
-;	jnz 0x004BE46E
-	jmp 0x004BE46E
-	
-_Hook_Expansion_Mission_Loading2:
-	lea esi, [herpini_str]
-	jmp 0x004BE497
-	
-_Hook_Expansion_Mission_Aftermath_Counter:
-	mov     [ebp-1CH], ebx
-	mov     [ebp-30h], ecx ; Counter, starts at 20
-	cmp     ecx, 60h
-	jmp		0x004BE738
-
-
-_Hook_Expansion_Mission_Counterstrike_Counter:
-	cmp byte [ebp-24h], 1 ; Expansion type check
-	jne Ret_Normal2
-	cmp byte [newmissionsenabled], 1
-	je New_Missions_Counter
-
-Ret_Normal2:
-	cmp     edi, 24h ; Counter, starts at 20 (14h)
-	jge     0x004BE552
-	jmp 	0x004BE54D
-	
-New_Missions_Counter:
-	cmp     edi, 600h ; Counter, starts at 20 (14h)
-	jge     0x004BE552
-	jmp 	0x004BE54D
-	
-_Hook_Expansion_Mission_Counterstrike_Caption:
-	cmp byte [newmissionsenabled], 1
-	je New_Missions_Caption
-	
-	mov		eax, 0x00607260
-	jmp 	0x004BE7CD	
-	
-New_Missions_Caption:
-	mov 	eax, newmissions_str
-	jmp 	0x004BE7CD
-	
-_Hook_Expansion_Mission_Counterstrike_Title:
-	cmp byte [newmissionsenabled], 1
-	je New_Missions_Title
-	
-	mov		ebx, 0x00607260
-	jmp		0x00501E13
-	
-New_Missions_Title:
-	lea		ebx, [newmissions_str]
-	jmp		0x00501E13
+	jmp		0x004BE14E

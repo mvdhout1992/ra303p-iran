@@ -1,3 +1,5 @@
+1. IMPORTANT CHECK IF SOME OF THE AI PATCHES DONT BREAK 3.03 ONLINE COMPATIBILITY
+
 2. Check out patching out check at 0x004D70B8, this might be responsible for noy allowing you to chronoshift enemies
 
 3. For Iron Curtain check patching a jump to 0x004D6F0A at 0x004D6EEC
@@ -6,15 +8,12 @@
 
 7. Should update threading issue dialog in launcher to have a "don't display this warning again" checkbox and modify so it only doesnt show again if that is ticked isntead of just showing the dialog box once.
 
-8. Figure out what the AutoScroll option does
-
 9. Update forceAM and forceAMfastbuildspeed rules.ini files to use updated oos-fix.ini to prevent issues with barrels in single player etc
 
 10. center receiving/sending remote file dialog
 
 11. center reconnecting dialog ingame
 
-12. investigate making ra1 sidebar toggleable on/off, need to patch out a recording mode check at 0x0054DA88 probably
 
 [19:32:40] <poksi> File size: 213.0KB - Content-Type: application/zip
 [19:32:52] <FunkyFr3sh> language packs: http://redalert95.tk/a/rand/ra-german.7z
@@ -72,7 +71,6 @@ All 3.03 patch strings are hard-coded:
 38. After making AI fixes and adding them as rules.ini keywords, make a rules.ini mod with AI fixes + hard AI plus fast Aftermath build speed
 37. sam site fire smoke is misplaced and has C&C95 Nod Sam Site graphics overlayed (this doesn't seem noticable)
 25. hires LAN join screen WIP crashes with more multiplayer countries enabled
-39. Resign key doesn't work if fixed it should show the dialog. (see 0x004A54DB for dialog code)
 42. Create a Red Alert 1 theme pack for windows 7 (using the unfinished one as base)
 
 16. Finish custom missions loading code, the custom missions are displayed but the internal scenarios are still played
@@ -83,33 +81,6 @@ All 3.03 patch strings are hard-coded:
 EDIT: Seems that if you join someones game who has a custom and map it starts transfering and you hit cancel you get "Unable to Read" scenario, hit ok and it goes to desktop, rather than back to the lobby.
 
 57. add support for saving skirmish games (CCHyper said this might brveak things), this breaks a lot of things and I need to figure out why)
-
-[23:17:25] <CCHyper_> iirc, they are getting target coords as 0,0
-[23:17:46] <CCHyper_> rather than getting a target object, then fetching its coords
-[23:17:58] <CCHyper_> debug
-[23:18:03] <CCHyper_> Assign_Destination()
-[23:18:14] <CCHyper_> UnitClass::Assign_Destination()
-
-argument in EDX for call at 0x00580F04 sometimes is zero.
-
-calls for UnitClass::Assign_Destination():
-return to 0x00562666 (UnitClass::Unlimbo()
-return to 0x0057BC74 (UnitClass::Try_To_Deploy())
-return to 0x004C1A96 (FootClass::Mission_Guard_Area())
-return to 0x004B728B  (DriveClass::Start_Of_Move())
-return to 0x004C272F (FootClass::Per_Cell_Process())
-return to 0x004B7F0F (DriveClass::AI())
-return to 0x0058171F (UnitClass::Scatter())
-return to 0x0057E3BD (UnitClass::Mission_Harvest())
-return to 0x0057D0C7 (UnitClass::Go_To_Tiberium())
-return to 0x004B712B (UnitClass::Start_Of_Move())
-return to 0x004B75E0 (DriveClass::Start_Of_Move())
-
-FootClass::Mission_Guard_Area() seems at fault and more directly UnitClass::Mission_Guard_Area()
-
-LOOKS LIKE IT STILL MIGHT BE IN HOUSECLASS::AI_Attack(), the code doesn't just seem to be called for attack waves
-
-TRY ADDING A CHECK FOR return of zone 0 for both calls to HouseClass::Which_Zone(ObjectClass *)
 
 [17:49:34] <Chad1233> When you ally a AI
 [17:49:43] <Chad1233> does most of his base reveal to you?

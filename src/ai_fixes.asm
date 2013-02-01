@@ -2,22 +2,22 @@
 @HOOK 0x004D6102	_HouseClass__Make_Ally_Computer_Paranoid_Call_Patch_Out
 @HOOK 0x004DE5D2	_HouseClass__Is_Allowed_To_Ally_AI_Player_Fix
 @HOOK 0x004BD1DD 	_EventClass__Execute_Make_Ally
-;@HOOK 0x00459283	_Fix_AI_Attacking_Top_Left_Bug
-;@HOOK 0x004591D5	_Fix_AI_Attacking_Top_Left_Bug2
+@HOOK 0x004DDA71	_Fix_AI_Attacking_Top_Left_Bug
+@HOOK 0x004DDA00	_Fix_AI_Attacking_Top_Left_Bug2
 
 %define HouseClass__Where_To_Go 			0x004DD9FC
 %define DriveClass__Assign_Destination 		0x004B67C8
 
 
 _Fix_AI_Attacking_Top_Left_Bug2:
-	push	edx
-	push	eax
-	call	0x004DD9FC ;  const HouseClass::Where_To_Go(FootClass *)
-	cmp		eax, 0
-	jz		.Jump_Back	
+	push    ecx
 	
-	add		esp, 8
-	jmp		0x004591DA
+	push	eax
+	push	edx
+	
+	mov     ecx, eax
+	mov     eax, edx
+	jmp		0x004DDA05
 	
 .Jump_Back:
 	pop		eax
@@ -25,19 +25,22 @@ _Fix_AI_Attacking_Top_Left_Bug2:
 	jmp		0x004591D5
 	
 _Fix_AI_Attacking_Top_Left_Bug:
-	push	edx
-	push	eax
-	call	0x004DD9FC ;  const HouseClass::Where_To_Go(FootClass *)
+	call	0x004FFAC4 ;  const MapClass::Nearby_Location(short,SpeedType,int,MZoneType)
 	cmp		eax, 0
-	jz		.Jump_Back
-
-	add		esp, 8
-	jmp		0x00459288
+	jz		.Recursive_Call_Where_To_Go
 	
-.Jump_Back:
-	pop		eax
+	add		esp, 8
+	jmp		0x004DDA76 
+	
+.Recursive_Call_Where_To_Go:
 	pop		edx
-	jmp		0x00459283
+	pop		eax
+	call	0x004DD9FC ; short const HouseClass::Where_To_Go(FootClass *)
+	lea     esp, [ebp-8]
+	pop     ecx
+	pop     ebx
+	pop     ebp
+	retn
 
 _EventClass__Execute_Make_Ally:
 	push	eax
