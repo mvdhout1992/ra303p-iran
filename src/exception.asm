@@ -93,6 +93,9 @@ _try_WinMain:
 
     CALL [GetCurrentProcess]
     MOV [hProcess], EAX
+	
+	CALL GetCurrentThreadId
+    MOV [exception_info + MINIDUMP_EXCEPTION_INFORMATION.ThreadId], EAX
 
     CALL GetCurrentProcessId
     MOV [ProcessId], EAX
@@ -129,16 +132,14 @@ _try_WinMain:
     JMP _exit
 
 _exception_handler:
-
-    MOV EBX, [ESP + 0x4]
-    MOV ESI, [ESP + 0xC]
+    MOV EBX, DWORD [ESP + 0x4]
+    MOV EDX, DWORD [ESP + 0x0C]
     MOV [exception_pointers + EXCEPTION_POINTERS.ExceptionRecord], EBX
-    MOV [exception_pointers + EXCEPTION_POINTERS.ContextRecord], ESI
-
+	MOV [exception_pointers + EXCEPTION_POINTERS.ExceptionRecord], EBX
+    MOV [exception_pointers + EXCEPTION_POINTERS.ContextRecord], EDX
+	
     MOV DWORD [exception_info + MINIDUMP_EXCEPTION_INFORMATION.ExceptionPointers], exception_pointers
-
-    CALL GetCurrentThreadId
-    MOV [exception_info + MINIDUMP_EXCEPTION_INFORMATION.ThreadId], EAX
+	MOV DWORD [exception_info + MINIDUMP_EXCEPTION_INFORMATION.ClientPointers], 1
 
     PUSH 0
     PUSH FILE_ATTRIBUTE_NORMAL
@@ -151,8 +152,9 @@ _exception_handler:
 
     PUSH 0                  ; CallbackParam
     PUSH 0                  ; UserStreamParam
-    PUSH exception_info     ; ExceptionParam
-    PUSH 0                  ; DumpType
+    PUSH exception_info    			; ExceptionParam
+    PUSH 0                  ; DumpType, normal dump
+;    PUSH 2                  ; DumpType, normal dump with full memory dump
     PUSH EAX                ; hFile
     PUSH DWORD [ProcessId]
     PUSH DWORD [hProcess]

@@ -1,12 +1,10 @@
-1. IMPORTANT CHECK IF SOME OF THE AI PATCHES DONT BREAK 3.03 ONLINE COMPATIBILITY
+1. Add option to generate crashdumps with full memory dump
 
-2. Check out patching out check at 0x004D70B8, this might be responsible for noy allowing you to chronoshift enemies
+5. test fixed version of conflict cove extreme with original version
 
-3. For Iron Curtain check patching a jump to 0x004D6F0A at 0x004D6EEC
+6. Need to add exception handler code.
 
-4. at 0x004D70C9 there seems to be checks for what you can chronoshift or not
-
-7. Should update threading issue dialog in launcher to have a "don't display this warning again" checkbox and modify so it only doesnt show again if that is ticked isntead of just showing the dialog box once.
+7. Fix threading freezes or update threading issue dialog in launcher to have a "don't display this warning again" checkbox and modify so it only doesnt show again if that is ticked isntead of just showing the dialog box once.
 
 9. Update forceAM and forceAMfastbuildspeed rules.ini files to use updated oos-fix.ini to prevent issues with barrels in single player etc
 
@@ -14,15 +12,10 @@
 
 11. center reconnecting dialog ingame
 
-
 [19:32:40] <poksi> File size: 213.0KB - Content-Type: application/zip
 [19:32:52] <FunkyFr3sh> language packs: http://redalert95.tk/a/rand/ra-german.7z
 
 44. [20:48:35] <iran> need to center the receiving file from remote host dialog
-
-52. Make the reject button send out the 'cancel game' packet to a player
-
-56. add displaying of messages typed by yourself as an optional redalert.ini setting
 
 58. add an option to not play sound in the cncnet/network/lan lobby, the sound gets played inside MessageListClass::Add_Message(), need to modify it so it doesnt play a sound if a global variable is true and then patch the calls to it inside Net_Join_Dialog() to set the variable, also need to remove calls to the Sound_Effect() function in a few places inside Net_Join_Dialog().
 
@@ -30,10 +23,6 @@ Invisible Explosion Fixed
 Explosion animations of warheads with Explosion=4 and Damage from 45 to 75 (inclusive) were hidden on certain buildings, also depending on the firing angle. For instance, this affected the Chrono Tank's missiles against Construction Yards. (MAKE SURE TO CHECK WHETHER THIS CAUSES DESYNCS ONLINE OR NOT)
 
 Affected explosion animations made visible.
-
-56. update briefing for missing campaign to new project page url
-
-64. Add a dialog box for when the game is starting in LAN mode
 
 41. Add rules.ini keyword to make ai build nuke silos and service depots, replacing with kennels at:
 
@@ -52,6 +41,9 @@ have them make spen too, ai might build missile subs if they have tech center, n
 
 Todo for later:
 --------------------------------------
+56. add displaying of messages typed by yourself as an optional redalert.ini setting
+
+52. Make the reject button send out the 'cancel game' packet to a player
 
 30. In the single player score screen sometimes the Soviet casualities number display is blue instead of red
 
@@ -72,11 +64,6 @@ All 3.03 patch strings are hard-coded:
 37. sam site fire smoke is misplaced and has C&C95 Nod Sam Site graphics overlayed (this doesn't seem noticable)
 25. hires LAN join screen WIP crashes with more multiplayer countries enabled
 42. Create a Red Alert 1 theme pack for windows 7 (using the unfinished one as base)
-
-16. Finish custom missions loading code, the custom missions are displayed but the internal scenarios are still played
-17. Need to check if new missions dialog still shows when Counterstrike expansion isn't enabled
-19. Load map specific tutorial.ini if found else load the normal tutorial.ini file.
-21. Fix any FileClass leaks in the custom mission list ini loading code
 
 EDIT: Seems that if you join someones game who has a custom and map it starts transfering and you hit cancel you get "Unable to Read" scenario, hit ok and it goes to desktop, rather than back to the lobby.
 

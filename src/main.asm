@@ -71,7 +71,7 @@ test_str  db "RUN1226M",0
 %endif
 
 %ifdef USE_EXCEPTIONS
-;%include "src/exception.asm"
+%include "src/exception.asm"
 %endif
 
 %ifdef USE_BUGFIXES

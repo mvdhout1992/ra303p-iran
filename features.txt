@@ -184,10 +184,13 @@ Etc for every new song. Make sure there's an empty (blank) line at the end of th
 
 58. Un-hardcoded the 1-0 keys on the keyboard. The hotkey checking code for handling teams checked both the REDALERT.INI key for the corresponding team and a hard-coded keyboard key for some reason. The checks for hard-coded keyboard keys have been patched out. This essentially allows you to change what the 1-0 keyboard keys are assigned to do, like is possible with the other keyboard keys.
 
-59. Fixed a bug that caused the multiplayer AI to some times send tanks to the top left corner of the map.
+59. Fixed a bug that caused the multiplayer AI to some times send tanks to the top left corner of the map. Because this fix desyncs online with 3.03 players it's added a RULES.INI keyword. The fix is controlled by the keyword FixAISendingTanksTopLeft= (yes/no) under the [AI] section of RULES.INI.
 
 60. The name of the side the player plays as is no longer prepended to the names of missions in the mission dialogs. Thanks to arda.dll.inj by AlexB for showing me where this prepending is done.
 
 61. Converted the "Counterstrike Missions" menu into a "Custom Missions" one. The "Aftermath Missions" menu has been converted into an "Expansions missions" one. The expansion missions will be displayed in this menu. The custom missions menu displays map files CMU0EA.INI up to CMU999EA.INI.
 
 62. Added a new map keyword TutorialFile= under the [BASIC] section. This keyword can be used to load a custom TUTORIAL.INI file for your map. E.g. "TutorialFile=DERPTUT.INI", to load DERPTUT.INI. If the keyword is missing TUTORIAL.INI is loaded.
+
+63. When the game crashes it will now generate a crashdump file with more possibly useful info that might help determine what caused the crash. (Code by hifi)
+

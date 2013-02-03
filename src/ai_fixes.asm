@@ -10,6 +10,9 @@
 
 
 _Fix_AI_Attacking_Top_Left_Bug2:
+	cmp		BYTE [fixaisendingtankstopleft], 1
+	jnz		.Original_Code
+
 	push    ecx
 	
 	push	eax
@@ -19,12 +22,17 @@ _Fix_AI_Attacking_Top_Left_Bug2:
 	mov     eax, edx
 	jmp		0x004DDA05
 	
-.Jump_Back:
-	pop		eax
-	pop		edx
-	jmp		0x004591D5
+.Original_Code:
+	push    ecx
+	
+	mov     ecx, eax
+	mov     eax, edx
+	jmp		0x004DDA05
 	
 _Fix_AI_Attacking_Top_Left_Bug:
+	cmp		BYTE [fixaisendingtankstopleft], 1
+	jnz		.Original_Code
+
 	call	0x004FFAC4 ;  const MapClass::Nearby_Location(short,SpeedType,int,MZoneType)
 	cmp		eax, 0
 	jz		.Recursive_Call_Where_To_Go
@@ -41,6 +49,10 @@ _Fix_AI_Attacking_Top_Left_Bug:
 	pop     ebx
 	pop     ebp
 	retn
+	
+.Original_Code:
+	call	0x004FFAC4 ;  const MapClass::Nearby_Location(short,SpeedType,int,MZoneType)
+	jmp		0x004DDA76 
 
 _EventClass__Execute_Make_Ally:
 	push	eax

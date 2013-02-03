@@ -38,6 +38,7 @@ str_usegrenadethrowingsound db "UseGrenadeThrowingSound",0
 str_usebetateslatank db "UseBetaTeslaTank",0
 str_winhotkeys db "WinHotkeys",0
 str_keysidebartoggle db "KeySidebarToggle",0
+str_fixaisendingtankstopleft db "FixAISendingTanksTopLeft",0
 
 INIClass_redalertini5 TIMES 64 db 0
 FileClass_redalertini5	TIMES 128 db 0
@@ -72,6 +73,7 @@ alternativeriflesound db 0
 usegrenadethrowingsound db 0
 usebetateslatank db 0
 keysidebartoggle dw 0
+fixaisendingtankstopleft db 0
 
 %macro Initialize_Remap_Table 1
 	xor		eax, eax
@@ -217,7 +219,9 @@ _Init_Game_Hook_Load:
 	
 	INI_Get_Bool_ 0x00666688, str_general, str_evacinmp, 1
 	mov		[evacinmp], al
-
+	
+	INI_Get_Bool_ 0x00666688, str_ai, str_fixaisendingtankstopleft, 0
+	mov		[fixaisendingtankstopleft], al
 	
 ;  EXTRA COLOUR REMAP WHITE
 	Initialize_Remap_Table colorwhiteoffset

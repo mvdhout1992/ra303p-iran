@@ -60,13 +60,11 @@ _Keyboard_Process_Home_Key_Overwrite:
 	jnz     0x004A57DF
 	jmp		0x004A5760
 
-.Toggle_Sidebar:	
+.Toggle_Sidebar:
 	push	eax
 	
-;	mov     eax, 138h       ; Do you wish to surrender?
-;	call    0x00503DD0 ; Computer_Message(void)
-	
-	mov     eax, MouseClass_Map
+	mov eax, 0 ; Crash	
+;	mov     eax, MouseClass_Map
 	mov		edx, 0FFFFFFFFh
 	call   	0x0054DA70 ;  SidebarClass::Activate(int)
 	
