@@ -1,8 +1,13 @@
 1. Add option to generate crashdumps with full memory dump
 
+2. If cnc-ddraw isn't enabled the config should remove original aspect ratio if it was enabled before.
+
+3. savegames using carryover class stuff cause units to carryover to spawn in skirmish
+
+4. Holy Grounds cause Out of Sync at start
+
 5. test fixed version of conflict cove extreme with original version
 
-6. Need to add exception handler code.
 
 7. Fix threading freezes or update threading issue dialog in launcher to have a "don't display this warning again" checkbox and modify so it only doesnt show again if that is ticked isntead of just showing the dialog box once.
 

@@ -1,7 +1,15 @@
-;@HOOK 0x005C19FE	_WWMouseClass__Process_Mouse_Jump_Over_Check
+@HOOK	0x005D8F79		_ASM_Set_Mouse_Cursor_Mouse_Coords_Check
 
-; Patch out a check that might be causing issue, no idea what the check does
-; Seems to cause menu mouse to be laggy, but ingame it's fine
+_ASM_Set_Mouse_Cursor_Mouse_Coords_Check:
+	CMP		DWORD eax, [ScreenWidth]
+	JG		.Crash
+	
+	CMP		DWORD ebx, [ScreenHeight]
+	JG		.Crash
 
-_WWMouseClass__Process_Mouse_Jump_Over_Check:
-	jmp		0x005C1A03
+	mov     [ebp-4h], eax ; y
+	mov     [ebp-8h], ebx ; x
+	jmp		0x005D8F7F
+	
+.Crash:
+	int 3

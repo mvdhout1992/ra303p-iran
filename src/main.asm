@@ -41,15 +41,14 @@ test_str  db "RUN1226M",0
 
 ; generic
 %include "src/macros.asm"
+%include "src/arguments.asm"
 %include "src/image_keyword_fix.asm"
 ;%include "src/debug_printing.asm" ; Seems to cause crash
 %include "src/hotkeys.asm"
 %include "src/extra_sounds.asm"
 %include "src/evac_in_mp.asm"
-%include "src/mouse_fixes.asm"
 %include "src/custom_paradrop_superweapon.asm"
 %include "src/pkt_loading.asm"
-%include "src/arguments.asm"
 %include "src/expansions.asm"
 %include "src/music_loading.asm"
 %include "src/movie_loading.asm"
@@ -75,6 +74,8 @@ test_str  db "RUN1226M",0
 %endif
 
 %ifdef USE_BUGFIXES
+%include "src/mouse_fixes.asm"
+%include "src/cpu_affinity_freeze_crash.asm"
 %include "src/max_units_bug.asm"
 %include "src/fence_bug.asm"
 %include "src/tags_bug.asm"

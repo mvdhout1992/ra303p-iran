@@ -1052,9 +1052,6 @@ _hires_NewGameText_top  dd 0x96
 _hires_NewGameText_left dd 0x6E
 
 _hires_NewGameText:
-	CMP DWORD [ScreenHeight], 480
-	JZ	.No_Change
-
 	MOV EAX, [diff_top]
     ADD EAX,0x96
     PUSH EAX
@@ -1064,10 +1061,6 @@ _hires_NewGameText:
     PUSH EAX
 
     JMP 0x005518AA
-	
-.No_Change:
-	push    96h
-	jmp		0x005518A8
 
 _hires_SkirmishMenu:
     MOV ECX, [diff_left]

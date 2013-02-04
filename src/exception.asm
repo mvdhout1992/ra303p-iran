@@ -69,6 +69,8 @@ exception_pointers:
 @HOOK 0x005DE636 _try_WinMain
 
 _try_WinMain:
+;	push	esi
+;	push	edi
 
  ;   INT3
     ; load minidump stuff
@@ -103,19 +105,32 @@ _try_WinMain:
     POPAD
 
     ; install exception handler
-    PUSHAD
-    MOV ESI, _exception_handler
-    PUSH ESI
+
+
+;	PUSHAD
+
+	MOV ESI, _exception_handler
+	push esi
     PUSH DWORD [FS:0]
     MOV [FS:0], ESP
+	
+;	Restore_Registers
 
     ; continue normal program execution
+;	pop		edi
+;	pop		esi
+
+;		pop	ebx
+;	mov		eax, ebx
+	
     PUSH EAX
+	add		esp, 8
     CALL WinMain
+	sub		esp, 8
 
     ; clean up our exception handler
     POP DWORD [FS:0]
-    ADD ESP, 32 + 4
+    ADD ESP, 12 + 4
 
     ; free minidump library if loaded
     CMP DWORD [dbghelp_dll], 0

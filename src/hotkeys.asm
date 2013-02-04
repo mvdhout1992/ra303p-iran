@@ -63,8 +63,8 @@ _Keyboard_Process_Home_Key_Overwrite:
 .Toggle_Sidebar:
 	push	eax
 	
-	mov eax, 0 ; Crash	
-;	mov     eax, MouseClass_Map
+;	mov eax, 0 ; Crash	
+	mov     eax, MouseClass_Map
 	mov		edx, 0FFFFFFFFh
 	call   	0x0054DA70 ;  SidebarClass::Activate(int)
 	

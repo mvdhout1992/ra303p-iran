@@ -194,3 +194,6 @@ Etc for every new song. Make sure there's an empty (blank) line at the end of th
 
 63. When the game crashes it will now generate a crashdump file with more possibly useful info that might help determine what caused the crash. (Code by hifi)
 
+64. The game now is forced to run under single CPU affinity set, this is to prevent freezing and random crashes on certain CPUs.
+
+65. Fixed movies and audio lag on certain processors when single CPU affinity is enabled.
