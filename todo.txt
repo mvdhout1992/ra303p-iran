@@ -8,6 +8,21 @@
 
 6. Some of the music that loops and isn't supposed to play still gets chosen as random starting song
 
+7. cnc-ddraw's frame limiter causes the game to lag, in both rendering modes.
+
+8. need to check if editor downloads on PortableRA site are updated and update the installer so it places the updated editor in the main game folder.
+
+9. Fix Radar Dome crash.
+
+10. Fix engi Q freeze.
+
+11. Fix credits screen.
+
+12. Fix cnc-ddraw frame limiter or add a ra95 one.
+
+13. Check how ddhack fixes colour in game and attempt to add it to ra95 directly.
+
+14. Re-enable fix for map border showing when map is smaller than resolution, if it doesnt cause lag ingame
 
 10. center receiving/sending remote file dialog
 

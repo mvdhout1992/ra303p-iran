@@ -17,7 +17,17 @@
 ; derived from ra95-hires
 
 ;@HOOK 0X004B03AA _DisplayClass_Click_Cell_Calc_Redraw_GScreen
-@HOOK 0x0049F600 _CellClass_Draw_It_Dont_Draw_Past_Map_Border
+;@HOOK 0x0049F600 _CellClass_Draw_It_Dont_Draw_Past_Map_Border
+@HOOK 0x005D1801 _Receive_Remote_File_Caption
+@HOOK 0x005D17F3 _Receive_Remote_File_Dialog
+@HOOK 0x005D162E _Receive_Remote_File_Text_Button
+@HOOK 0x005D1663 _Receive_Remote_File_Gauge_Gadget
+@HOOK 0x005D1827 _Receive_Remote_File_Text_Print
+@HOOK 0x005D2182 _Send_Remote_File_Text_Print
+@HOOK 0x005D1D25 _Send_Remote_File_Text_Gauge_Gadget
+@HOOK 0x005D1CFC _Send_Remote_File_Text_Button
+@HOOK 0x005D215C _Send_Remote_File_Caption
+@HOOK 0x005D214E _Send_Remote_File_Dialog
 @HOOK 0x0053A376 _Start_Scenario_Set_Flag_To_Redraw_Screen
 @HOOK 0x005525D7 _Set_Screen_Height_480_NOP
 @HOOK 0x005525E6 _No_Black_Bars_In_640x480
@@ -81,6 +91,88 @@
 ;@HOOK 0x0054E72A _hires_Sidebar_Cameos_Draw_Buttons
 
 CellSize dd 100h
+
+_Receive_Remote_File_Caption:
+	mov     ebx, 0x6e
+	add		ebx, [diff_top]
+	mov     edx, 0x50
+	add		edx, [diff_left]
+	xor     eax, eax
+	jmp		0x005D1807
+
+_Receive_Remote_File_Dialog:
+	mov     edx, 0x6e
+	add		edx, [diff_top]
+	mov     eax, 0x78
+	add		eax, [diff_left]
+	jmp		0x005D17F9
+
+_Receive_Remote_File_Text_Button:
+	mov     ecx, 0xFA
+	add		ecx, [diff_top]
+	push	ecx
+	mov     ebx, 0x118
+	add		ebx, [diff_left]
+	push	ebx
+	
+	mov     ecx, 4116h
+	mov     ebx, 13h
+	jmp		0x0005D1642
+
+_Receive_Remote_File_Gauge_Gadget:
+	lea     eax, [ebp-104h]
+	mov     ecx, 0xC0
+	add		ecx, [diff_top]
+	mov		ebx, 0xDC
+	add		ebx, [diff_left]
+	jmp		0x005D166B
+
+_Receive_Remote_File_Text_Print:
+	mov     ecx, 0xA0
+	add		ecx, [diff_top]
+	mov     edx, 0x140
+	add		edx, [diff_left]
+	jmp		0x005D182D
+
+
+_Send_Remote_File_Text_Print:
+;ecx = 000000A0 edx = 00000140
+	mov     ecx, 0xA0
+	add		ecx, [diff_top]
+	mov     edx, 0x140
+	add		edx, [diff_left]
+	jmp		0x005D2188
+
+
+_Send_Remote_File_Text_Gauge_Gadget:
+;ecx = 00000014 ebx = 000000C8
+	mov     ecx, 0xC0
+	add		ecx, [diff_top]
+	mov		ebx, 0xDC
+	add		ebx, [diff_left]
+	jmp		0x005D1D2A
+
+_Send_Remote_File_Text_Button:
+	mov     ecx, 0xFA
+	add		ecx, [diff_top]
+	mov     esi, 0x118
+	add		esi, [diff_left]
+	jmp		0x005D1D02
+
+_Send_Remote_File_Caption:
+	mov     ebx, 0x6e
+	add		ebx, [diff_top]
+	mov     edx, 0x50
+	add		edx, [diff_left]
+	xor     eax, eax
+	jmp		0x005D2164
+
+_Send_Remote_File_Dialog:
+	mov     edx, 0x6e
+	add		edx, [diff_top]
+	mov     eax, 0x50
+	add		eax, [diff_left]
+	jmp		0x005D2154
 
 
 _CellClass_Draw_It_Dont_Draw_Past_Map_Border:

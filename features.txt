@@ -70,8 +70,11 @@ Note the following:
 Etc for every new song. Make sure there's an empty (blank) line at the end of the file or the last entry won't be read properly.
 
 16. The game now supports loading The Lost Files movies compiled by Nyerguds.
+
 17. The game will now load and play sizzle3.vqa, sizzle4.vqa and introx.vqa in the sneak preview menu if found.
+
 18. Playing the ENGLISH.VQA intro is now optional. a new REDALERT.INI boolean option PlayEnglishIntro= under the "Options" section controls this.
+
 19. Fixed the in-game displayed name of various songs, Twin Cannon misnamed as "Twin" and most Counterstrike songs.
 
 20. Fix for a rare issue where the game would report there is barely any free disk space left when there's plenty. The game now always thinks there is enough free disk space left.
@@ -139,7 +142,7 @@ Etc for every new song. Make sure there's an empty (blank) line at the end of th
 
 41. Fix for projectile off map crash (code from hifi, original fix by AlexB)
 
-42. Fix for savegame loading with high resolution, when you save a game the positioning info of a bunch of sidebar elements is saved and they are loaded when you load the save game. I have no idea why Westwood made the game save and load the positioning of sidebar elements. This is fixed now. (Thanks to nyerguds for giving an explanation how he did this for C&C95)
+42. Fix for savegame loading with high resolution, when you save a game the positioning info of a bunch of sidebar elements is saved and they are loaded when you load the save game. I have no idea why Westwood made the game save and load the positioning of sidebar elements. This is fixed now. (Thanks to Nyerguds for giving an explanation how he did this for C&C95)
 
 43. Support for a language pack system, the game's language is decided by the GameLanguage= keyword under the [Options] section of redalert.ini. This option determines whether a corresponding mix file for the language should be loaded, there's these following values:
 
@@ -150,6 +153,8 @@ Etc for every new song. Make sure there's an empty (blank) line at the end of th
 	5: (French)				- frenchlanguagepack.MIX is loaded
 	6: (Spanish)			- spanishlanguagepack.MIX is loaded
 	7: (Russian)			- russianlanguagepack.MIX is loaded
+	
+E.g.: GameLanguage=6 to load a Spanish language pack.
 	
 44. The game will now try to display maps from the expansions even when the expansions aren't enabled.
 
@@ -185,9 +190,9 @@ Etc for every new song. Make sure there's an empty (blank) line at the end of th
 
 58. Un-hardcoded the 1-0 keys on the keyboard. The hotkey checking code for handling teams checked both the REDALERT.INI key for the corresponding team and a hard-coded keyboard key for some reason. The checks for hard-coded keyboard keys have been patched out. This essentially allows you to change what the 1-0 keyboard keys are assigned to do, like is possible with the other keyboard keys.
 
-59. Fixed a bug that caused the multiplayer AI to some times send tanks to the top left corner of the map. Because this fix desyncs online with 3.03 players it's added a RULES.INI keyword. The fix is controlled by the keyword FixAISendingTanksTopLeft= (yes/no) under the [AI] section of RULES.INI.
+59. Fixed a bug that caused the multiplayer AI to some times send tanks to the top left corner of the map. Because this fix desyncs online with 3.03 players it's added as a RULES.INI keyword. The fix is controlled by the keyword FixAISendingTanksTopLeft= (yes/no) under the [AI] section of RULES.INI.
 
-60. The name of the side the player plays as is no longer prepended to the names of missions in the mission dialogs. Thanks to arda.dll.inj by AlexB for showing me where this prepending is done.
+60. The name of the side the player plays as is no longer prepended to the names of missions in the mission dialogs. Thanks to Arda.dll.inj by AlexB for showing me where this prepending is done.
 
 61. Converted the "Counterstrike Missions" menu into a "Custom Missions" one. The "Aftermath Missions" menu has been converted into an "Expansions missions" one. The expansion missions will be displayed in this menu. The custom missions menu displays map files CMU0EA.INI up to CMU999EA.INI. Make sure the custom mission has OneTimeOnly= set to 'Yes' or the game will crashh after showing the score screen or glitch up.
 
