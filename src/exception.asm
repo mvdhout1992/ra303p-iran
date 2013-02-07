@@ -42,6 +42,8 @@ ProcessId                   dd 0
 ThreadId                    dd 0
 MiniDumpWriteDump           dd 0
 
+CommandLineArg				dd 0 ; Fuck it just copy it, too many stack corruption issues
+
 struc MINIDUMP_EXCEPTION_INFORMATION
     .ThreadId           RESD 1
     .ExceptionPointers  RESD 1
@@ -66,9 +68,11 @@ exception_pointers:
         at EXCEPTION_POINTERS.ContextRecord,    dd 0
     iend
 
-@HOOK 0x005DE636 _try_WinMain
+@HOOK 0x005DE62C _try_WinMain
 
 _try_WinMain:
+;	mov		DWORD [CommandLineArg], [esp+4h]
+
 ;	push	esi
 ;	push	edi
 
@@ -123,10 +127,15 @@ _try_WinMain:
 ;		pop	ebx
 ;	mov		eax, ebx
 	
-    PUSH EAX
-	add		esp, 8
+	push    0Ah
+	push    eax
+	push    edx
+	push    edx             ; lpModuleName
+	call    0x005E58F8 ; GetModuleHandleA(x)
+	push    eax
+;	add		esp, 8
     CALL WinMain
-	sub		esp, 8
+;	sub		esp, 8
 
     ; clean up our exception handler
     POP DWORD [FS:0]

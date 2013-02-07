@@ -74,6 +74,8 @@ test_str  db "RUN1226M",0
 %endif
 
 %ifdef USE_BUGFIXES
+%include "src/fix_toinherit_keyword.asm"
+%include "src/localise_draw_strings.asm"
 %include "src/mouse_fixes.asm"
 %include "src/cpu_affinity_freeze_crash.asm"
 %include "src/max_units_bug.asm"

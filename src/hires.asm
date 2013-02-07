@@ -16,6 +16,9 @@
 
 ; derived from ra95-hires
 
+;@HOOK 0X004B03AA _DisplayClass_Click_Cell_Calc_Redraw_GScreen
+@HOOK 0x0049F600 _CellClass_Draw_It_Dont_Draw_Past_Map_Border
+@HOOK 0x0053A376 _Start_Scenario_Set_Flag_To_Redraw_Screen
 @HOOK 0x005525D7 _Set_Screen_Height_480_NOP
 @HOOK 0x005525E6 _No_Black_Bars_In_640x480
 @HOOK 0x00552974 _hires_ini
@@ -76,6 +79,50 @@
 ;@HOOK 0x0054E4BE _hires_Sidebar_Cameos_AI
 ;@HOOK 0x0054D08B _hires_Sidebar_Cameos_Height
 ;@HOOK 0x0054E72A _hires_Sidebar_Cameos_Draw_Buttons
+
+CellSize dd 100h
+
+
+_CellClass_Draw_It_Dont_Draw_Past_Map_Border:
+	push	eax
+	push	edx
+
+	pop		edx
+	pop		eax
+	
+	push	eax
+	push	edx
+	mov     ax, [eax]
+	movsx   edx, ax
+	mov     eax, 0x00668250 ; MouseClass Map
+	call	0x004FE8AC ; MapClass::In_Radar(short)
+	test	eax, eax
+	jz		.Out
+
+	pop		edx
+	pop		eax
+	mov     [ebp-0Ch], eax
+	mov     edi, edx
+	jmp		0x0049F605
+	
+.Out:	
+	pop		edx
+	pop		eax
+	jmp		0x0049FC47 
+
+_Start_Scenario_Set_Flag_To_Redraw_Screen:
+	mov     ecx, 1
+	lea     ebx, [CellSize]
+	mov     edx, 1h
+	mov     eax, 0x00668250 ; MouseClass Map
+	call    0x004D2B6C ; HelpClass::Scroll_Map(DirType,int &,int)
+
+	mov		edx, 1
+	mov     eax, 0x00668250 ; MouseClass Map
+	call	0x004CAFF4 ; GScreenClass::Flag_To_Redraw(int)
+
+	mov 	eax, 0x00668188 ; GameOptionsClass Options
+	jmp		0x0053A37B
 
 _No_Black_Bars_In_640x480:
 	jmp		0x00552628

@@ -2,16 +2,12 @@
 
 2. If cnc-ddraw isn't enabled the config should remove original aspect ratio if it was enabled before.
 
-3. savegames using carryover class stuff cause units to carryover to spawn in skirmish
-
 4. Holy Grounds cause Out of Sync at start
 
 5. test fixed version of conflict cove extreme with original version
 
+6. Some of the music that loops and isn't supposed to play still gets chosen as random starting song
 
-7. Fix threading freezes or update threading issue dialog in launcher to have a "don't display this warning again" checkbox and modify so it only doesnt show again if that is ticked isntead of just showing the dialog box once.
-
-9. Update forceAM and forceAMfastbuildspeed rules.ini files to use updated oos-fix.ini to prevent issues with barrels in single player etc
 
 10. center receiving/sending remote file dialog
 
@@ -21,6 +17,11 @@
 [19:32:52] <FunkyFr3sh> language packs: http://redalert95.tk/a/rand/ra-german.7z
 
 44. [20:48:35] <iran> need to center the receiving file from remote host dialog
+
+
+Todo for later:
+--------------------------------------
+9. Update forceAM and forceAMfastbuildspeed rules.ini files to use updated oos-fix.ini to prevent issues with barrels in single player etc
 
 58. add an option to not play sound in the cncnet/network/lan lobby, the sound gets played inside MessageListClass::Add_Message(), need to modify it so it doesnt play a sound if a global variable is true and then patch the calls to it inside Net_Join_Dialog() to set the variable, also need to remove calls to the Sound_Effect() function in a few places inside Net_Join_Dialog().
 
@@ -43,9 +44,9 @@ have them make spen too, ai might build missile subs if they have tech center, n
 [19:03:48] <iran> it works by clearing the background whenever a pcx file is loaded
 [19:04:00] <iran> which is done for the credits screen with that file
 
+55. Add support for Desert and Winter theater from C&C1, see (need to make game allocate larger heap/buffer for theater stuff probably):
+http://forums.cncnz.com/topic/13910-106c-development-topic/page-36#entry210648
 
-Todo for later:
---------------------------------------
 56. add displaying of messages typed by yourself as an optional redalert.ini setting
 
 52. Make the reject button send out the 'cancel game' packet to a player
@@ -54,17 +55,12 @@ Todo for later:
 
 49. A few message boxes and in-game things reference "Command & Conquer" instead of "Red Alert".
 
-All 3.03 patch strings are hard-coded:
-[14:08:49] <FunkyFr3sh> "draw" and "aftermath missions ..."
-[14:08:52] <FunkyFr3sh> thats prolyl the only ones
-
 40. Add a rules.ini keyword to not have the AI sell their structures when all production facilities are destroyed
+
 45. Add extra colour remaps
-41. Probably can add minicampaigns by having the game read a new scenario keyword, like this:
-	1. when reading a scenario, zero out of buffer to hold the map name in for the next map in the campaign
-	2. then while still reading a scenario, read the keyword to set a map to load next if found
-	3. if the player loses, zero out this buffer
-	4. if the player wins, load the next map in this buffer
+
+41. Probably can add minicampaigns by having the game read a new scenario keyword by checking a call to Map_Selection and replacing it
+
 38. After making AI fixes and adding them as rules.ini keywords, make a rules.ini mod with AI fixes + hard AI plus fast Aftermath build speed
 37. sam site fire smoke is misplaced and has C&C95 Nod Sam Site graphics overlayed (this doesn't seem noticable)
 25. hires LAN join screen WIP crashes with more multiplayer countries enabled

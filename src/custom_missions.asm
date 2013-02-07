@@ -122,19 +122,42 @@ _Custom_Missions_Load_Map_Specific_Tutorial_Text:
 	jmp		0x0053D6B0
 
 _Custom_Missions_Expansion_Missions_Button_Name
-	mov		ebx, str_expansionissions
+	push	edx
+	push	eax
+	
+	Extract_Conquer_Eng_String 119
+	mov		ebx, eax
+	
+	pop		eax
+	pop		edx
+	
 	jmp		0x00501E44
 
 _Custom_Missions_Expansion_Missions_Dialog_Name:
-	mov		eax, str_expansionissions
+	push	edx
+
+	Extract_Conquer_Eng_String 119
+	
+	pop		edx
 	jmp		0x004BE7E3
 
 _Custom_Missions_Custom_Missions_Dialog_Name
-	mov		eax, str_custommissions
+	push	edx
+	
+	Extract_Conquer_Eng_String 120
+	
+	pop		edx
 	jmp		0x004BE7CD
 
 _Custom_Missions_Custom_Missions_Button_Name:
-	mov		ebx, str_custommissions
+	push	edx
+	push	eax
+	
+	Extract_Conquer_Eng_String 120
+	mov		ebx, eax
+	
+	pop		eax
+	pop		edx
 	jmp		0x00501E13
 
 _Custom_Missions_Load_Mission_Name:

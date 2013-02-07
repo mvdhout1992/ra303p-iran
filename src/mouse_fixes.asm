@@ -2,14 +2,21 @@
 
 _ASM_Set_Mouse_Cursor_Mouse_Coords_Check:
 	CMP		DWORD eax, [ScreenWidth]
-	JG		.Crash
+	JG		.Exit
 	
 	CMP		DWORD ebx, [ScreenHeight]
-	JG		.Crash
+	JG		.Exit
 
 	mov     [ebp-4h], eax ; y
 	mov     [ebp-8h], ebx ; x
 	jmp		0x005D8F7F
 	
-.Crash:
-	int 3
+.Exit:
+	pop     esi
+	pop     edi
+	pop     edx
+	pop     ecx
+	pop     ebx
+	pop     eax
+	leave
+	retn

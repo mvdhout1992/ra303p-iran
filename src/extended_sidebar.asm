@@ -279,6 +279,7 @@ _PowerClass_Draw_It_hires:
 	jmp		0x0052775B
 	
 _SidebarClass_Draw_It:
+;	mov		DWORD [0], 276 ; crash
 	mov		DWORD [CurrentStripDrawPosition], 276
 .Loop:
 
