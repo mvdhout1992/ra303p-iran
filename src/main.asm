@@ -45,6 +45,7 @@ test_str  db "RUN1226M",0
 %include "src/image_keyword_fix.asm"
 ;%include "src/debug_printing.asm" ; Seems to cause crash
 %include "src/hotkeys.asm"
+%include "src/extra_theaters.asm"
 %include "src/extra_sounds.asm"
 %include "src/evac_in_mp.asm"
 %include "src/custom_paradrop_superweapon.asm"

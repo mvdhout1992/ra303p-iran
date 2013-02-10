@@ -39,6 +39,7 @@ str_usebetateslatank db "UseBetaTeslaTank",0
 str_winhotkeys db "WinHotkeys",0
 str_keysidebartoggle db "KeySidebarToggle",0
 str_fixaisendingtankstopleft db "FixAISendingTanksTopLeft",0
+str_generatememorydump db "GenerateMemoryDump",0
 
 INIClass_redalertini5 TIMES 64 db 0
 FileClass_redalertini5	TIMES 128 db 0
@@ -74,6 +75,7 @@ usegrenadethrowingsound db 0
 usebetateslatank db 0
 keysidebartoggle dw 0
 fixaisendingtankstopleft db 0
+generatememorydump	db 0
 
 %macro Initialize_Remap_Table 1
 	xor		eax, eax
@@ -187,6 +189,9 @@ _Startup_Function_Hook_Early_Load:
 	
 	INI_Get_Int_ INIClass_redalertini5, str_winhotkeys, str_keysidebartoggle, 9
 	mov		[keysidebartoggle], ax
+	
+	INI_Get_Bool_ INIClass_redalertini5, str_options5, str_generatememorydump, 0
+	mov		[generatememorydump], al
 	
 	Restore_Registers
 	mov     ebx, [0x006ABC10]

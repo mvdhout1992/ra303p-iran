@@ -68,6 +68,14 @@ _Keyboard_Process_Home_Key_Overwrite:
 	mov		edx, 0FFFFFFFFh
 	call   	0x0054DA70 ;  SidebarClass::Activate(int)
 	
+	
+	mov		edx, 1
+	mov     eax, 0x00668250 ; MouseClass Map
+	call	0x004CAFF4 ; GScreenClass::Flag_To_Redraw(int)
+	
+	mov     eax, 0x00668250 ; MouseClass Map
+	call	0x004CB110 ; GScreenClass::Render()
+	
 	pop		eax
 	jmp		.Out
 

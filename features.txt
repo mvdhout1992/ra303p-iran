@@ -220,4 +220,5 @@ E.g.: GameLanguage=6 to load a Spanish language pack.
 	CONQUER.ENG string: 110			Value:	Retract Draw Proposal
 	CONQUER.ENG string: 109			Value:	Propose a Draw
 
+68. Added support for winter and desert theaters. To use set Theater= to DESERT or WINTER under the [Basic] section of the map. The game will try to load DESERT.MIX and WINTER.MIX.
 

@@ -16,8 +16,17 @@
 
 ; derived from ra95-hires
 
-;@HOOK 0X004B03AA _DisplayClass_Click_Cell_Calc_Redraw_GScreen
-;@HOOK 0x0049F600 _CellClass_Draw_It_Dont_Draw_Past_Map_Border
+@HOOK 0X004B03AA _DisplayClass_Click_Cell_Calc_Redraw_GScreen
+@HOOK 0x0049F600 _CellClass_Draw_It_Dont_Draw_Past_Map_Border
+@HOOK 0x0050C33D _hires_Net_New_AI_Players_Text_Print
+@HOOK 0x0050C31D _hires_Net_New_Credits_Text_Print
+@HOOK 0x0050C2FD _hires_Net_New_Tech_Level_Text_Print
+@HOOK 0x0050C2DD _hires_Net_New_Unit_Count_Text_Print
+@HOOK 0x0050C2C0 _hires_Net_New_Scenario_Text_Print
+@HOOK 0x0050C2A3 _hires_Net_New_Players_Text_Print
+@HOOK 0x0050B97D _hires_Net_New_Dialog_OK_Button
+@HOOK 0x0050B8A9 _hires_Net_New_Dialog2
+@HOOK 0x0050B70D _hires_Net_New_Dialog
 @HOOK 0x005D1801 _Receive_Remote_File_Caption
 @HOOK 0x005D17F3 _Receive_Remote_File_Dialog
 @HOOK 0x005D162E _Receive_Remote_File_Text_Button
@@ -28,8 +37,9 @@
 @HOOK 0x005D1CFC _Send_Remote_File_Text_Button
 @HOOK 0x005D215C _Send_Remote_File_Caption
 @HOOK 0x005D214E _Send_Remote_File_Dialog
-@HOOK 0x0053A376 _Start_Scenario_Set_Flag_To_Redraw_Screen
-@HOOK 0x005525D7 _Set_Screen_Height_480_NOP
+;@HOOK 0x0053A376 _Start_Scenario_Set_Flag_To_Redraw_Screen
+@HOOK 0x005523C6 _Set_Screen_Height_480_NOP
+@HOOK 0x005525D7 _Set_Screen_Height_400_NOP
 @HOOK 0x005525E6 _No_Black_Bars_In_640x480
 @HOOK 0x00552974 _hires_ini
 @HOOK 0x004A9EA9 _hires_Intro
@@ -218,6 +228,9 @@ _Start_Scenario_Set_Flag_To_Redraw_Screen:
 
 _No_Black_Bars_In_640x480:
 	jmp		0x00552628
+	
+_Set_Screen_Height_480_NOP:
+	jmp		0x005523CC
 
 _hires_Center_VQA640_Videos:
 	MOV EAX, [diff_top]
@@ -363,7 +376,7 @@ _hires_MainMenuClearBackground:
 ExtendedSelectButtons8 TIMES 824 dd 0 
 %define DefaultSelectButtons 0x0068A2C4
 
-_Set_Screen_Height_480_NOP:
+_Set_Screen_Height_400_NOP:
 	jmp		0x005525E1
 
 _hires_Sidebar_Cameos_Init_IO6:	 ; Down buttons
@@ -801,6 +814,85 @@ _hires_ini:
 
 	_hires_adjust_left 0x0053B629
 	_hires_adjust_top 0x0053B61E
+	
+	
+	;Lan New dialog
+	; Text print offsets
+	_hires_adjust_left		0x0050B6F6
+	_hires_adjust_left	 	0x0050B6FB
+;	_hires_adjust_top 		0x0050B731
+;	_hires_adjust_top		0x0050B6F1
+	
+	; Message box
+	_hires_adjust_left 		0x0050B745
+	_hires_adjust_top		0x0050B79B	
+	_hires_adjust_top		0x0050B82D
+
+
+
+	; Unit count text height
+	_hires_adjust_top		0x0050B78C
+	
+	; Tech level text height
+	_hires_adjust_top		0x0050B791
+	
+	; AI players text height
+	_hires_adjust_top		0x0050B7CE
+	
+	; Credits text
+	_hires_adjust_top		0x0050B740
+
+	; Player + country box
+	_hires_adjust_top		0x0050B84D
+	_hires_adjust_left		0x0050B852
+
+	; map list box
+	_hires_adjust_top		0x0050B886
+	_hires_adjust_left		0x0050B88B
+
+	; Unit count slider
+	_hires_adjust_top 		0x0050B8CA
+	_hires_adjust_left		0x0050B8CF
+
+	; Tech level slider
+	_hires_adjust_top 		0x0050B8E8
+	_hires_adjust_left		0x0050B8ED
+	
+	; Credits slider
+	_hires_adjust_top 		0x0050B906
+	_hires_adjust_left		0x0050B90B
+	
+	; AI players slider
+	_hires_adjust_top 		0x0050B924
+	_hires_adjust_left		0x0050B929
+
+	; Game options box
+	_hires_adjust_top 		0x0050B95A
+	_hires_adjust_left		0x0050B95F
+	
+	; Load button
+	_hires_adjust_top 		0x0050B9A4
+	_hires_adjust_left		0x0050B9B3
+	
+	; Cancel button
+	_hires_adjust_top 		0x0050B9CD
+	_hires_adjust_left		0x0050B9DC
+	
+	; Unit count text
+	_hires_adjust_top		0x0050B9F5
+	_hires_adjust_left		0x0050B9FA
+	
+	; Tech level number text
+	_hires_adjust_top		0x0050BA1A
+	_hires_adjust_left		0x0050BA29
+	
+	; Credits count text
+	_hires_adjust_top		0x0050BA3F
+	_hires_adjust_left		0x0050BA4E
+	
+	; AI players count text
+	_hires_adjust_top		0x0050BA64
+	_hires_adjust_left		0x0050BA73
 	
 	; network new dialog
 ;	_hires_adjust_left 0x0050C28E
@@ -1288,3 +1380,95 @@ _NewMissions_Handle_Hires_Buttons_B:
 	push    13Ch
 	jmp		0x004BE3A3
 	
+_hires_Net_New_Dialog:
+	mov		ecx, [diff_left]
+	mov     [ebp-0xFC], ecx
+	mov		ecx, [diff_top]
+	mov		[ebp-0xF8], ecx
+	jmp		0x0050B719
+
+_hires_Net_New_Dialog2:	
+	mov		edx, 0x75
+	add		edx, [diff_top]
+	push	edx
+	
+	mov		edx, 0x63
+	add		edx, [diff_left]
+	push	edx
+	mov		ecx, 0x116
+	mov		ebx, 0x0D8
+	jmp		0x0050B8B7
+
+_hires_Net_New_Dialog_OK_Button:
+	mov		edx, 0x16e
+	add		edx, [diff_top]
+	push	edx
+	
+	mov		edx, 0x38
+	add		edx, [diff_left]
+	push	edx
+	
+	mov		ecx, 0x116
+	mov		ebx, 0x17
+	jmp		0x0050B98E
+
+_hires_Net_New_Players_Text_Print:
+;	0x10 and 0x9a
+	mov		eax, 0x10
+	add		eax, [diff_top]
+	push	eax
+	mov		edx, 0x9a
+	add		edx, [diff_left]
+	push	edx
+	jmp		0x0050C2AB
+	
+
+_hires_Net_New_Scenario_Text_Print:
+; 0x10 and 0x000001C0
+	mov     ecx, 0x10
+	add		ecx, [diff_top]
+	push    ecx
+	mov     esi, 0x1C0
+	add		esi, [diff_left]
+	push    esi
+	jmp		0x0050C2C8
+	
+_hires_Net_New_Unit_Count_Text_Print:
+; 0x00000087 and 0x000000BE
+	mov     eax, 0x87
+	add		eax, [diff_top]
+	push    eax
+	mov     edx, 0xBE
+	add		edx, [diff_left]
+	push    edx
+	jmp		0x0050C2E8
+
+_hires_Net_New_Tech_Level_Text_Print:	
+; 0x00000094 and 0xBE
+	mov     ecx, 0x94
+	add		ecx, [diff_top]
+	push    ecx
+	mov     esi, 0xBE
+	add		esi, [diff_left]
+	push    esi
+	jmp		0x0050C308
+	
+_hires_Net_New_Credits_Text_Print:
+; 0x000000A1 and 000000BE
+	mov     eax, 0xA1
+	add		eax, [diff_top]
+	push    eax
+	mov     edx, 0xBE
+	add		edx, [diff_left]
+	push    edx
+	jmp		0x0050C328
+	
+_hires_Net_New_AI_Players_Text_Print:
+; 0x000000AE and 000000BE
+	mov     ecx, 0xAE
+	add		ecx, [diff_top]
+	push    ecx
+	mov     esi, 0xBE
+	add		esi, [diff_left]
+	push    esi
+	jmp		0x0050C348

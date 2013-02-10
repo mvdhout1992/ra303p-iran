@@ -103,6 +103,8 @@ _Start_Scenario_Queue_Theme:
 	xor		edx, edx
 	cmp		Byte [randomstartingsong], 0
 	jz		.Ret
+	
+.Select_Random_Song:
 	mov 	eax, INIClass_this3
 	mov		edx, str_filenames
 	call	INIClass__Entry_Count
@@ -110,12 +112,16 @@ _Start_Scenario_Queue_Theme:
 	add		ebx, eax
 	mov     eax, 0x00667760
 	xor     edx, edx
-	call    0x005BC960
+	call    0x005BC960 ; RandomClass::operator()(int, int)
 	mov		edx, eax
+	mov		eax, 0x00668248 ; ThemeClass Theme
+	call	0x0056C240 ; ThemeClass::Is_Allowed(ThemeType)
+	test	al, al
+	jz		.Select_Random_Song
 	
 .Ret:
-	mov		eax, 0x00668248
-	call    0x0056C020
+	mov		eax, 0x00668248 ; ThemeClass Theme
+	call    0x0056C020 ; ThemeClass::Queue_Song(ThemeType)
 	jmp		0x0053A376
 	
 _SoundControlClass_Process_Jump_Over_Looping_Themes:

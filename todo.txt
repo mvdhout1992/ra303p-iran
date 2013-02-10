@@ -1,6 +1,4 @@
-1. Add option to generate crashdumps with full memory dump
-
-2. If cnc-ddraw isn't enabled the config should remove original aspect ratio if it was enabled before.
+17. Don't forget to update version info ingame to show 303p-iB1
 
 4. Holy Grounds cause Out of Sync at start
 
@@ -8,35 +6,38 @@
 
 6. Some of the music that loops and isn't supposed to play still gets chosen as random starting song
 
-7. cnc-ddraw's frame limiter causes the game to lag, in both rendering modes.
-
 8. need to check if editor downloads on PortableRA site are updated and update the installer so it places the updated editor in the main game folder.
 
 9. Fix Radar Dome crash.
 
 10. Fix engi Q freeze.
+[23:54:22] <FunkyFr3sh> click 1-2 spots on the terrain then attack another tank etc etc .. never let Q go
 
-11. Fix credits screen.
+11. selecting a harvester target ore patch on the radar minimap shows a "can't go there" cursor instead of the attack cursor.
 
-12. Fix cnc-ddraw frame limiter or add a ra95 one.
+12. Fix 'Negoations' expansion mission
 
-13. Check how ddhack fixes colour in game and attempt to add it to ra95 directly.
+16. Update language packs with FunkyFr3sh's versions
 
-14. Re-enable fix for map border showing when map is smaller than resolution, if it doesnt cause lag ingame
+18. There's graphical glitching in the no-refresh area of the sidebar with the keybar toggle key in 640x480, need to copy code from options menu to clear buffer. This code might be useful to fix graphical glitching on maps smaller than reso.
 
-10. center receiving/sending remote file dialog
+19. Look into adding black map border tiles. add clear1.int to all theaters, don't forget to REMOVE hires patch to not display map broder
 
-11. center reconnecting dialog ingame
+20. Check if chrono vortex shows up in new theaters
 
-[19:32:40] <poksi> File size: 213.0KB - Content-Type: application/zip
-[19:32:52] <FunkyFr3sh> language packs: http://redalert95.tk/a/rand/ra-german.7z
-
-44. [20:48:35] <iran> need to center the receiving file from remote host dialog
-
+21. Check out arda auto adjust on game grid option and check where to find it
 
 Todo for later:
 --------------------------------------
 9. Update forceAM and forceAMfastbuildspeed rules.ini files to use updated oos-fix.ini to prevent issues with barrels in single player etc
+
+10. Add option to not have ai build mad tanks
+
+11. Add option to not have ai build demo trucks
+
+12. Add option to not have ai build radar jammer
+
+12. Add "Unable to build more" sound when tank limit is reached
 
 58. add an option to not play sound in the cncnet/network/lan lobby, the sound gets played inside MessageListClass::Add_Message(), need to modify it so it doesnt play a sound if a global variable is true and then patch the calls to it inside Net_Join_Dialog() to set the variable, also need to remove calls to the Sound_Effect() function in a few places inside Net_Join_Dialog().
 
