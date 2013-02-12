@@ -15,7 +15,6 @@ ra95.exe: $(DAT) extpe$(EXT)
 
 build: linker$(EXT)
 	./linker$(EXT) src/main.asm src/main.inc $(EXE) $(NASM) $(NFLAGS)
-	./linker$(EXT) src/version.asm src/version.inc $(EXE) $(NASM) $(NFLAGS)	
 
 $(DAT):
 	@echo "You are missing the required ra95.dat from 3.03 patch"

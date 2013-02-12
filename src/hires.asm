@@ -16,8 +16,36 @@
 
 ; derived from ra95-hires
 
-@HOOK 0X004B03AA _DisplayClass_Click_Cell_Calc_Redraw_GScreen
+;@HOOK 0x004B03AA _DisplayClass_Click_Cell_Calc_Redraw_GScreen
 @HOOK 0x0049F600 _CellClass_Draw_It_Dont_Draw_Past_Map_Border
+
+@HOOK 0x004ABBDF	_Shake_The_Screen_Height2
+@HOOK 0x004AB8A8	_Shake_The_Screen_Height1
+
+;@HOOK 0x00507DFB _hires_Net_Join_MessageBox
+@HOOK 0x00507887 _hires_Net_Join_Playing_As_Text_Print
+@HOOK 0x00508074 _hires_Net_Join_AI_Players_Text_Print
+@HOOK 0x00508016 _hires_Net_Join_Credits_Text_Print
+@HOOK 0x00507F97 _hires_Net_Join_Tech_Level_Text_Print
+@HOOK 0x00507F33 _hires_Net_Join_Unit_Count_Text_Print
+@HOOK 0x00508565 _hires_Net_Join_Color_Box_Select_Thingy3
+@HOOK 0x00508525 _hires_Net_Join_Color_Box_Select_Thingy2
+@HOOK 0x0050854B _hires_Net_Join_Color_Box_Select_Thingy
+@HOOK 0x00507BDC _hires_Net_Join_Color_Draw_Boxes2
+@HOOK 0x00507BBB _hires_Net_Join_Color_Draw_Boxes
+@HOOK 0x00507B48 _hires_Net_Join_Color_Draw_Colored_Rectangles
+@HOOK 0x005077C2 _hires_Net_Join_Color_Text_Print
+@HOOK 0x0050779F _hires_Net_Join_Side_Text_Print
+@HOOK 0x0050777C _hires_Net_Join_Name_Text_Print
+@HOOK 0x0050774B _hires_Net_Join_Players_Text_Print
+@HOOK 0x00507728 _hires_Net_Join_Games_Text_Print
+@HOOK 0x00506E0C _hires_Net_Join_Static_Button
+@HOOK 0x00506DA9 _hires_Net_Join_Credits_Slider
+@HOOK 0x00506CE4 _hires_Net_Join_Join_Button
+@HOOK 0x00506C32 _hires_Net_Join_Country_Box
+@HOOK 0x00506BDC _hires_Net_Join_Name_Box
+@HOOK 0x00506931 _hires_Net_Join_Dialog
+
 @HOOK 0x0050C33D _hires_Net_New_AI_Players_Text_Print
 @HOOK 0x0050C31D _hires_Net_New_Credits_Text_Print
 @HOOK 0x0050C2FD _hires_Net_New_Tech_Level_Text_Print
@@ -27,6 +55,7 @@
 @HOOK 0x0050B97D _hires_Net_New_Dialog_OK_Button
 @HOOK 0x0050B8A9 _hires_Net_New_Dialog2
 @HOOK 0x0050B70D _hires_Net_New_Dialog
+
 @HOOK 0x005D1801 _Receive_Remote_File_Caption
 @HOOK 0x005D17F3 _Receive_Remote_File_Dialog
 @HOOK 0x005D162E _Receive_Remote_File_Text_Button
@@ -799,8 +828,7 @@ _hires_ini:
 	
 	_hires_adjust_width 0x004AB8C9
 	_hires_adjust_width 0x004ABC1D
-	
-	_hires_adjust_height 0x004ABBE0
+
 	
 	; win "Mission Accomplished" text
 	_hires_adjust_left 0x0053B336
@@ -827,7 +855,7 @@ _hires_ini:
 	_hires_adjust_left 		0x0050B745
 	_hires_adjust_top		0x0050B79B	
 	_hires_adjust_top		0x0050B82D
-
+	_hires_adjust_top		0x00506ABC
 
 
 	; Unit count text height
@@ -893,6 +921,60 @@ _hires_ini:
 	; AI players count text
 	_hires_adjust_top		0x0050BA64
 	_hires_adjust_left		0x0050BA73
+	
+	; network new dialog
+	; Game channels box
+	_hires_adjust_top	0x00506C74
+	_hires_adjust_left	0x00506C7B
+	
+	; Player list box
+	_hires_adjust_top	0x00506CC1
+	_hires_adjust_left	0x00506CC6
+
+	; network new button
+	_hires_adjust_left 0x00506D43
+	_hires_adjust_top  	0x00506D34
+	
+	; network cancel button
+	_hires_adjust_left 0x00506D1A
+	_hires_adjust_top  	0x00506D0B
+	
+	; Unit count slider
+	_hires_adjust_top 		0x00506D5A
+	_hires_adjust_left		0x00506D5F
+
+	; Tech level slider
+	_hires_adjust_top 		0x00506D78
+	_hires_adjust_left		0x00506D7D
+	
+	; AI players slider
+	_hires_adjust_top 		0x00506DB1
+	_hires_adjust_left		0x00506DB6
+	
+	; Game options box
+	_hires_adjust_top 		0x00506DE7
+	_hires_adjust_left		0x00506DEC
+	
+	; Unit count text
+	_hires_adjust_top		0x00506E2C
+	_hires_adjust_left		0x00506E3B
+	
+	; Tech level number text
+	_hires_adjust_top		0x00506E51
+	_hires_adjust_left		0x00506E60
+	
+	; Credits count text
+	_hires_adjust_top		0x00506E76
+	_hires_adjust_left		0x00506E85
+	
+	; AI players count text
+	_hires_adjust_top		0x00506EA5
+	_hires_adjust_left		0x00506EB5
+	
+	; Message box
+	_hires_adjust_left 		0x00506A98
+	_hires_adjust_top		0x005069B4
+	_hires_adjust_top		0x00506AC9
 	
 	; network new dialog
 ;	_hires_adjust_left 0x0050C28E
@@ -1472,3 +1554,233 @@ _hires_Net_New_AI_Players_Text_Print:
 	add		esi, [diff_left]
 	push    esi
 	jmp		0x0050C348
+	
+_hires_Net_Join_Dialog:
+; left = 1d4 and top = 1d0
+	mov		ecx, [diff_left]
+	mov     [ebp-0x1d4], ecx
+	mov		ecx, [diff_top]
+	mov     [ebp-0x1d0], ecx
+	jmp		0x0050693D
+
+_hires_Net_Join_Name_Box:
+	mov		eax, 0x1f
+	add		eax, [diff_top]
+	push	eax
+
+	mov		eax, 0x5a
+	add		eax, [diff_left]
+	PUSH 	eax
+	
+	MOV 	EAX,DWORD [0x601694]
+	XOR 	DH,DH
+	jmp		0x00506BE7
+
+_hires_Net_Join_Country_Box:
+	mov		ecx, 0x1F
+	add		ecx, [diff_top]
+	push	ecx
+	
+	mov		ecx, 0x104
+	add		ecx, [diff_left]
+	push	ecx
+	jmp		0x00506C39
+
+_hires_Net_Join_Join_Button:
+
+	mov		ecx, 0x16E
+	add		ecx, [diff_top]
+	push	ecx
+	
+	mov		ecx, 0x42
+	add		ecx, [diff_left]
+	push	ecx
+	mov     ecx, 116h
+	mov     ebx, 0C0h
+	jmp		0x00506CF5
+	
+_hires_Net_Join_Credits_Slider:
+	mov		ecx, 0B9h	
+	add		ecx, [diff_top]
+	mov     ebx, 0B9h
+	add		ebx, [diff_left]
+	call   	0x004C4CF0 ; GaugeClass::GaugeClass(uint,int,int,int,int)
+	jmp		0x00506DAE
+	
+_hires_Net_Join_Static_Button:
+	mov		eax, 0x1f
+	add		eax, [diff_top]
+	push	eax
+	
+	mov		eax, 0x20
+	add		eax, [diff_left]
+	push	eax
+
+	mov     ecx, 116h
+	mov     ebx, 0x005EC269
+	jmp		0x00506E1A
+	
+_hires_Net_Join_Games_Text_Print:
+	mov     ebx, 0x36
+	add		ebx, [diff_top]
+	push    ebx
+	mov     ecx, 0xB9
+	add		ecx, [diff_left]
+	push    ecx
+	jmp		0x00507736
+	
+_hires_Net_Join_Players_Text_Print:
+	mov     edi, 0x36
+	add		edi, [diff_top]
+	push    edi
+	mov     eax, 0x1EC
+	add		eax, [diff_left]
+	push    eax
+	jmp		0x00507759
+
+;esi = 12, edi = a0
+_hires_Net_Join_Name_Text_Print:
+	mov     esi, 0x12
+	add		esi, [diff_top]
+	push    esi
+	mov     edi, 0xa0
+	add		edi, [diff_left]
+	push    edi
+	jmp		0x0050778A
+	
+;edx = 12, ebx =140
+_hires_Net_Join_Side_Text_Print:
+	mov     edx, 0x12
+	add		edx, [diff_top]
+	push    edx
+	mov     ebx, 0x140
+	add		ebx, [diff_left]
+	push    ebx
+	jmp		0x005077AD
+	
+;esi = 12, edi = 230
+_hires_Net_Join_Color_Text_Print:
+	mov     esi, 0x12
+	add		esi, [diff_top]
+	push    esi
+	mov     edi, 0x1f0
+	add		edi, [diff_left]
+	push    edi
+	jmp		0x005077D0
+	
+;ecx = 30, eax = 1b5, 1C9, 1DD
+_hires_Net_Join_Color_Draw_Colored_Rectangles:
+	mov     ecx, [ebp-0xAC] ; top
+	add		ecx, [diff_top]
+	push    ecx             ; __int16
+	mov     eax, [ebp-0xB0] ; left
+	add		eax, [diff_left]
+	push    eax             ; __int16
+	mov     edx, [ebp-0xB4] ; height
+	add		edx, [diff_top]
+	push    edx             ; __int16
+	mov     ebx, [ebp-0xB8] ; width
+	add		ebx, [diff_left]
+	push    ebx             ; __int16
+	jmp		0x00507B64
+	
+_hires_Net_Join_Color_Draw_Boxes:
+	add		edx, [diff_top]
+	add		eax, [diff_left]
+	call	0x004ADB5C ; Draw_Box(int,int,int,int,BoxStyleEnum,int)
+	jmp		0x00507BC0
+	
+_hires_Net_Join_Color_Draw_Boxes2:
+	add		edx, [diff_top]
+	add		eax, [diff_left]
+	call	0x004ADB5C ; Draw_Box(int,int,int,int,BoxStyleEnum,int)
+	jmp		0x00507BE1
+	
+_hires_Net_Join_Color_Box_Select_Thingy:
+	mov     edi, [ebp-0x80]
+	add		edi, [diff_top]
+	mov     eax, [edx+4]
+	cmp     eax, edi
+	jle     0x00508193
+	mov		ecx, [ebp-0x84]
+	add		ecx, [diff_top]
+	cmp     eax, ecx
+	jmp		0x0050855F
+	
+_hires_Net_Join_Color_Box_Select_Thingy2:
+	mov     ebx, [ebp-0x264]
+	add		ebx, [diff_left]
+	cmp     ebx, [edx]
+	jge     0x00508193
+	mov     eax, [ebp-0x248]
+	mov     ecx, [ebp-0x1A8]
+	add		eax, [diff_left]
+	jmp		0x0050853F 
+	
+_hires_Net_Join_Color_Box_Select_Thingy3:
+	mov     ecx, [ebp-0x264]
+	add		ecx, [diff_left]
+	jmp		0x0050856B
+	
+_hires_Net_Join_MessageBox:
+; 00507DFB
+;edx = 00000102 eax = 6E
+;	cmp		eax,
+	add		edx, [diff_top]
+	call 	0x004ADB5C ; Draw_Box(int,int,int,int,BoxStyleEnum,int)
+	jmp		0x00507E00 
+
+_hires_Net_Join_Unit_Count_Text_Print:
+; ECX = 0000009F, ESI = 000000B5
+	mov     ecx, 0x9F
+	add		ecx, [diff_top]
+	push    ecx
+	mov     esi, 0xB5
+	add		esi, [diff_left]
+	jmp		0x00507F40
+	
+; EDX= 000000AC, EBX = 000000B5
+_hires_Net_Join_Tech_Level_Text_Print:
+	mov     edx, 0xAC
+	add		edx, [diff_top]
+	push    edx
+	mov     ebx, 0xB5
+	add		ebx, [diff_left]
+	jmp		0x00507FA4
+
+; EAX = 000000B9, EDX = B5
+_hires_Net_Join_Credits_Text_Print:
+	mov     eax, 0xB9
+	add		eax, [diff_top]
+	push    eax
+	mov     edx, 0xB5
+	add		edx, [diff_left]
+	jmp		0x00508023
+	
+; esi = 000000C6, edi = b5
+_hires_Net_Join_AI_Players_Text_Print:
+	mov     esi, 0xC6
+	add		esi, [diff_top]
+	push    esi
+	mov     edi, 0xB5
+	add		edi, [diff_left]
+	jmp		0x00508081
+	
+_hires_Net_Join_Playing_As_Text_Print:
+; EDX = 00000010, ebx = 00000140
+	mov     edx, 0x10
+	add		edx, [diff_top]
+	push    edx
+	mov     ebx, 0x140
+	add		ebx, [diff_left]
+	jmp		0x00507894
+	
+_Shake_The_Screen_Height2:
+	mov		eax, [ScreenHeight]
+	sub		eax, 2
+	jmp		0x004ABBE4
+
+_Shake_The_Screen_Height1:
+	mov		eax, [ScreenHeight]
+	sub		eax, 2
+	jmp		0x004AB8AD

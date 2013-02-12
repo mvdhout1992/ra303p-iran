@@ -1,3 +1,8 @@
+@HOOK	0x0056AAE9 	_TerrainClass__TerrainClass_Jump_Over
+@HOOK	0x004F7805	_Init_Heaps_Larger_Theater_Buffer
+;@HOOK	0x0041C6A1 	_AnimTypeClass__Init_Theater_Check_NOP
+@HOOK	0x0056AAE9	_TerrainClass__Unlimbo_Theater_Check_NOP
+;@HOOK	0x00524B68  _OverlayTypeClass__Init_Theater_Check_NOP
 @HOOK	0x0049EAF3	_TemplateTypeClass__Init_Theater_Check_NOP
 @HOOK	0x0055B8FA  _TerrainTypeClass__Init_Theater_Check_NOP
 @HOOK	0x0055B909  _TerrainTypeClass__Init_Theater
@@ -16,6 +21,8 @@
 
 ; NEED TO PATCH OUT A FEW CHECKS IN A BUNCH OF FUNCTIONS
 
+; need to patch in a jmp at 0x0056A4D2 and check call stack at 0x0056A4D0
+
 ;Theaters array
 Temperate db "TEMPERATE", 0, 0, 0, 0, 0, 0, 0 ; 16 bytes
 Temperat db "TEMPERAT", 0, 0 ; 10 bytes
@@ -32,6 +39,22 @@ Win_ db "TEM", 0 ; 4 bytes, needs to be changed back to WIN
 Desert db "DESERT", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ; 16 bytes
 Desert2 db "DESERT", 0, 0, 0, 0 ; 10 bytes
 Des	db "SNO", 0 ; 4 bytes
+
+_TerrainClass__Unlimbo_Theater_Check_NOP:
+	jmp		0x0056AAF1 
+
+_TerrainClass__TerrainClass_Jump_Over:
+	jmp		0x0056A4E0
+
+_AnimTypeClass__Init_Theater_Check_NOP:
+	jmp		0x0041C6A6
+
+_OverlayTypeClass__Init_Theater_Check_NOP:
+	jmp		0x00524B8B
+
+_Init_Heaps_Larger_Theater_Buffer:
+	mov     edx, 5500000
+	jmp		0x004F780A
 
 _TemplateTypeClass__Init_Theater_Check_NOP:
 	shl     eax, cl

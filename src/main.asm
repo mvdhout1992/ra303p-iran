@@ -17,7 +17,7 @@
 [org 0x006ED220]
 
 ;_str_version: db "3.03p4 B6 ",0
-_str_version: db "3.03p-iran ",0
+_str_version: db "3.03p-iB1v1",0
 
 ;format_test_str  db 'SC%c%02d%c%c.INI',0
 test_str  db "RUN1226M",0
@@ -35,6 +35,9 @@ test_str  db "RUN1226M",0
 %include "src/multiplayer_print_is_aftermath_game.asm"
 %include "src/extended_sidebar.asm"
 %endif
+
+; Version
+%include "src/version.asm"
 
 ; loading code
 %include "src/loading.asm"

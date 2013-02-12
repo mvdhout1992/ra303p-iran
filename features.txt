@@ -190,11 +190,11 @@ E.g.: GameLanguage=6 to load a Spanish language pack.
 
 58. Un-hardcoded the 1-0 keys on the keyboard. The hotkey checking code for handling teams checked both the REDALERT.INI key for the corresponding team and a hard-coded keyboard key for some reason. The checks for hard-coded keyboard keys have been patched out. This essentially allows you to change what the 1-0 keyboard keys are assigned to do, like is possible with the other keyboard keys.
 
-59. Fixed a bug that caused the multiplayer AI to some times send tanks to the top left corner of the map. Because this fix desyncs online with 3.03 players it's added as a RULES.INI keyword. The fix is controlled by the keyword FixAISendingTanksTopLeft= (yes/no) under the [AI] section of RULES.INI.
+59. Fixed a bug that caused the multiplayer AI to sometimes send tanks to the top left corner of the map. Because this fix desyncs online with 3.03 players it's added as a RULES.INI keyword. The fix is controlled by the keyword FixAISendingTanksTopLeft= (yes/no) under the [AI] section of RULES.INI.
 
 60. The name of the side the player plays as is no longer prepended to the names of missions in the mission dialogs. Thanks to Arda.dll.inj by AlexB for showing me where this prepending is done.
 
-61. Converted the "Counterstrike Missions" menu into a "Custom Missions" one. The "Aftermath Missions" menu has been converted into an "Expansions missions" one. The expansion missions will be displayed in this menu. The custom missions menu displays map files CMU0EA.INI up to CMU999EA.INI. Make sure the custom mission has OneTimeOnly= set to 'Yes' or the game will crashh after showing the score screen or glitch up.
+61. Converted the "Counterstrike Missions" menu into a "Custom Missions" one. The "Aftermath Missions" menu has been converted into an "Expansions missions" one. The expansion missions will be displayed in this menu. The custom missions menu displays map files CMU0EA.INI up to CMU999EA.INI. Make sure the custom mission has OneTimeOnly= set to 'Yes' or the game will crash after showing the score screen or glitch up.
 
 62. Added a new map keyword TutorialFile= under the [BASIC] section. This keyword can be used to load a custom TUTORIAL.INI file for your map. E.g. "TutorialFile=DERPTUT.INI", to load DERPTUT.INI. If the keyword is missing TUTORIAL.INI is loaded.
 
@@ -222,3 +222,30 @@ E.g.: GameLanguage=6 to load a Spanish language pack.
 
 68. Added support for winter and desert theaters. To use set Theater= to DESERT or WINTER under the [Basic] section of the map. The game will try to load DESERT.MIX and WINTER.MIX.
 
+69. Changed "V2 Rocket" string to "V2 Rocket Launcher".
+
+70. Changed "Invulnerability Device" to "Invulnerability", to match the icon text and to make more sense.
+
+71. Replaced the "RA Setup" tool with a custom written, open-source configuration tool. This tool requires the .Net 2.0 framework.
+
+72. Added an open-source launcher program, This program requires the .Net 2.0 framework.
+
+73. The files for the game's expansions (excluding music and movies) are included in this patch.
+
+78. Added fixed graphic files for some tiles that would turn into beach tiles when damaged by certain warheads. ("smudge fix")
+
+79. Added fix for the "Situation Critical" mission (by MrFlibble) and a fix for the "Siberian Conflict 2: Trapped" mission (by FunkyFr3sh).
+
+80. The correct bmap.vqa and bmap.vqp files are loaded and included with this patch. The original game and expansions came with different versions of this file and sometimes this would cause the video to play with a glitched palette. This is the "dagger falling on a map of Europe" animation video.
+
+81. Fixed misspelled Missile Silo text on the icon for the building. It was misspelled as "Missle Silo". Fix made by Nyerguds.
+
+82. Added an option to play with smaller sized infantry. The infantry will be sized like in C&C95.
+
+83. Added an option to play with a re-creation of the beta Tesla Tank shown in some old magazine screenshots. The beta Tesla Tank recreation graphics was made by Nyerguds.
+
+84. Fixed the missing shadow for the Demo Truck. (Fix made by AlexB)
+
+85. The sandbags and chainlink fence crush sounds were switched. The chainlink fence now uses the correct crush sound. Because the sandbags crush sound wasn't that fitting it has been replaced with a more fitting unused sound from the game data files.
+
+86. Fixed small graphical glitch on the chainlink fence. (Fix by Nyerguds)

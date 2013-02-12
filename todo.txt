@@ -1,12 +1,10 @@
-17. Don't forget to update version info ingame to show 303p-iB1
+1. Fix mouse wheel sidebar scrolling scrolling too far (can try to check current index + CameoItems and max index..)
+
+2. Make some of the fixes that desync online be applied in skirmish
 
 4. Holy Grounds cause Out of Sync at start
 
 5. test fixed version of conflict cove extreme with original version
-
-6. Some of the music that loops and isn't supposed to play still gets chosen as random starting song
-
-8. need to check if editor downloads on PortableRA site are updated and update the installer so it places the updated editor in the main game folder.
 
 9. Fix Radar Dome crash.
 
@@ -15,20 +13,26 @@
 
 11. selecting a harvester target ore patch on the radar minimap shows a "can't go there" cursor instead of the attack cursor.
 
-12. Fix 'Negoations' expansion mission
+can't move is mousetype 0x11, attack is 16, actiontype move is 1 or 2
+
 
 16. Update language packs with FunkyFr3sh's versions
 
+21. Check out arda auto adjust on game grid option and check where to find it. It only works in windowed mode under cnc-ddraw and modifies width and height based on something, probably game height/width - (height/width % cell size in pixels), need to add launcher logic so this only gets enabled in windowed mode (enable/disable when windowed mode checkbox is changeed and make sure to do a check while saving options)
+
+22. Mention all non-code patches in my patch notes.
+
+23 I keep forgetting to mention, not exactly a bug, but the Cargo Truck did not have a shadow until
+Aftermath, yet in Aftermath, the fixed SHP with the shadow is inside conquer.mix (and not expand2.mix), so if you play the original
+campaign or Counterstrike missions, you still get the old Cargo Truck without the shadow (this is non-issue for the TFD version, I suppose).
+Basically, putting the new version of the SHP inside expand2.mix should fix it.
+
+Todo for later:
+--------------------------------------
 18. There's graphical glitching in the no-refresh area of the sidebar with the keybar toggle key in 640x480, need to copy code from options menu to clear buffer. This code might be useful to fix graphical glitching on maps smaller than reso.
 
 19. Look into adding black map border tiles. add clear1.int to all theaters, don't forget to REMOVE hires patch to not display map broder
 
-20. Check if chrono vortex shows up in new theaters
-
-21. Check out arda auto adjust on game grid option and check where to find it
-
-Todo for later:
---------------------------------------
 9. Update forceAM and forceAMfastbuildspeed rules.ini files to use updated oos-fix.ini to prevent issues with barrels in single player etc
 
 10. Add option to not have ai build mad tanks
