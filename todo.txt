@@ -2,9 +2,29 @@
 
 2. Make some of the fixes that desync online be applied in skirmish
 
+3. The radar animations natordr.shp and ussrrdr.shp are missing frames
+
+4. fix black bars in 640x400 res
+
+5. Check if AI changes cause OOS online
+
+23 I keep forgetting to mention, not exactly a bug, but the Cargo Truck did not have a shadow until
+Aftermath, yet in Aftermath, the fixed SHP with the shadow is inside conquer.mix (and not expand2.mix), so if you play the original
+campaign or Counterstrike missions, you still get the old Cargo Truck without the shadow (this is non-issue for the TFD version, I suppose).
+Basically, putting the new version of the SHP inside expand2.mix should fix it.
+
+16. Update language packs with FunkyFr3sh's versions
+
+22. Mention all non-code patches in my patch notes.
+
+21. Check out arda auto adjust on game grid option and check where to find it. It only works in windowed mode under cnc-ddraw and modifies width and height based on something, probably game height/width - (height/width % cell size in pixels), need to add launcher logic so this only gets enabled in windowed mode (enable/disable when windowed mode checkbox is changeed and make sure to do a check while saving options)
+
 4. Holy Grounds cause Out of Sync at start
 
 5. test fixed version of conflict cove extreme with original version
+
+6. Add safe scrolling option:
+http://forums.cncnz.com/topic/17647-option-to-not-scroll-the-map-with-mouse-over-options-button/#entry210811
 
 9. Fix Radar Dome crash.
 
@@ -16,16 +36,6 @@
 can't move is mousetype 0x11, attack is 16, actiontype move is 1 or 2
 
 
-16. Update language packs with FunkyFr3sh's versions
-
-21. Check out arda auto adjust on game grid option and check where to find it. It only works in windowed mode under cnc-ddraw and modifies width and height based on something, probably game height/width - (height/width % cell size in pixels), need to add launcher logic so this only gets enabled in windowed mode (enable/disable when windowed mode checkbox is changeed and make sure to do a check while saving options)
-
-22. Mention all non-code patches in my patch notes.
-
-23 I keep forgetting to mention, not exactly a bug, but the Cargo Truck did not have a shadow until
-Aftermath, yet in Aftermath, the fixed SHP with the shadow is inside conquer.mix (and not expand2.mix), so if you play the original
-campaign or Counterstrike missions, you still get the old Cargo Truck without the shadow (this is non-issue for the TFD version, I suppose).
-Basically, putting the new version of the SHP inside expand2.mix should fix it.
 
 Todo for later:
 --------------------------------------

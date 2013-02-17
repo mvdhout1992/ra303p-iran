@@ -10,9 +10,14 @@
 
 
 _Fix_AI_Attacking_Top_Left_Bug2:
+	cmp		BYTE [SessionClass__Session], 5
+	je		.Apply_Fix_For_Skirmish
+
 	cmp		BYTE [fixaisendingtankstopleft], 1
 	jnz		.Original_Code
 
+.Apply_Fix_For_Skirmish:
+	
 	push    ecx
 	
 	push	eax
@@ -30,8 +35,13 @@ _Fix_AI_Attacking_Top_Left_Bug2:
 	jmp		0x004DDA05
 	
 _Fix_AI_Attacking_Top_Left_Bug:
+	cmp		BYTE [SessionClass__Session], 5
+	je		.Apply_Fix_For_Skirmish
+
 	cmp		BYTE [fixaisendingtankstopleft], 1
 	jnz		.Original_Code
+	
+.Apply_Fix_For_Skirmish:
 
 	call	0x004FFAC4 ;  const MapClass::Nearby_Location(short,SpeedType,int,MZoneType)
 	cmp		eax, 0
@@ -59,8 +69,13 @@ _EventClass__Execute_Make_Ally:
 	push	edx
 	call 	0x004D6060
 	
+	cmp		BYTE [SessionClass__Session], 5
+	je		.Apply_Fix_For_Skirmish
+	
 	cmp BYTE [fixaially], 0
 	jz		.Ret
+	
+.Apply_Fix_For_Skirmish:
 	
 	pop		eax ; Pop registers in reverse order, HouseType
 	call	0x004D2CB0 ; HouseClass::As_Pointer(HousesType)
@@ -79,8 +94,12 @@ _EventClass__Execute_Make_Ally:
 	jmp 	0x004BD1E2
 
 _HouseClass__Is_Allowed_To_Ally_AI_Player_Fix:
+	cmp		BYTE [SessionClass__Session], 5
+	je		.Allow_AI_Ally
+
 	cmp BYTE [fixaially], 1
 	jz		.Allow_AI_Ally
+	
 
 	cmp		DWORD eax, 0
 	jz		0x004DE5D8
@@ -92,9 +111,12 @@ _HouseClass__Is_Allowed_To_Ally_AI_Player_Fix:
 	jmp		0x004DE5E2
 
 _HouseClass__Make_Ally_Computer_Paranoid_Call_Patch_Out:
+	cmp		BYTE [SessionClass__Session], 5
+	je		.Jump_Over
+
 	cmp BYTE [fixaiparanoid], 1
 	jz		.Jump_Over
-
+	
 	call	0x004DE640 ; call HouseClass::Computer_Paranoid()
 
 .Jump_Over:
@@ -102,6 +124,9 @@ _HouseClass__Make_Ally_Computer_Paranoid_Call_Patch_Out:
 
 _AI_Tech_Up_Check:
 	jnz		0x004DB0E4
+	
+	cmp		BYTE [SessionClass__Session], 5
+	je		.No_Techup_Check
 	
 	cmp BYTE [removeaitechupcheck], 1
 	jz		.No_Techup_Check

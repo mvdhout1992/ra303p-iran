@@ -322,7 +322,7 @@ _Load_Game_hires: ; Fix up button vertical position and visible icon area size w
 	mov [upbuttons+16], ebx
 	mov [upbuttons+16+56], ebx
 	
-	;Scroll up cameo list to top for left sidebar if it would be glitched
+	;Scroll up cameo list to top for right sidebar if it would be glitched
 	mov		eax, MouseClass_Map
 	lea     eax, [eax+131Ah]
 	
@@ -330,16 +330,16 @@ _Load_Game_hires: ; Fix up button vertical position and visible icon area size w
 	mov     ebx, [eax+35h] ; Max cameo item in sidebar
 	add     edx, [CameoItems]
 	cmp     edx, ebx
-	jle     .No_Cameo_list_Left_Strip_Reset
+	jle     .No_Cameo_list_Right_Strip_Reset
 	
 ;	mov		ebx, [eax+35h]
 ;	sub		ebx, [CameoItems]
 ;	mov		DWORD [eax+25h], ebx ; Set it to the legit max scroll
 	mov		DWORD [eax+25h], 0 ; Reset it
 	
-.No_Cameo_list_Left_Strip_Reset:
+.No_Cameo_list_Right_Strip_Reset:
 
-	;Scroll up cameo list to top for right sidebar if it would be glitched
+	;Scroll up cameo list to top for left sidebar if it would be glitched
 	mov		eax, MouseClass_Map
 	lea     eax, [eax+103Eh]
 	
@@ -347,14 +347,14 @@ _Load_Game_hires: ; Fix up button vertical position and visible icon area size w
 	mov     ebx, [eax+35h] ; Max cameo item in sidebar
 	add     edx, [CameoItems]
 	cmp     edx, ebx
-	jle     .No_Cameo_list_Right_Strip_Reset	
+	jle     .No_Cameo_list_Left_Strip_Reset	
 	
 ;	mov		ebx, [eax+35h]
 ;	sub		ebx, [CameoItems]
 ;	mov		DWORD [eax+25h], ebx ; Set it to the legit max scroll
 	mov		DWORD [eax+25h], 0 ; Reset it
 	
-.No_Cameo_list_Right_Strip_Reset
+.No_Cameo_list_Left_Strip_Reset:
 	
 	pop		ebx
 	mov     eax, ebx

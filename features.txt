@@ -15,8 +15,6 @@ Hires improvements over hifi's original code for this:
 	- Added extended sidebar (using graphics and memory addresses taken from Arda, by AlexB)
 	- 640x480 does npt show black bars on the top and bottom of the screen anymore.
 	- You no longer need to scroll the map and open the options menu to fix glitching with maps smaller than your resolution.
-	
-More hires improvements to come, main things that are left are the Network/LAN menus, video stretching and/or centering, the score presentation screen and the map selection screen. If I'm able to patch cnc-ddraw I should be able to fix the last three.
 
 The original code for this high resolution feature was written by hifi.
 
@@ -81,7 +79,7 @@ Etc for every new song. Make sure there's an empty (blank) line at the end of th
 
 21. Greece, Spain and Turkey are now all selectable in multiplayer.
 
-22. Fix added for cnc-ddraw crash in the credits slide show screen once the first text reaches the top of the screen. This fix causes slight graphical glitching sadly.
+22. Fix added for cnc-ddraw crash in the credits slide show screen once the first text reaches the top of the screen. This fix causes slight graphical glitching sadly and as a result I removed the loading of background images for the credits screen.
 
 23. New RULES.INI AftermathFastBuildSpeed= yes/no keyword under the section [Aftermath], with this enabled there won't be a cap for build speed increase when you buy additional production facilities of the same type (e.g. more than two Barracks)and the Aftrmath expansion is installed. If you want to use this online you need to play versus other players running this patch and the "Force AM fast build speed" RULES.INI file (this is also available as a RedAlertConfig.exe option).
 
@@ -128,11 +126,11 @@ Etc for every new song. Make sure there's an empty (blank) line at the end of th
 
 34. The game will now tell you if you're hosting Aftermath or not when you have the aftermath expansion enabled. If someone without Aftermath joins your online Aftermath game (effectively changing your game into a non-Aftermath game) text will appear making it clear Aftermath is turned "off". This doesn't apply to joining games, as the needed info is only send once the game is started by the host, sadly.. 
 
-35. Added a new RULES.INI keyword RemoveAITechupCheck= (yes/no) under the [AI] section, when set to yes the AI will tech up to Radar Dome and beyond even when there are no Helipads or Airfields on the map.
+35. Added a new RULES.INI keyword RemoveAITechupCheck= (yes/no) under the [AI] section, when set to yes the AI will tech up to Radar Dome and beyond even when there are no Helipads or Airfields on the map. This fix is always enabled in skirmish.
 
-36. Added a keyword FixAIParanoid= (yes/no) under the [AI] section of RULES.INI, when set to yes the Paranoid= setting will be fixed. This Paranoid= setting controls whether all the AI should ally amongst themselves to fight you when one player is defeated. Paranoid=yes enables this, but this was broken in patch 3.03.
+36. Added a keyword FixAIParanoid= (yes/no) under the [AI] section of RULES.INI, when set to yes the Paranoid= setting will be fixed. This Paranoid= setting controls whether all the AI should ally amongst themselves to fight you when one player is defeated. Paranoid=yes enables this, but this was broken in patch 3.03. This fix is always enabled in skirmish.
 
-37. Added a keyword FixAIAlly= (yes/no) under the [AI] section of RULES.INI, when set to yes you can ally with AI players.
+37. Added a keyword FixAIAlly= (yes/no) under the [AI] section of RULES.INI, when set to yes you can ally with AI players. This fix is always enabled in skirmish.
 
 38. Optional fix for the formation exploit, the slowest unit speed is used now as formation speed when this fix is enabled. The RULES.INI keyword FixFormationSpeed= (yes/no) keyword under the [General] section controls whether this fix is on or off, it's off when this keyword is missing. (Taken from Arda.dll.inj by AlexB)
 
@@ -166,7 +164,7 @@ E.g.: GameLanguage=6 to load a Spanish language pack.
    
 46. Added a new RULES.INI keyword ParabombsInMultiplayer= (yes/no) under the [General] section, when enabled it will make parabombs available in multiplayer (by default after an Airfield is bought).
 
-47. It is now possible to scroll the sidebar with the mousewheel. (code written by CCHyper)
+47. It is now possible to scroll the sidebar with the mouse wheel. (code written by CCHyper)
 
 48. The Image= keyword now works in a map file, instead of just globally in RULES.INI.
 
@@ -190,7 +188,7 @@ E.g.: GameLanguage=6 to load a Spanish language pack.
 
 58. Un-hardcoded the 1-0 keys on the keyboard. The hotkey checking code for handling teams checked both the REDALERT.INI key for the corresponding team and a hard-coded keyboard key for some reason. The checks for hard-coded keyboard keys have been patched out. This essentially allows you to change what the 1-0 keyboard keys are assigned to do, like is possible with the other keyboard keys.
 
-59. Fixed a bug that caused the multiplayer AI to sometimes send tanks to the top left corner of the map. Because this fix desyncs online with 3.03 players it's added as a RULES.INI keyword. The fix is controlled by the keyword FixAISendingTanksTopLeft= (yes/no) under the [AI] section of RULES.INI.
+59. Fixed a bug that caused the multiplayer AI to sometimes send tanks to the top left corner of the map. Because this fix desyncs online with 3.03 players it's added as a RULES.INI keyword. The fix is controlled by the keyword FixAISendingTanksTopLeft= (yes/no) under the [AI] section of RULES.INI. This fix is applied by default in skirmish mode.
 
 60. The name of the side the player plays as is no longer prepended to the names of missions in the mission dialogs. Thanks to Arda.dll.inj by AlexB for showing me where this prepending is done.
 
@@ -222,9 +220,9 @@ E.g.: GameLanguage=6 to load a Spanish language pack.
 
 68. Added support for winter and desert theaters. To use set Theater= to DESERT or WINTER under the [Basic] section of the map. The game will try to load DESERT.MIX and WINTER.MIX.
 
-69. Changed "V2 Rocket" string to "V2 Rocket Launcher".
+69. Changed tge "V2 Rocket" string to "V2 Rocket Launcher".
 
-70. Changed "Invulnerability Device" to "Invulnerability", to match the icon text and to make more sense.
+70. Changed the "Invulnerability Device"  string to "Invulnerability", to match the icon text and to make more sense.
 
 71. Replaced the "RA Setup" tool with a custom written, open-source configuration tool. This tool requires the .Net 2.0 framework.
 
@@ -249,3 +247,7 @@ E.g.: GameLanguage=6 to load a Spanish language pack.
 85. The sandbags and chainlink fence crush sounds were switched. The chainlink fence now uses the correct crush sound. Because the sandbags crush sound wasn't that fitting it has been replaced with a more fitting unused sound from the game data files.
 
 86. Fixed small graphical glitch on the chainlink fence. (Fix by Nyerguds)
+
+87. Added a fix for the cnc-ddraw bug where the mouse randomly disappears.
+
+88. If you're not running the Aftermath expansion the Supply Truck/Cargo Truck would not have a shadow. The correct graphics with shadows is now always loaded.

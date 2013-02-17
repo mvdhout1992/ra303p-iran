@@ -66,7 +66,7 @@
 @HOOK 0x005D1CFC _Send_Remote_File_Text_Button
 @HOOK 0x005D215C _Send_Remote_File_Caption
 @HOOK 0x005D214E _Send_Remote_File_Dialog
-;@HOOK 0x0053A376 _Start_Scenario_Set_Flag_To_Redraw_Screen
+@HOOK 0x0053A376 _Start_Scenario_Set_Flag_To_Redraw_Screen
 @HOOK 0x005523C6 _Set_Screen_Height_480_NOP
 @HOOK 0x005525D7 _Set_Screen_Height_400_NOP
 @HOOK 0x005525E6 _No_Black_Bars_In_640x480
@@ -255,12 +255,6 @@ _Start_Scenario_Set_Flag_To_Redraw_Screen:
 	mov 	eax, 0x00668188 ; GameOptionsClass Options
 	jmp		0x0053A37B
 
-_No_Black_Bars_In_640x480:
-	jmp		0x00552628
-	
-_Set_Screen_Height_480_NOP:
-	jmp		0x005523CC
-
 _hires_Center_VQA640_Videos:
 	MOV EAX, [diff_top]
 	push	eax
@@ -404,9 +398,6 @@ _hires_MainMenuClearBackground:
 
 ExtendedSelectButtons8 TIMES 824 dd 0 
 %define DefaultSelectButtons 0x0068A2C4
-
-_Set_Screen_Height_400_NOP:
-	jmp		0x005525E1
 
 _hires_Sidebar_Cameos_Init_IO6:	 ; Down buttons
 	add     esi, 0C2h
@@ -1784,3 +1775,32 @@ _Shake_The_Screen_Height1:
 	mov		eax, [ScreenHeight]
 	sub		eax, 2
 	jmp		0x004AB8AD
+	
+_Set_Screen_Height_400_NOP:
+	cmp		DWORD [ScreenHeight], 400
+	je		.No_Change
+	
+	jmp		0x005525E1
+	
+.No_Change:
+	mov		DWORD [ScreenHeight], 190h
+	jmp		0x005525E1
+	
+_No_Black_Bars_In_640x480:
+	cmp		DWORD [ScreenHeight], 400
+	je		.No_Change
+	jmp		0x00552628
+	
+.No_Change:
+	cmp     eax, 1E0h
+	jnz     0x00552628
+	
+_Set_Screen_Height_480_NOP:
+	cmp		DWORD [ScreenHeight], 400
+	je		.No_Change
+
+	jmp		0x005523CC
+	
+.No_Change:
+	mov     DWORD [ScreenHeight], ebx
+	jmp     0x005523EE
