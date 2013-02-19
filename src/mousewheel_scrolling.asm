@@ -21,13 +21,13 @@ _Mouse_Wheel_Sidebar_Scrolling:
 	jnz 	.out
 	
 	
-	mov		ebx, 2
-	mov		eax, [0x00665EB0]
-	call	0x005BBF30 ;   WinTimerClass::Get_System_Tick_Count(void)
-	cdq
-	idiv	ebx
-	cmp		DWORD edx, 0
-	jnz		.out
+;	mov		ebx, 2
+;	mov		eax, [0x00665EB0]
+;	call	0x005BBF30 ;   WinTimerClass::Get_System_Tick_Count(void)
+;	cdq
+;	idiv	ebx
+;	cmp		DWORD edx, 0
+;	jnz		.out
 	
 	mov 	byte [Scrolling], 1
 	mov     edx, [ebp+10h]

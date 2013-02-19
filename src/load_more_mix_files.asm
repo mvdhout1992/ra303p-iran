@@ -150,26 +150,26 @@ _load_more_mix_files:
 	Load_Mix_File_Cached 	oosfixmix_str
 	
 	; EXTRA MOVIES-xx.MIX
-	Load_Mix_File 	movies_1_str
-	Load_Mix_File 	movies_2_str
-	Load_Mix_File 	movies_3_str
-	Load_Mix_File 	movies_4_str
-	Load_Mix_File 	movies_5_str
-	Load_Mix_File 	movies_6_str
-	Load_Mix_File 	movies_7_str
-	Load_Mix_File 	movies_8_str
-	Load_Mix_File 	movies_9_str
 	Load_Mix_File 	movies_10_str
-
+	Load_Mix_File 	movies_9_str
+	Load_Mix_File 	movies_8_str
+	Load_Mix_File 	movies_7_str
+	Load_Mix_File 	movies_6_str
+	Load_Mix_File 	movies_5_str
+	Load_Mix_File 	movies_4_str
+	Load_Mix_File 	movies_3_str
+	Load_Mix_File 	movies_2_str
+	Load_Mix_File 	movies_1_str
+	
 	; EXTRA EXPANDxx.MIX
-	Load_Mix_File_Cached 	expand3_str
-	Load_Mix_File_Cached 	expand4_str
-	Load_Mix_File_Cached 	expand5_str
-	Load_Mix_File_Cached 	expand6_str
-	Load_Mix_File_Cached 	expand7_str
-	Load_Mix_File_Cached	expand8_str
 	Load_Mix_File_Cached 	expand9_str 
-
+	Load_Mix_File_Cached	expand8_str
+	Load_Mix_File_Cached 	expand7_str
+	Load_Mix_File_Cached 	expand6_str
+	Load_Mix_File_Cached 	expand5_str
+	Load_Mix_File_Cached 	expand4_str
+	Load_Mix_File_Cached 	expand3_str
+	
 	mov     edx, 0FFFFFFFEh
 	mov     ecx, [0x006017D0]
 	mov     [0x006017D0], edx

@@ -35,10 +35,10 @@ Interior_2 db "INTERIOR", 0, 0 ; 10 bytes
 Int_ db "INT", 0 ; 4 bytes
 Winter db "WINTER", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ; 16 bytes
 Winter2 db "WINTER", 0, 0, 0, 0 ; 10 bytes
-Win_ db "TEM", 0 ; 4 bytes, needs to be changed back to WIN
+Win_ db "WIN", 0 ; 4 bytes, needs to be changed back to WIN
 Desert db "DESERT", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ; 16 bytes
 Desert2 db "DESERT", 0, 0, 0, 0 ; 10 bytes
-Des	db "SNO", 0 ; 4 bytes
+Des	db "DES", 0 ; 4 bytes
 
 _TerrainClass__Unlimbo_Theater_Check_NOP:
 	jmp		0x0056AAF1 

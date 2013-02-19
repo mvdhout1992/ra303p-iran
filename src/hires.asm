@@ -130,6 +130,7 @@
 ;@HOOK 0x0054E72A _hires_Sidebar_Cameos_Draw_Buttons
 
 CellSize dd 100h
+fake480height dd 0
 
 _Receive_Remote_File_Caption:
 	mov     ebx, 0x6e
@@ -1777,30 +1778,24 @@ _Shake_The_Screen_Height1:
 	jmp		0x004AB8AD
 	
 _Set_Screen_Height_400_NOP:
-	cmp		DWORD [ScreenHeight], 400
+	cmp		DWORD [fake480height], 1
 	je		.No_Change
 	
-	jmp		0x005525E1
+	jmp		0x00552628
 	
 .No_Change:
 	mov		DWORD [ScreenHeight], 190h
-	jmp		0x005525E1
+	jmp		0x005525ED
 	
 _No_Black_Bars_In_640x480:
-	cmp		DWORD [ScreenHeight], 400
+	cmp		DWORD [fake480height], 1
 	je		.No_Change
 	jmp		0x00552628
 	
 .No_Change:
-	cmp     eax, 1E0h
-	jnz     0x00552628
+	jmp		0x005525ED
 	
 _Set_Screen_Height_480_NOP:
-	cmp		DWORD [ScreenHeight], 400
-	je		.No_Change
-
-	jmp		0x005523CC
-	
-.No_Change:
 	mov     DWORD [ScreenHeight], ebx
+	mov		DWORD [fake480height], 1
 	jmp     0x005523EE
