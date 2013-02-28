@@ -1,12 +1,3 @@
-1. Fix mouse wheel sidebar scrolling scrolling too far (can try to check current index + CameoItems and max index..)
-
-2. Make some of the fixes that desync online be applied in skirmish
-
-3. The radar animations natordr.shp and ussrrdr.shp are missing frames
-
-4. fix black bars in 640x400 res
-
-5. Check if AI changes cause OOS online
 
 23 I keep forgetting to mention, not exactly a bug, but the Cargo Truck did not have a shadow until
 Aftermath, yet in Aftermath, the fixed SHP with the shadow is inside conquer.mix (and not expand2.mix), so if you play the original
@@ -17,14 +8,16 @@ Basically, putting the new version of the SHP inside expand2.mix should fix it.
 
 22. Mention all non-code patches in my patch notes.
 
+23. Add different colour remaps for buildings and units
+Feb 20 23:39:21 <iran> CCHyper: yeah TechnoClass offset 0x10 has the vftable with value 0x5F73E000 for BuildingClass
+red colour remap is 0x00666B3E
+
 21. Check out arda auto adjust on game grid option and check where to find it. It only works in windowed mode under cnc-ddraw and modifies width and height based on something, probably game height/width - (height/width % cell size in pixels), need to add launcher logic so this only gets enabled in windowed mode (enable/disable when windowed mode checkbox is changeed and make sure to do a check while saving options)
 
 4. Holy Grounds cause Out of Sync at start
 
 5. test fixed version of conflict cove extreme with original version
 
-6. Add safe scrolling option:
-http://forums.cncnz.com/topic/17647-option-to-not-scroll-the-map-with-mouse-over-options-button/#entry210811
 
 9. Fix Radar Dome crash.
 
@@ -74,8 +67,6 @@ have them make spen too, ai might build missile subs if they have tech center, n
 [19:03:48] <iran> it works by clearing the background whenever a pcx file is loaded
 [19:04:00] <iran> which is done for the credits screen with that file
 
-55. Add support for Desert and Winter theater from C&C1, see (need to make game allocate larger heap/buffer for theater stuff probably):
-http://forums.cncnz.com/topic/13910-106c-development-topic/page-36#entry210648
 
 56. add displaying of messages typed by yourself as an optional redalert.ini setting
 

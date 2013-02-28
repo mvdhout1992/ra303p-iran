@@ -192,7 +192,7 @@ E.g.: GameLanguage=6 to load a Spanish language pack.
 
 60. The name of the side the player plays as is no longer prepended to the names of missions in the mission dialogs. Thanks to Arda.dll.inj by AlexB for showing me where this prepending is done.
 
-61. Converted the "Counterstrike Missions" menu into a "Custom Missions" one. The "Aftermath Missions" menu has been converted into an "Expansions missions" one. The expansion missions will be displayed in this menu. The custom missions menu displays map files CMU0EA.INI up to CMU999EA.INI. Make sure the custom mission has OneTimeOnly= set to 'Yes' or the game will crash after showing the score screen or glitch up.
+61. Converted the "Counterstrike Missions" menu into a "Custom Missions" one. The "Aftermath Missions" menu has been converted into an "Expansions missions" one. The expansion missions will be displayed in this menu. The custom missions menu displays map files CMU0EA.INI up to CMU999EA.INI. Make sure the custom mission has OneTimeOnly= set to 'Yes' or the game will crash after showing the score screen or glitch up. Make sure the [Basic] section of the map is at the top, or the game might not read it (this happens with all maps).
 
 62. Added a new map keyword TutorialFile= under the [BASIC] section. This keyword can be used to load a custom TUTORIAL.INI file for your map. E.g. "TutorialFile=DERPTUT.INI", to load DERPTUT.INI. If the keyword is missing TUTORIAL.INI is loaded.
 

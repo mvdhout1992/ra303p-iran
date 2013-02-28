@@ -39,14 +39,19 @@ test_str  db "RUN1226M",0
 ; Version
 %include "src/version.asm"
 
+; macros
+%include "src/macros.asm"
+
 ; loading code
 %include "src/loading.asm"
 
 ; generic
-%include "src/macros.asm"
+%include "src/multiplayer_allies_fix.asm"
+%include "src/selectable_spawn_locations.asm"
+%include "src/special_colourscheme.asm"
 %include "src/arguments.asm"
 %include "src/image_keyword_fix.asm"
-;%include "src/debug_printing.asm" ; Seems to cause crash
+;%include "src/debug_printing.asm" ; Seems to cause crashes
 %include "src/hotkeys.asm"
 %include "src/extra_theaters.asm"
 %include "src/extra_sounds.asm"
@@ -78,6 +83,7 @@ test_str  db "RUN1226M",0
 %endif
 
 %ifdef USE_BUGFIXES
+%include "src/radar_dome_crash_fix.asm"
 %include "src/fix_toinherit_keyword.asm"
 %include "src/localise_draw_strings.asm"
 %include "src/mouse_fixes.asm"
