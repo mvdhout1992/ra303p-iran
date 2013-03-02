@@ -232,7 +232,7 @@ E.g.: GameLanguage=6 to load a Spanish language pack.
 
 78. Added fixed graphic files for some tiles that would turn into beach tiles when damaged by certain warheads. ("smudge fix")
 
-79. Added fix for the "Situation Critical" mission (by MrFlibble) and a fix for the "Siberian Conflict 2: Trapped" mission (by FunkyFr3sh).
+79. Fixed the automatic sonar pulse (submarine decloak) when a team doesn't have any non-submarines left. This logic was applied to singleplayer too which broke a few missions and added weird behavior on some. The logic is now multiplayer only. (Thanks to Arda.dll.inj by AlexB for showing me where to patch this)
 
 80. The correct bmap.vqa and bmap.vqp files are loaded and included with this patch. The original game and expansions came with different versions of this file and sometimes this would cause the video to play with a glitched palette. This is the "dagger falling on a map of Europe" animation video.
 

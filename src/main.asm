@@ -46,6 +46,7 @@ test_str  db "RUN1226M",0
 %include "src/loading.asm"
 
 ; generic
+%include "src/infantry_range_check.asm"
 %include "src/multiplayer_allies_fix.asm"
 %include "src/selectable_spawn_locations.asm"
 %include "src/special_colourscheme.asm"
@@ -83,6 +84,7 @@ test_str  db "RUN1226M",0
 %endif
 
 %ifdef USE_BUGFIXES
+%include "src/submarine_decloak_skip_campaign.asm"
 %include "src/what_weapon_should_i_use_crash_fix.asm"
 %include "src/radar_dome_crash_fix.asm"
 %include "src/fix_toinherit_keyword.asm"

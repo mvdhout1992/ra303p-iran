@@ -1,0 +1,96 @@
+.text:10010220                 public BuildingClass_MissionRepair_InstantRepair
+.text:10010220 BuildingClass_MissionRepair_InstantRepair proc near
+.text:10010220                                         ; DATA XREF: .rdata:off_100240A8o
+.text:10010220
+.text:10010220 var_54          = dword ptr -54h
+.text:10010220 Location_Of_Unit?= dword ptr -50h
+.text:10010220 Cell            = dword ptr -4Ch
+.text:10010220 UnitType?       = dword ptr -48h
+.text:10010220 Mission_Repair_ESI= dword ptr -44h
+.text:10010220 var_40          = byte ptr -40h
+.text:10010220 var_4           = dword ptr -4
+.text:10010220 arg_0           = dword ptr  8
+.text:10010220
+.text:10010220                 push    ebp
+.text:10010221                 mov     ebp, esp
+.text:10010223                 sub     esp, 54h
+.text:10010226                 mov     eax, ___security_cookie
+.text:1001022B                 xor     eax, ebp
+.text:1001022D                 mov     [ebp+var_4], eax
+.text:10010230                 mov     ecx, [ebp+arg_0]
+.text:10010233                 call    Get_ESI         ; ?what@runtime_error@std@@UBEPBDXZ
+.text:10010233                                         ; doubtful name
+.text:10010238                 mov     [ebp+Mission_Repair_ESI], eax
+.text:1001023B                 mov     eax, [ebp+Mission_Repair_ESI]
+.text:1001023E                 cmp     dword ptr [eax+2Ah], 2
+.text:10010242                 jnz     short loc_100102A1
+.text:10010244                 mov     ecx, [ebp+Mission_Repair_ESI]
+.text:10010247                 mov     edx, [ecx+3Ah]  ; unit being repaired
+.text:1001024A                 push    edx
+.text:1001024B                 call    Get_Unit_Type?
+.text:10010250                 add     esp, 4
+.text:10010253                 mov     [ebp+UnitType?], eax
+.text:10010256                 cmp     [ebp+UnitType?], 0
+.text:1001025A                 jz      short loc_100102A1
+.text:1001025C                 mov     eax, [ebp+UnitType?]
+.text:1001025F                 mov     ecx, [eax+5]    ; Location?
+.text:10010262                 push    ecx
+.text:10010263                 mov     ecx, MouseClass_Map
+.text:10010269                 call    Get_Location?
+.text:1001026E                 mov     [ebp+Location_Of_Unit?], eax
+.text:10010271                 mov     edx, [ebp+Location_Of_Unit?]
+.text:10010274                 push    edx
+.text:10010275                 lea     eax, [ebp+var_40]
+.text:10010278                 push    eax
+.text:10010279                 mov     ecx, MouseClass_Map
+.text:1001027F                 add     ecx, 1Ch
+.text:10010282                 call    Get_Unit_Cell
+.text:10010287                 mov     [ebp+Cell], eax
+.text:1001028A                 mov     ecx, [ebp+Cell]
+.text:1001028D                 call    Cell_Find_Building
+.text:10010292                 cmp     eax, [ebp+Mission_Repair_ESI]
+.text:10010295                 jz      short loc_100102A1
+.text:10010297                 mov     ecx, [ebp+Mission_Repair_ESI]
+.text:1001029A                 mov     dword ptr [ecx+2Ah], 1
+.text:100102A1
+.text:100102A1 loc_100102A1:                           ; CODE XREF: BuildingClass_MissionRepair_InstantRepair+22j
+.text:100102A1                                         ; BuildingClass_MissionRepair_InstantRepair+3Aj ...
+.text:100102A1                 mov     edx, [ebp+Mission_Repair_ESI]
+.text:100102A4                 mov     eax, [edx+2Ah]
+.text:100102A7                 mov     [ebp+var_54], eax
+.text:100102AA                 cmp     [ebp+var_54], 0
+.text:100102AE                 jz      short loc_100102BE
+.text:100102B0                 cmp     [ebp+var_54], 1
+.text:100102B4                 jz      short loc_100102C5
+.text:100102B6                 cmp     [ebp+var_54], 2
+.text:100102BA                 jz      short loc_100102CC
+.text:100102BC                 jmp     short loc_100102D3
+.text:100102BE ; ---------------------------------------------------------------------------
+.text:100102BE
+.text:100102BE loc_100102BE:                           ; CODE XREF: BuildingClass_MissionRepair_InstantRepair+8Ej
+.text:100102BE                 mov     eax, 45CFB6h
+.text:100102C3                 jmp     short loc_100102D8
+.text:100102C5 ; ---------------------------------------------------------------------------
+.text:100102C5
+.text:100102C5 loc_100102C5:                           ; CODE XREF: BuildingClass_MissionRepair_InstantRepair+94j
+.text:100102C5                 mov     eax, 45D0A3h
+.text:100102CA                 jmp     short loc_100102D8
+.text:100102CC ; ---------------------------------------------------------------------------
+.text:100102CC
+.text:100102CC loc_100102CC:                           ; CODE XREF: BuildingClass_MissionRepair_InstantRepair+9Aj
+.text:100102CC                 mov     eax, 45D20Ah
+.text:100102D1                 jmp     short loc_100102D8
+.text:100102D3 ; ---------------------------------------------------------------------------
+.text:100102D3
+.text:100102D3 loc_100102D3:                           ; CODE XREF: BuildingClass_MissionRepair_InstantRepair+9Cj
+.text:100102D3                 mov     eax, 45D320h
+.text:100102D8
+.text:100102D8 loc_100102D8:                           ; CODE XREF: BuildingClass_MissionRepair_InstantRepair+A3j
+.text:100102D8                                         ; BuildingClass_MissionRepair_InstantRepair+AAj ...
+.text:100102D8                 mov     ecx, [ebp+var_4]
+.text:100102DB                 xor     ecx, ebp
+.text:100102DD                 call    @__security_check_cookie@4 ; __security_check_cookie(x)
+.text:100102E2                 mov     esp, ebp
+.text:100102E4                 pop     ebp
+.text:100102E5                 retn
+.text:100102E5 BuildingClass_MissionRepair_InstantRepair endp

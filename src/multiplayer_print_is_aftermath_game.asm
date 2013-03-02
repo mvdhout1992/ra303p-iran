@@ -80,7 +80,7 @@ _LAN_New_Dialog_Aftermath_Text2:
 	add		edx, [diff_top]
 	push    edx
 	mov     ebx, 225 ; Decimal
-	add		edx, [diff_left]
+	add		ebx, [diff_left]
 	push    ebx
 	push    79h
 	call	Fancy_Text_Print
