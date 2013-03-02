@@ -83,6 +83,7 @@ test_str  db "RUN1226M",0
 %endif
 
 %ifdef USE_BUGFIXES
+%include "src/what_weapon_should_i_use_crash_fix.asm"
 %include "src/radar_dome_crash_fix.asm"
 %include "src/fix_toinherit_keyword.asm"
 %include "src/localise_draw_strings.asm"

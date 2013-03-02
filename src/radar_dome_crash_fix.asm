@@ -1,6 +1,10 @@
-@HOOK 0x004A958A	_Get_Radar_Icon_Build_Frame_Call_Patch_Out
+;@HOOK 0x004A958A	_Get_Radar_Icon_Build_Frame_Call_Patch_Out
+;@HOOK 0x005B4808	_Reallocate_Big_Shape_Buffer_RETN_Patch
 
-_Get_Radar_Icon_Build_Frame_Call_Patch_Out:
-	mov		eax, 0
-	jmp		0x004A958F
+@HOOK 0x00530D01	_RadarClass__Radar_Anim_Just_Draw_Shape
+@HOOK 0x00530E4C	_RadarClass__Radar_Anim_Just_Draw_Shape2
+_RadarClass__Radar_Anim_Just_Draw_Shape:
+	jmp 	0x00530E17
 	
+_RadarClass__Radar_Anim_Just_Draw_Shape2:
+	jmp		0x00530E60

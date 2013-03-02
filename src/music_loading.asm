@@ -1,3 +1,5 @@
+@HOOK 0x004F4B83 _Load_Game_Menu_Queue_Song_Call_Patch_Out
+@HOOK 0x00538EF0 _Load_Game_Queue_Song
 @HOOK 0x0056C15A _ThemeClass_Track_Length
 @HOOK 0x0056C439 _ThemClass_Scan
 @HOOK 0x0056C40C _ThemeClass_Scan_Jump_Over
@@ -98,6 +100,33 @@ str_twincannon db "Twin Cannon",0
 	mov		eax, %1
 	je		0x0056BEF8
 %endmacro
+
+_Load_Game_Menu_Queue_Song_Call_Patch_Out:
+	jmp		0x004F4B88 
+
+_Load_Game_Queue_Song:
+	cmp		Byte [randomstartingsong], 0
+	jz		.Ret
+
+.Select_Random_Song:	
+	mov 	eax, INIClass_this3
+	mov		edx, str_filenames
+	call	INIClass__Entry_Count
+	mov     ebx, 26h
+	add		ebx, eax
+	mov     eax, 0x00667760
+	xor     edx, edx
+	call    0x005BC960 ; RandomClass::operator()(int, int)
+	mov		edx, eax
+	mov		eax, 0x00668248 ; ThemeClass Theme
+	call	0x0056C240 ; ThemeClass::Is_Allowed(ThemeType)
+	test	al, al
+	jz		.Select_Random_Song
+	
+.Ret:
+	mov		eax, 0x00668248 ; ThemeClass Theme
+	call	0x0056C090 ; ThemeClass::Play_Song(ThemeType)
+	jmp		0x00538EF5
 
 _Start_Scenario_Queue_Theme:
 	xor		edx, edx

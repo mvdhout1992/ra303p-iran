@@ -6,6 +6,8 @@ Basically, putting the new version of the SHP inside expand2.mix should fix it.
 
 16. Update language packs with FunkyFr3sh's versions
 
+17. add session type check to sonar pulse when only vessels exist for house code
+
 22. Mention all non-code patches in my patch notes.
 
 23. Add different colour remaps for buildings and units

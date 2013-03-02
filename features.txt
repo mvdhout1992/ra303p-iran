@@ -251,3 +251,5 @@ E.g.: GameLanguage=6 to load a Spanish language pack.
 87. Added a fix for the cnc-ddraw bug where the mouse randomly disappears.
 
 88. If you're not running the Aftermath expansion the Supply Truck/Cargo Truck would not have a shadow. The correct graphics with shadows is now always loaded.
+
+89. Fixed a crash while the game is determing what weapon a unit should use against another unit. The game would get an object reference from an object ID for the target unit, but this reference could be invalid (NULL) and the game didn't check for that. Added a check.
