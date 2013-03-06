@@ -1,18 +1,20 @@
-1. need to check if submarine decloak fix doesnt break multiplayer sonar pulse submarine decloak logic
-
 2. oos-fix.ini causes attack cursor to appaear on technolgoy center when you hover over it, instead of the bomb cursor.
 
 3. oos-fix.ini isn't applied to savegames.
 
-4. aftermath game "off" text needs to be adjusted for hires
-
 5. Mine fix offset 0x00555A48, desyncs online probably. fix is to move 800080h into ecx
+
+6. 0x0056A95F is growthrate for ore mines, need to modify it is read from the map with its own value instead of using growthrate
 
 6. Units getting into unpassable terrain need to fix somewhere around 0x0045C2F3, use  CellClass::Adjacent_Cell(FacingType) to get the cell below if building is Iron Curtain or Tesla Coil
 
 7. savegames speed is different
 
-8.s
+8. Test whether engi q freeze fix desyncs online or not.
+
+8. So seems the vehicle sell logic works so long as the vehicle was not at full health when moving onto the pad. check calls to FootClass::Sell_Back(int)
+
+9. Crashdump Red Alert error message is corrupted, needs to be fixed.
 
 23 I keep forgetting to mention, not exactly a bug, but the Cargo Truck did not have a shadow until
 Aftermath, yet in Aftermath, the fixed SHP with the shadow is inside conquer.mix (and not expand2.mix), so if you play the original
@@ -20,8 +22,6 @@ campaign or Counterstrike missions, you still get the old Cargo Truck without th
 Basically, putting the new version of the SHP inside expand2.mix should fix it.
 
 16. Update language packs with FunkyFr3sh's versions
-
-17. add session type check to sonar pulse when only vessels exist for house code
 
 22. Mention all non-code patches in my patch notes.
 

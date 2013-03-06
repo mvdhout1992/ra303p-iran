@@ -224,9 +224,13 @@ E.g.: GameLanguage=6 to load a Spanish language pack.
 
 70. Changed the "Invulnerability Device"  string to "Invulnerability", to match the icon text and to make more sense.
 
-71. Replaced the "RA Setup" tool with a custom written, open-source configuration tool. This tool requires the .Net 2.0 framework.
+71. Replaced the "RA Setup" tool with a custom written, open-source configuration tool (RedAlertConfig.exe). This tool requires the .Net 2.0 framework.
 
-72. Added an open-source launcher program, This program requires the .Net 2.0 framework.
+72. Added an open-source launcher program (RedAlertLauncher.exe), This program requires the .Net 2.0 framework.
+
+73. Included CnC-DDraw ( http://hifi.iki.fi/cnc-ddraw/ ) by hifi, which modernizes the game's rendering engine and allows for windowed mode. 
+
+74. Included CnCNet ( http://cncnet.org/ ), which is the de facto standard for playing Red Alert 1 online. As of 2013 there are regularly 120+ people online. The launcher has a button to launch the online lobby for CnCNet. Alternatively to play online you can run 'cncnet.exe'.
 
 73. The files for the game's expansions (excluding music and movies) are included in this patch.
 
@@ -252,4 +256,12 @@ E.g.: GameLanguage=6 to load a Spanish language pack.
 
 88. If you're not running the Aftermath expansion the Supply Truck/Cargo Truck would not have a shadow. The correct graphics with shadows is now always loaded.
 
-89. Fixed a crash while the game is determing what weapon a unit should use against another unit. The game would get an object reference from an object ID for the target unit, but this reference could be invalid (NULL) and the game didn't check for that. Added a check.
+89. Fixed a crash while the game is determing what weapon a unit should use against another unit. The game would get an object reference from an object ID for the target unit, but this reference could be invalid (NULL) and the game didn't check for that, which causes a crash. Added a check.
+
+90. Sometimes the casualities number printed for the first side shown in the score screen would use the wrong side's colour. This has been fixed.
+
+91. Fixed a crash while trying to animate part of the score screen.
+
+92. Sometimes the music would stop playing after loading multiple savegames, this has been fixed.
+
+93. Added a fix for a bug where using the Q hotkey with a tank group that includes engineers would sometimes cause the game to freeze. Note that instead of when this bug would normally happen engineers will start moving to the top left of the map unless giving a new move order.

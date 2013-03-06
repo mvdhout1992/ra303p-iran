@@ -46,9 +46,15 @@ test_str  db "RUN1226M",0
 %include "src/loading.asm"
 
 ; generic
-%include "src/infantry_range_check.asm"
-%include "src/multiplayer_allies_fix.asm"
-%include "src/selectable_spawn_locations.asm"
+;%include "src/magic_build_fix.asm"
+;%include "src/infantry_range_check.asm" desyncs online with 3.03
+;%include "src/ai_vessels.asm" probably desyncs online with 3.03
+;%include "src/harvester_harvest_closest_ore.asm" ; same thing what pressing S on harvesters does, desyncs online and keeps mining new ore spawned by ore mines
+;%include "src/building_crew_impassable_terrain_fix.asm" ; desyncs online with 3.03
+;%include "src/multiplayer_allies_fix.asm"
+;%include "src/build_off_ally.asm"
+;%include "src/ally_shroud_reveal.asm"
+;%include "src/selectable_spawn_locations.asm"
 %include "src/special_colourscheme.asm"
 %include "src/arguments.asm"
 %include "src/image_keyword_fix.asm"
@@ -84,6 +90,9 @@ test_str  db "RUN1226M",0
 %endif
 
 %ifdef USE_BUGFIXES
+%include "src/engi_q_freeze_fix.asm"
+%include "src/score_screen_print_colour_fix.asm"
+%include "src/animate_score_objects_crash_fix.asm"
 %include "src/submarine_decloak_skip_campaign.asm"
 %include "src/what_weapon_should_i_use_crash_fix.asm"
 %include "src/radar_dome_crash_fix.asm"
