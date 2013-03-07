@@ -15,7 +15,7 @@ _Side_From_Country:
 	mov		eax, 0
 	retn
 	
-.Return_Soviet
+.Return_Soviet:
 	mov		eax, 2
 	retn
 	
