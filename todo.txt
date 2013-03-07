@@ -1,16 +1,14 @@
+1. Need to make the mapped keyboard key names in config tool better
+
 2. oos-fix.ini causes attack cursor to appaear on technolgoy center when you hover over it, instead of the bomb cursor.
 
 3. oos-fix.ini isn't applied to savegames.
 
-5. Mine fix offset 0x00555A48, desyncs online probably. fix is to move 800080h into ecx
+5. Mine fix offset 0x00555A48, desyncs online probably. fix is to move 800080h into ecx. Hack to be able to switch this off is to copy a pointer to the mine object into a global dword and switch the member variable for the fix in skirmish and online
 
 6. 0x0056A95F is growthrate for ore mines, need to modify it is read from the map with its own value instead of using growthrate
 
-6. Units getting into unpassable terrain need to fix somewhere around 0x0045C2F3, use  CellClass::Adjacent_Cell(FacingType) to get the cell below if building is Iron Curtain or Tesla Coil
-
 7. savegames speed is different
-
-8. Test whether engi q freeze fix desyncs online or not.
 
 8. So seems the vehicle sell logic works so long as the vehicle was not at full health when moving onto the pad. check calls to FootClass::Sell_Back(int)
 
@@ -30,17 +28,13 @@ Feb 20 23:39:21 <iran> CCHyper: yeah TechnoClass offset 0x10 has the vftable wit
 red colour remap is 0x00666B3E
 NOTE: MCV should have building colour!
 
-21. Check out arda auto adjust on game grid option and check where to find it. It only works in windowed mode under cnc-ddraw and modifies width and height based on something, probably game height/width - (height/width % cell size in pixels), need to add launcher logic so this only gets enabled in windowed mode (enable/disable when windowed mode checkbox is changeed and make sure to do a check while saving options)
+21. Check out arda auto adjust on game grid option and check where to find it. It only works in windowed mode under cnc-ddraw and modifies width and height based on something, probably game, need to add launcher logic so this only gets enabled in windowed mode (enable/disable when windowed mode checkbox is changeed and make sure to do a check while saving options)
 
 9. Fix Radar Dome crash.
-
-10. Fix engi Q freeze.
-[23:54:22] <FunkyFr3sh> click 1-2 spots on the terrain then attack another tank etc etc .. never let Q go
 
 11. selecting a harvester target ore patch on the radar minimap shows a "can't go there" cursor instead of the attack cursor.
 
 can't move is mousetype 0x11, attack is 16, actiontype move is 1 or 2
-
 
 
 Todo for later:
@@ -60,11 +54,6 @@ Todo for later:
 12. Add "Unable to build more" sound when tank limit is reached
 
 58. add an option to not play sound in the cncnet/network/lan lobby, the sound gets played inside MessageListClass::Add_Message(), need to modify it so it doesnt play a sound if a global variable is true and then patch the calls to it inside Net_Join_Dialog() to set the variable, also need to remove calls to the Sound_Effect() function in a few places inside Net_Join_Dialog().
-
-Invisible Explosion Fixed
-Explosion animations of warheads with Explosion=4 and Damage from 45 to 75 (inclusive) were hidden on certain buildings, also depending on the firing angle. For instance, this affected the Chrono Tank's missiles against Construction Yards. (MAKE SURE TO CHECK WHETHER THIS CAUSES DESYNCS ONLINE OR NOT)
-
-Affected explosion animations made visible.
 
 41. Add rules.ini keyword to make ai build nuke silos and service depots, replacing with kennels at:
 
@@ -97,7 +86,6 @@ have them make spen too, ai might build missile subs if they have tech center, n
 
 38. After making AI fixes and adding them as rules.ini keywords, make a rules.ini mod with AI fixes + hard AI plus fast Aftermath build speed
 37. sam site fire smoke is misplaced and has C&C95 Nod Sam Site graphics overlayed (this doesn't seem noticable)
-25. hires LAN join screen WIP crashes with more multiplayer countries enabled
 42. Create a Red Alert 1 theme pack for windows 7 (using the unfinished one as base)
 
 EDIT: Seems that if you join someones game who has a custom and map it starts transfering and you hit cancel you get "Unable to Read" scenario, hit ok and it goes to desktop, rather than back to the lobby.

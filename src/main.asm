@@ -55,6 +55,7 @@ test_str  db "RUN1226M",0
 ;%include "src/build_off_ally.asm"
 ;%include "src/ally_shroud_reveal.asm"
 ;%include "src/selectable_spawn_locations.asm"
+;%include "src/tech_center_bug_fix.asm"
 %include "src/special_colourscheme.asm"
 %include "src/arguments.asm"
 %include "src/image_keyword_fix.asm"
@@ -90,6 +91,7 @@ test_str  db "RUN1226M",0
 %endif
 
 %ifdef USE_BUGFIXES
+;%include "src/invisible_explosions_fix.asm" ; Causes desync with 3.03
 %include "src/engi_q_freeze_fix.asm"
 %include "src/score_screen_print_colour_fix.asm"
 %include "src/animate_score_objects_crash_fix.asm"

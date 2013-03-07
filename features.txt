@@ -13,7 +13,7 @@ Hires improvements over hifi's original code for this:
 	- The score screen is now fully displayed in the top left, instead of showing the score background in the middle
 	- Fixed the power indicator displaying glitched when there's no power and in certain other scenarios
 	- Added extended sidebar (using graphics and memory addresses taken from Arda, by AlexB)
-	- 640x480 does npt show black bars on the top and bottom of the screen anymore.
+	- 640x480 does not show black bars on the top and bottom of the screen anymore.
 	- You no longer need to scroll the map and open the options menu to fix glitching with maps smaller than your resolution.
 
 The original code for this high resolution feature was written by hifi.
