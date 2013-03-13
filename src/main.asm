@@ -46,6 +46,7 @@ test_str  db "RUN1226M",0
 %include "src/loading.asm"
 
 ; generic
+%include "src/game_difficulty_speed_modifier_remove.asm"
 ;%include "src/magic_build_fix.asm"
 ;%include "src/infantry_range_check.asm" desyncs online with 3.03
 ;%include "src/ai_vessels.asm" probably desyncs online with 3.03
@@ -55,7 +56,7 @@ test_str  db "RUN1226M",0
 ;%include "src/build_off_ally.asm"
 ;%include "src/ally_shroud_reveal.asm"
 ;%include "src/selectable_spawn_locations.asm"
-;%include "src/tech_center_bug_fix.asm"
+%include "src/tech_center_bug_fix.asm"
 %include "src/special_colourscheme.asm"
 %include "src/arguments.asm"
 %include "src/image_keyword_fix.asm"

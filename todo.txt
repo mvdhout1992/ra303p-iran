@@ -4,6 +4,8 @@
 
 3. oos-fix.ini isn't applied to savegames.
 
+4. Need to modify the sidebar scroll function to fix mousewheel sidebar scrolling
+
 5. Mine fix offset 0x00555A48, desyncs online probably. fix is to move 800080h into ecx. Hack to be able to switch this off is to copy a pointer to the mine object into a global dword and switch the member variable for the fix in skirmish and online
 
 6. 0x0056A95F is growthrate for ore mines, need to modify it is read from the map with its own value instead of using growthrate
@@ -13,6 +15,8 @@
 8. So seems the vehicle sell logic works so long as the vehicle was not at full health when moving onto the pad. check calls to FootClass::Sell_Back(int)
 
 9. Crashdump Red Alert error message is corrupted, needs to be fixed.
+
+10. Misplaced tile in last Soviet mission: http://forums.cncnz.com/topic/17482-portablera-beta/page-9#entry211390
 
 23 I keep forgetting to mention, not exactly a bug, but the Cargo Truck did not have a shadow until
 Aftermath, yet in Aftermath, the fixed SHP with the shadow is inside conquer.mix (and not expand2.mix), so if you play the original

@@ -1,9 +1,11 @@
 @HOOK 0x005B38DD	_Mouse_Wheel_Sidebar_Scrolling
+;@HOOK 0x0054E3BB    _SidebarClass_StripClass__AI_Scroll_Check
 
 Scrolling db 0
 ProcessingSidebar dd 0
 
 %define HouseClass_PlayerPtr 	0x00669958
+
 
 _Mouse_Wheel_Sidebar_Scrolling:
 	cmp		BYTE [mousewheelscrolling], 1

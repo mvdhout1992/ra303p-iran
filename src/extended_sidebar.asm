@@ -11,7 +11,7 @@
 @HOOK 0x0054E9C2	_StripClass_Draw_It_hires
 ;@HOOK 0x004A6BA4	_StripClass_Draw_It_hires2
 @HOOK 0x0054D0B1	_SidebarClass_One_TIme_Icon_Area_Size_hires
-;@HOOK 0x004A6407	_StripClass_AI_hires
+@HOOK 0x0054E425	_StripClass_AI_hires
 @HOOK 0x0054E000	_StripClass_Init_IO_Up_Down_Buttons_hires
 @HOOK 0x0054E2AD	_StripClass_Scroll_hires
 @HOOK 0x0054E74F	_StripClass_Draw_It_hires3
@@ -433,11 +433,11 @@ _StripClass_Init_IO_Up_Down_Buttons_hires: ; Fix up up and down buttons vertical
 	pop     ebp
 	retn
 
-_StripClass_AI_hires: ; Not sure what this does and if this is needed, RA1 extended sidebar also has this..
-	cmp 	edi, [CameoItems]
-	jg		0x004A6415
-	jmp		0x004A640C
-
+_StripClass_AI_hires:
+	add 	eax, [CameoItems]
+    cmp     eax, [edx+35h]
+    jmp     0x0054E42B
+    
 _StripClass_Activate_hires:
 	imul    eax, [ecx+19h], CAMEOS_SIZE
 	add		eax, ExtendedSelectButtons
