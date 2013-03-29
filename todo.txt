@@ -1,22 +1,34 @@
 1. Need to make the mapped keyboard key names in config tool better
 
+[15:16:53] <FunkyFr3sh> its in [miss]
+[15:16:56] <FunkyFr3sh> repairable
+
 2. oos-fix.ini causes attack cursor to appaear on technolgoy center when you hover over it, instead of the bomb cursor.
 
 3. oos-fix.ini isn't applied to savegames.
-
-4. Need to modify the sidebar scroll function to fix mousewheel sidebar scrolling
 
 5. Mine fix offset 0x00555A48, desyncs online probably. fix is to move 800080h into ecx. Hack to be able to switch this off is to copy a pointer to the mine object into a global dword and switch the member variable for the fix in skirmish and online
 
 6. 0x0056A95F is growthrate for ore mines, need to modify it is read from the map with its own value instead of using growthrate
 
-7. savegames speed is different
+7. Chrono vortex doesnt disappear when restarting single player mission
 
 8. So seems the vehicle sell logic works so long as the vehicle was not at full health when moving onto the pad. check calls to FootClass::Sell_Back(int)
 
-9. Crashdump Red Alert error message is corrupted, needs to be fixed.
+9. Crashdump Red Alert error message is corrupted, needs to be fixed. use previous hifi exit code
 
-10. Misplaced tile in last Soviet mission: http://forums.cncnz.com/topic/17482-portablera-beta/page-9#entry211390
+
+11. Add desert and winter mix files to distribution
+
+13. Need new savegames for fixed missions
+
+14. Upload new campaign.mix file with fixed Soviet mission 13a
+
+15. computer goes paranoid after killing an ai in skirmish, probably cause skirmish always applies paranoid fix?
+
+16. mention fixed time flies mission in features list if the mission is actually fixed
+
+17. Update version text to beta 2
 
 23 I keep forgetting to mention, not exactly a bug, but the Cargo Truck did not have a shadow until
 Aftermath, yet in Aftermath, the fixed SHP with the shadow is inside conquer.mix (and not expand2.mix), so if you play the original

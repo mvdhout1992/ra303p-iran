@@ -207,7 +207,7 @@ _exception_handler:
 	CALL GetExitCodeProcess
 	
 	push DWORD [ExitCode]
-    CALL ExitProcess
+    jmp _exit
 	
 .Generate_Memory_Dump:
 	PUSH 0
@@ -243,4 +243,4 @@ _exception_handler:
 	CALL GetExitCodeProcess
 	
 	push DWORD [ExitCode]
-    CALL ExitProcess
+    jmp _exit

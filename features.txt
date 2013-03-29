@@ -84,8 +84,7 @@ Etc for every new song. Make sure there's an empty (blank) line at the end of th
 23. New RULES.INI AftermathFastBuildSpeed= yes/no keyword under the section [Aftermath], with this enabled there won't be a cap for build speed increase when you buy additional production facilities of the same type (e.g. more than two Barracks)and the Aftrmath expansion is installed. If you want to use this online you need to play versus other players running this patch and the "Force AM fast build speed" RULES.INI file (this is also available as a RedAlertConfig.exe option).
 
 24: New command-line arguments (Thanks to CCHyper):
--NEWMISSIONS: enables the new missions system explained elsewhere in this text. (code not yet finished)
--ANTMISSIONS: Starts the ant missions campaign if the Counterstrike expansion is enabled.
+-ANTMISSIONS: Starts the hidden ant missions campaign.
 -SKIRMISH: Loads the skirmish menu.
 -LAN: Loads the LAN menu.
 
@@ -218,9 +217,9 @@ E.g.: GameLanguage=6 to load a Spanish language pack.
 	CONQUER.ENG string: 110			Value:	Retract Draw Proposal
 	CONQUER.ENG string: 109			Value:	Propose a Draw
 
-68. Added support for winter and desert theaters. To use set Theater= to DESERT or WINTER under the [Basic] section of the map. The game will try to load DESERT.MIX and WINTER.MIX.
+68. Added support for winter and desert theaters. To use set Theater= to DESERT or WINTER under the [Basic] section of the map. The game will try to load DESERT.MIX and WINTER.MIX. These theaters are converted from C&C95 by Allen262, he also had to adapt them to Red Alert 1.
 
-69. Changed tge "V2 Rocket" string to "V2 Rocket Launcher".
+69. Changed the "V2 Rocket" string to "V2 Rocket Launcher" when mousing over a V2 Rocket Launcher.
 
 70. Changed the "Invulnerability Device"  string to "Invulnerability", to match the icon text and to make more sense.
 
@@ -265,3 +264,11 @@ E.g.: GameLanguage=6 to load a Spanish language pack.
 92. Sometimes the music would stop playing after loading multiple savegames, this has been fixed.
 
 93. Added a fix for a bug where using the Q hotkey with a tank group that includes engineers would sometimes cause the game to freeze. Note that instead of when this bug would normally happen engineers will start moving to the top left of the map unless giving a new move order.
+
+94. Game difficulty will no longer affect game speed in offline games (on top of the normal game speed slider setting).
+
+95. Included a fixed version of Soviet mission 13 variant A (there's two map choices for this mission). The original mission is bugged in that capturing the Chronosphere (which is supposed to be required to win the mission) causes you to lose the game. The B variant of the map works properly. The mission fix was made by Allen262, issue reported by r34ch.
+
+96. The Allies on Soviet Mission 8 variant B produce Flamethrower infantry, even though the Allies can't build them (this is because building prequisites for mission autocreate teams are ignored). This has been fixed and the Allies no longer produce Flamethrower infantry on this map. Fix made by Allen262, issue reported by r34ch.
+
+97. Fixed a glaring misplaced tile just to the west of where the Soviets start in the final Soviet mission (mission 14). Issue reported by r34ch.

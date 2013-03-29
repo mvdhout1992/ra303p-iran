@@ -56,7 +56,7 @@ test_str  db "RUN1226M",0
 ;%include "src/build_off_ally.asm"
 ;%include "src/ally_shroud_reveal.asm"
 ;%include "src/selectable_spawn_locations.asm"
-%include "src/tech_center_bug_fix.asm"
+;%include "src/tech_center_bug_fix.asm"
 %include "src/special_colourscheme.asm"
 %include "src/arguments.asm"
 %include "src/image_keyword_fix.asm"
