@@ -4,6 +4,7 @@
 @HOOK 	0x00551A87		_Startup_Function_Hook_Early_Load ; For redalert.ini stuff
 @HOOK   0x0053D081      _Map_Load_Before_Hook ; For map loading stuff
 @HOOK   0x0053A568      _Map_Load_Late_Hook  ; For map loading stuff
+@HOOK   0x00537E08      _Load_Game_Before_Hook ; For savegame loading stuff
 @HOOK   0x0055B84B      _Ore_Mine_Foundation_Voodoo
 
 %define INIClass__INIClass                          0x004C7C60
@@ -141,6 +142,35 @@ generatememorydump	db 0
     CALL INIClass__Load
 %endmacro
 
+_Load_Game_Before_Hook:
+    Save_Registers
+    
+    ;Remove any active Chrono Vortex
+    mov     eax, 0x006904B4 ; ChronoVortex instance
+    call    0x0058E304 ; ChronalVortexClass::Stop(void)
+
+    ; Ore Mine foundation fix code
+    mov     eax, DWORD [OreMineFoundation]
+    mov     DWORD [eax], 0x1000080 ; Set to normal, bugged Ore Mine foundation
+    
+    cmp		BYTE [SessionClass__Session], 5
+    jne     .No_Skirmish_Mine_Fix
+   
+    mov     DWORD [eax], 0x800080 ; Set to fixed Ore Mine foundation
+    
+.No_Skirmish_Mine_Fix:
+
+    cmp		BYTE [SessionClass__Session], 0
+    jne     .No_Skirmish_Mine_Fix2
+  
+    mov     DWORD [eax], 0x800080 ; Set to fixed Ore Mine foundation
+   
+.No_Skirmish_Mine_Fix2: 
+    
+    Restore_Registers
+    call    0x004A765C ; Call_Back(void)
+    jmp     0x00537E0D
+
 _Ore_Mine_Foundation_Voodoo:
     push    ecx
     lea     ecx, [eax+0x139]
@@ -153,6 +183,10 @@ _Ore_Mine_Foundation_Voodoo:
  _Map_Load_Before_Hook:
     call    0x0053AA94 ; Clear_Scenario(void)
     Save_Registers
+    
+    ;Remove any active Chrono Vortex
+    mov     eax, 0x006904B4 ; ChronoVortex instance
+    call    0x0058E304 ; ChronalVortexClass::Stop(void)
     
     ; Ore Mine foundation fix code,
    mov     eax, DWORD [OreMineFoundation]
@@ -170,7 +204,7 @@ _Ore_Mine_Foundation_Voodoo:
    
     mov     DWORD [eax], 0x800080 ; Set to fixed Ore Mine foundation
    
-.No_Skirmish_Mine_Fix2
+.No_Skirmish_Mine_Fix2:
 
     Restore_Registers
     jmp     0x0053D086

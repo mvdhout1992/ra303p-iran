@@ -1,21 +1,12 @@
 1. Need to make the mapped keyboard key names in config tool better
 
-[15:16:53] <FunkyFr3sh> its in [miss]
-[15:16:56] <FunkyFr3sh> repairable
 
-2. oos-fix.ini causes attack cursor to appaear on technolgoy center when you hover over it, instead of the bomb cursor.
-
-3. oos-fix.ini isn't applied to savegames.
-
-5. Need to apply ore mine foundation fix to savegames
-
-6. 0x0056A95F is growthrate for ore mines, need to modify it is read from the map with its own value instead of using growthrate
 
 7. Chrono vortex doesnt disappear when restarting single player mission
 
 8. So seems the vehicle sell logic works so long as the vehicle was not at full health when moving onto the pad. check calls to FootClass::Sell_Back(int)
 
-9. Crashdump Red Alert error message is corrupted, needs to be fixed. use previous hifi exit code
+9. Crashdump Red Alert error message is corrupted, needs to be fixed. use previous hifi exit code (did i fix this?)
 
 10. Don't forget to change multiplayer name back to "NoName"
 
@@ -23,7 +14,7 @@
 
 13. Need new savegames for fixed missions
 
-14. Upload new campaign.mix file with fixed Soviet mission 13a
+14. Upload new campaign.mix file with fixed maps
 
 15. computer goes paranoid after killing an ai in skirmish, probably cause skirmish always applies paranoid fix?
 
@@ -32,6 +23,8 @@
 17. Update version text to beta 2
 
 18. ally sharing shroud at 0x004B07E0
+
+19. 0x0056A95F is growthrate for ore mines, need to modify it is read from the map with its own value instead of using growthrate
 
 23 I keep forgetting to mention, not exactly a bug, but the Cargo Truck did not have a shadow until
 Aftermath, yet in Aftermath, the fixed SHP with the shadow is inside conquer.mix (and not expand2.mix), so if you play the original
@@ -80,20 +73,15 @@ AUTO:004DA898                 mov     eax, 17h
 
 with mov eax, 1dh
 
-have them make spen too, ai might build missile subs if they have tech center, note that the AI only builds one kennel but builds multiple of these buildings..
-
 42. AI doesn't build shock troopers
 
 47. [19:03:39] <iran> i think it's because of the code that blacks the borders of the main menu graphic
 [19:03:48] <iran> it works by clearing the background whenever a pcx file is loaded
 [19:04:00] <iran> which is done for the credits screen with that file
 
-
 56. add displaying of messages typed by yourself as an optional redalert.ini setting
 
 52. Make the reject button send out the 'cancel game' packet to a player
-
-30. In the single player score screen sometimes the Soviet casualities number display is blue instead of red
 
 49. A few message boxes and in-game things reference "Command & Conquer" instead of "Red Alert".
 
@@ -108,8 +96,6 @@ have them make spen too, ai might build missile subs if they have tech center, n
 42. Create a Red Alert 1 theme pack for windows 7 (using the unfinished one as base)
 
 EDIT: Seems that if you join someones game who has a custom and map it starts transfering and you hit cancel you get "Unable to Read" scenario, hit ok and it goes to desktop, rather than back to the lobby.
-
-57. add support for saving skirmish games (CCHyper said this might brveak things), this breaks a lot of things and I need to figure out why)
 
 [17:49:34] <Chad1233> When you ally a AI
 [17:49:43] <Chad1233> does most of his base reveal to you?

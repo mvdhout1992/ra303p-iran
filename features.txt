@@ -273,6 +273,10 @@ E.g.: GameLanguage=6 to load a Spanish language pack.
 
 97. Fixed a glaring misplaced tile just to the west of where the Soviets start in the final Soviet mission (mission 14). Issue reported by r34ch.
 
-98. Added a fix for the Ore Mine foundation. This fix is only applied in single player and skirmish. The problem is that the Ore Mine doesn't spread ore on the cell directly below it because it uses the foundation of the Blossom Tree from C&C1, which is has a height of two cells, while the Ore Mine is only one cell. This fix was taken from Arda by AlexB.
+98. Added a fix for the Ore Mine foundation. This fix is only applied in single player and skirmish. The problem is that the Ore Mine doesn't spread ore on the cell directly below it because it uses the foundation of the Blossom Tree from C&C1, which has a height of two cells, while the Ore Mine is only one cell. This fix was taken from Arda by AlexB.
 
-w
+99. Added the option to save/load/delete a game during skirmish. Sadly there's a bug where the savegames will show up as "(Allies)" one even if the saved game is a Soviet game.
+
+100. Fixed Soviet mission 6 variants A and B so you no longer get APCs at the start of the mission. Fix made by Allen262.
+
+101. Any previous active chrono vortex is now destroyed while loading a map or savegame. Previously chrono vortex would persist in single player missions after (re)starting one. Thanks to djohe for reporting the bug.
