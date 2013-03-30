@@ -1,0 +1,24 @@
+Needed Patches:
+
+;004C9F6B     EB 0D          JMP SHORT ra95.004C9F7A
+
+004C9F83     90             NOP
+004C9F84     90             NOP
+
+004C9F9A     EB 0B          JMP SHORT ra95.004C9FA7
+
+004C9FAE     EB 05          JMP SHORT ra95.004C9FB5
+
+004C9FBC     EB 0A          JMP SHORT ra95.004C9FC8
+
+004CA2D5     EB 05          JMP SHORT ra95.004CA2DC
+
+004CA955     90             NOP
+004CA956     90             NOP
+
+004CA9D7     EB 55          JMP SHORT ra95.004CAA2E
+
+at 0x004C9F6D There's an array check, if the value inside the aray is 0 the button isn't created, this applies to the load mission button.
+The load mission button is checked with the first element of the array (which is 0). The array starts at 0x00601850
+
+

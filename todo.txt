@@ -7,7 +7,7 @@
 
 3. oos-fix.ini isn't applied to savegames.
 
-5. Mine fix offset 0x00555A48, desyncs online probably. fix is to move 800080h into ecx. Hack to be able to switch this off is to copy a pointer to the mine object into a global dword and switch the member variable for the fix in skirmish and online
+5. Need to apply ore mine foundation fix to savegames
 
 6. 0x0056A95F is growthrate for ore mines, need to modify it is read from the map with its own value instead of using growthrate
 
@@ -17,6 +17,7 @@
 
 9. Crashdump Red Alert error message is corrupted, needs to be fixed. use previous hifi exit code
 
+10. Don't forget to change multiplayer name back to "NoName"
 
 11. Add desert and winter mix files to distribution
 
@@ -29,6 +30,8 @@
 16. mention fixed time flies mission in features list if the mission is actually fixed
 
 17. Update version text to beta 2
+
+18. ally sharing shroud at 0x004B07E0
 
 23 I keep forgetting to mention, not exactly a bug, but the Cargo Truck did not have a shadow until
 Aftermath, yet in Aftermath, the fixed SHP with the shadow is inside conquer.mix (and not expand2.mix), so if you play the original

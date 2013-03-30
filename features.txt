@@ -272,3 +272,7 @@ E.g.: GameLanguage=6 to load a Spanish language pack.
 96. The Allies on Soviet Mission 8 variant B produce Flamethrower infantry, even though the Allies can't build them (this is because building prequisites for mission autocreate teams are ignored). This has been fixed and the Allies no longer produce Flamethrower infantry on this map. Fix made by Allen262, issue reported by r34ch.
 
 97. Fixed a glaring misplaced tile just to the west of where the Soviets start in the final Soviet mission (mission 14). Issue reported by r34ch.
+
+98. Added a fix for the Ore Mine foundation. This fix is only applied in single player and skirmish. The problem is that the Ore Mine doesn't spread ore on the cell directly below it because it uses the foundation of the Blossom Tree from C&C1, which is has a height of two cells, while the Ore Mine is only one cell. This fix was taken from Arda by AlexB.
+
+w

@@ -81,6 +81,7 @@ test_str  db "RUN1226M",0
 %include "src/fix_formation_glitch.asm"
 %include "src/parabombs_multiplayer.asm"
 %include "src/mousewheel_scrolling.asm"
+%include "src/skirmish_savegames.asm"
 ;%include "src/more_colour_remaps.asm" ; not done yet and needs a fix for a crash
 
 %ifdef USE_NOCD

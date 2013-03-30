@@ -2,6 +2,9 @@
 
 @HOOK	0x004F446C		_Init_Game_Hook_Load ; For rules.ini stuff
 @HOOK 	0x00551A87		_Startup_Function_Hook_Early_Load ; For redalert.ini stuff
+@HOOK   0x0053D081      _Map_Load_Before_Hook ; For map loading stuff
+@HOOK   0x0053A568      _Map_Load_Late_Hook  ; For map loading stuff
+@HOOK   0x0055B84B      _Ore_Mine_Foundation_Voodoo
 
 %define INIClass__INIClass                          0x004C7C60
 %define INIClass__Load                              0x004F28C4
@@ -10,6 +13,7 @@
 %define INIClass__Get_Bool							0x004F3ACC
 %define FileClass__FileClass                        0x004627D4
 %define FileClass__Is_Available                     0x00462A30
+%define SessionClass__Session 0x0067F2B4
 
 str_redalertini5 db "REDALERT.INI",0
 str_options5 db "Options",0
@@ -49,6 +53,8 @@ extraremaptable TIMES 2400 db 0
 %define colorwhiteoffset	0
 %define colorblackoffset	282
 %define colourbrightyellowoffset 564
+
+OreMineFoundation dd 0
 
 aftermathfastbuildspeed	db 0
 videointerlacemode	dd 2
@@ -134,6 +140,47 @@ generatememorydump	db 0
     MOV EAX, %3
     CALL INIClass__Load
 %endmacro
+
+_Ore_Mine_Foundation_Voodoo:
+    push    ecx
+    lea     ecx, [eax+0x139]
+    mov     DWORD [OreMineFoundation], ecx
+    mov     [eax+139h], edx
+    
+    pop     ecx
+    jmp     0x0055B851
+
+ _Map_Load_Before_Hook:
+    call    0x0053AA94 ; Clear_Scenario(void)
+    Save_Registers
+    
+    ; Ore Mine foundation fix code,
+   mov     eax, DWORD [OreMineFoundation]
+   mov     DWORD [eax], 0x1000080 ; Set to normal, bugged Ore Mine foundation
+    
+   cmp		BYTE [SessionClass__Session], 5
+   jne     .No_Skirmish_Mine_Fix
+   
+   mov     DWORD [eax], 0x800080 ; Set to fixed Ore Mine foundation
+    
+.No_Skirmish_Mine_Fix:
+
+   cmp		BYTE [SessionClass__Session], 0
+   jne     .No_Skirmish_Mine_Fix2
+   
+    mov     DWORD [eax], 0x800080 ; Set to fixed Ore Mine foundation
+   
+.No_Skirmish_Mine_Fix2
+
+    Restore_Registers
+    jmp     0x0053D086
+    
+_Map_Load_Late_Hook:
+    call    0x0053A5C8 ; Fill_In_Data(void)
+    Save_Registers  
+    
+    Restore_Registers
+    jmp     0x0053A56D
 
 _Startup_Function_Hook_Early_Load:
 	xor		edx, edx
