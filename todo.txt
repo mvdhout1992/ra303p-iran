@@ -1,16 +1,16 @@
 1. Need to make the mapped keyboard key names in config tool better
 
+2. Loaded skirmish savegames have NewUnitsEnabled=0 because aftermath.ini isn't read. After the actual loading is done need to add check if "is aftermath multiplayer and sessiontype is skirmish then newunitsenabled=1"
 
+3. Investigate adding an option to force missions to be played with Aftermath units enabled
 
-7. Chrono vortex doesnt disappear when restarting single player mission
+4. Add option for beta naval units remakes
+
+5. mention force am in missions and new beta recreations options
 
 8. So seems the vehicle sell logic works so long as the vehicle was not at full health when moving onto the pad. check calls to FootClass::Sell_Back(int)
 
-9. Crashdump Red Alert error message is corrupted, needs to be fixed. use previous hifi exit code (did i fix this?)
-
 10. Don't forget to change multiplayer name back to "NoName"
-
-11. Add desert and winter mix files to distribution
 
 13. Need new savegames for fixed missions
 
@@ -20,18 +20,22 @@
 
 16. mention fixed time flies mission in features list if the mission is actually fixed
 
-17. Update version text to beta 2
+17. Add an option to hide serial and internet buttons
 
 18. ally sharing shroud at 0x004B07E0
 
 19. 0x0056A95F is growthrate for ore mines, need to modify it is read from the map with its own value instead of using growthrate
+
+20. Probably need to add an option to disable changing alliances for spawner games (after predetermined alliances are run)
+
+16. Update language packs with FunkyFr3sh's versions
 
 23 I keep forgetting to mention, not exactly a bug, but the Cargo Truck did not have a shadow until
 Aftermath, yet in Aftermath, the fixed SHP with the shadow is inside conquer.mix (and not expand2.mix), so if you play the original
 campaign or Counterstrike missions, you still get the old Cargo Truck without the shadow (this is non-issue for the TFD version, I suppose).
 Basically, putting the new version of the SHP inside expand2.mix should fix it.
 
-16. Update language packs with FunkyFr3sh's versions
+
 
 22. Mention all non-code patches in my patch notes.
 
@@ -53,7 +57,6 @@ Todo for later:
 --------------------------------------
 18. There's graphical glitching in the no-refresh area of the sidebar with the keybar toggle key in 640x480, need to copy code from options menu to clear buffer. This code might be useful to fix graphical glitching on maps smaller than reso.
 
-19. Look into adding black map border tiles. add clear1.int to all theaters, don't forget to REMOVE hires patch to not display map broder
 
 9. Update forceAM and forceAMfastbuildspeed rules.ini files to use updated oos-fix.ini to prevent issues with barrels in single player etc
 
@@ -71,7 +74,9 @@ Todo for later:
 
 AUTO:004DA898                 mov     eax, 17h
 
-with mov eax, 1dh
+with mov eax, 1dh 
+
+BaseClass::Is_Built(int) might be a function that can help limiting service depot, nuke silo etc to only one
 
 42. AI doesn't build shock troopers
 
@@ -88,6 +93,10 @@ with mov eax, 1dh
 40. Add a rules.ini keyword to not have the AI sell their structures when all production facilities are destroyed
 
 45. Add extra colour remaps
+
+42. Should make AI build radar dome after WF instead of at start (use the BaseClass::Is_Built(int) if can help)
+
+45. Allies AI seems to sell Tech center, but not dome
 
 41. Probably can add minicampaigns by having the game read a new scenario keyword by checking a call to Map_Selection and replacing it
 

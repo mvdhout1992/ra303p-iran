@@ -175,7 +175,7 @@ E.g.: GameLanguage=6 to load a Spanish language pack.
 
 52. Added REDALERT.INI keyword UseGrenadeThrowingSound= (yes/no) under [Options]. If enabled the Grenadier will have a throwing sound when throwing his grenades. This overrides the Grenade's Report= setting in RULES.INI.
 
-53. Added REDALERT.INI keyword UseBetaTeslaTank= (yes/no) under [Options]. If enabled betateslatank.MIX will be loaded by the game.
+53. Added REDALERT.INI keyword UseBetaTeslaTank= (yes/no) under [Options]. If enabled betateslatank.MIX will be loaded by the game. Likewise UseBetaDestroyer= to load betadestroyer.MIX, UseBetaSubmarine= to load betasubmarine.MIX, UseBetaCruiser= to load betacruiser.MIX, UseBetaGunboat= to load betagunboat.MIX. These options load recreations of beta graphics, the recreation for the beta Tesla Tank was made by Nyerguds, the recreations of naval units were made by Allen262.
 
 54. Fixed a bug with loading movies2.mix. If movies1.mix is found this file wasn't loaded. Now it always is loaded. This affects The First Decade where the Soviet campaign movies (stored in movies2.mix) would never play because TFD Red Alert 1 comes with both MIX files.
 
@@ -280,3 +280,5 @@ E.g.: GameLanguage=6 to load a Spanish language pack.
 100. Fixed Soviet mission 6 variants A and B so you no longer get APCs at the start of the mission. Fix made by Allen262.
 
 101. Any previous active chrono vortex is now destroyed while loading a map or savegame. Previously chrono vortex would persist in single player missions after (re)starting one. Thanks to djohe for reporting the bug.
+
+102. Added a REDALERT.INI options called "ForceAMUnitsInMissions" under the [Options] section. When enabled missions will always have Aftermath units enabled.

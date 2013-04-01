@@ -10,6 +10,10 @@ aftermathmix_str db"aftermath.MIX",0
 counterstrikemix_str db"counterstrike.MIX",0
 smallinfantrymix_str db"smallinfantry.MIX",0
 betateslatankmix_str db"betateslatank.MIX",0
+betadestroyermix_str db"betadestroyer.MIX",0
+betagunboatmix_str db"betagunboat.MIX",0
+betasubmarinemix_str db"betasubmarine.MIX",0
+betacruisermix_str db"betacruiser.MIX",0
 oosfixmix_str db"oos-fix.MIX",0
 moviestlf_str db"movies-tlf.MIX",0
 
@@ -81,6 +85,34 @@ _Conditionally_Load_Small_Infantry_MIX:
 	Save_Registers
 		
 	call    MixFileClass_CCFileClass_Retrieve
+    
+    cmp	BYTE [usebetacruiser], 0
+	jz	.Load_Beta_Gunboat
+    
+    Load_Mix_File_Cached	betacruisermix_str
+   
+.Load_Beta_Gunboat:
+   
+    cmp	BYTE [usebetagunboat], 0
+	jz	.Load_Beta_Submarine
+    
+    Load_Mix_File_Cached	betagunboatmix_str
+    
+.Load_Beta_Submarine:  
+    
+    cmp	BYTE [usebetasubmarine], 0
+	jz	.Load_Destroyer_Mix
+    
+    Load_Mix_File_Cached	betasubmarinemix_str
+    
+.Load_Destroyer_Mix:
+
+    cmp	BYTE [usebetadestroyer], 0
+	jz	.Load_Beta_Tesla_Tank_Mix
+    
+    Load_Mix_File_Cached	betadestroyermix_str
+
+.Load_Beta_Tesla_Tank_Mix:
 	
 	cmp	BYTE [usebetateslatank], 0
 	jz	.Load_Smallinfantry_MIX

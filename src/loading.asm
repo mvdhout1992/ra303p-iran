@@ -5,6 +5,7 @@
 @HOOK   0x0053D081      _Map_Load_Before_Hook ; For map loading stuff
 @HOOK   0x0053A568      _Map_Load_Late_Hook  ; For map loading stuff
 @HOOK   0x00537E08      _Load_Game_Before_Hook ; For savegame loading stuff
+@HOOK   0x00538F07      _Load_Game_Late_Hook  ; For savegame loading stuff
 @HOOK   0x0055B84B      _Ore_Mine_Foundation_Voodoo
 
 %define INIClass__INIClass                          0x004C7C60
@@ -45,6 +46,11 @@ str_winhotkeys db "WinHotkeys",0
 str_keysidebartoggle db "KeySidebarToggle",0
 str_fixaisendingtankstopleft db "FixAISendingTanksTopLeft",0
 str_generatememorydump db "GenerateMemoryDump",0
+str_forceamunitsinmissions db "ForceAMUnitsInMissions",0
+str_usebetadestroyer db "UseBetaDestroyer",0
+str_usebetacruiser db "UseBetaCruiser",0
+str_usebetasubmarine db "UseBetaSubmarine",0
+str_usebetagunboat db "UseBetaGunboat",0
 
 INIClass_redalertini5 TIMES 64 db 0
 FileClass_redalertini5	TIMES 128 db 0
@@ -57,6 +63,11 @@ extraremaptable TIMES 2400 db 0
 
 OreMineFoundation dd 0
 
+usebetadestroyer db 0
+usebetacruiser db 0
+usebetasubmarine db 0
+usebetagunboat db 0
+forceamunitsinmissions db 0
 aftermathfastbuildspeed	db 0
 videointerlacemode	dd 2
 skipscorescreen db 0
@@ -142,6 +153,37 @@ generatememorydump	db 0
     CALL INIClass__Load
 %endmacro
 
+_Load_Game_Late_Hook:
+    Save_Registers
+    
+    ; Enable AM units for skirmish savegames
+    cmp		BYTE [SessionClass__Session], 5
+    jne     .No_Enable_New_Units
+    call    0x004AC024 ; Is_Aftermath_Installed(void)
+    cmp     DWORD eax, 1
+    jne     .No_Enable_New_Units
+    
+    mov     DWORD [0X00665DE0], 1 ; NewUnitsEnabled
+    
+.No_Enable_New_Units:
+
+    ; Enable AM units in single player if option is turned on
+    cmp		BYTE [SessionClass__Session], 0
+    jne     .Dont_Force_AM_Units_In_Missions
+    cmp     BYTE [forceamunitsinmissions], 1
+    jne     .Dont_Force_AM_Units_In_Missions
+    call    0x004AC024 ; Is_Aftermath_Installed(void)
+    cmp     DWORD eax, 1
+    jne     .Dont_Force_AM_Units_In_Missions
+        
+    mov     DWORD [0X00665DE0], 1 ; NewUnitsEnabled
+    
+.Dont_Force_AM_Units_In_Missions:
+    
+    Restore_Registers
+    call    0x004F25D0 ; INIClass::~INIClass(void)
+    jmp     0x00538F0C
+
 _Load_Game_Before_Hook:
     Save_Registers
     
@@ -210,10 +252,23 @@ _Ore_Mine_Foundation_Voodoo:
     jmp     0x0053D086
     
 _Map_Load_Late_Hook:
-    call    0x0053A5C8 ; Fill_In_Data(void)
-    Save_Registers  
+    Save_Registers
+    
+    ; Enable AM units in single player if option is turned on
+    cmp		BYTE [SessionClass__Session], 0
+    jne     .Dont_Force_AM_Units_In_Missions
+    cmp     BYTE [forceamunitsinmissions], 1
+    jne     .Dont_Force_AM_Units_In_Missions
+    call    0x004AC024 ; Is_Aftermath_Installed(void)
+    cmp     DWORD eax, 1
+    jne     .Dont_Force_AM_Units_In_Missions
+        
+    mov     DWORD [0X00665DE0], 1 ; NewUnitsEnabled
+    
+.Dont_Force_AM_Units_In_Missions:
     
     Restore_Registers
+    call    0x0053A5C8 ; Fill_In_Data(void)
     jmp     0x0053A56D
 
 _Startup_Function_Hook_Early_Load:
@@ -267,12 +322,27 @@ _Startup_Function_Hook_Early_Load:
 	
 	INI_Get_Bool_ INIClass_redalertini5, str_options5, str_usebetateslatank, 0
 	mov		[usebetateslatank], al
+    
+    INI_Get_Bool_ INIClass_redalertini5, str_options5, str_usebetadestroyer, 0
+	mov		[usebetadestroyer], al
+    
+    INI_Get_Bool_ INIClass_redalertini5, str_options5, str_usebetacruiser, 0
+	mov		[usebetacruiser], al
+    
+    INI_Get_Bool_ INIClass_redalertini5, str_options5, str_usebetasubmarine, 0
+	mov		[usebetasubmarine], al
+    
+    INI_Get_Bool_ INIClass_redalertini5, str_options5, str_usebetagunboat, 0
+	mov		[usebetagunboat], al
 	
 	INI_Get_Int_ INIClass_redalertini5, str_winhotkeys, str_keysidebartoggle, 9
 	mov		[keysidebartoggle], ax
 	
 	INI_Get_Bool_ INIClass_redalertini5, str_options5, str_generatememorydump, 0
 	mov		[generatememorydump], al
+    
+    INI_Get_Bool_ INIClass_redalertini5, str_options5, str_forceamunitsinmissions, 0
+	mov		[forceamunitsinmissions], al
 	
 	Restore_Registers
 	mov     ebx, [0x006ABC10]
