@@ -7,8 +7,11 @@
 @HOOK   0x004CA953  _RedrawOptionsMenu_Skirmish_Savegames7
 @HOOK   0x004CA9D0  _RedrawOptionsMenu_Skirmish_Savegames8
 @HOOK   0x00538267  _Load_Game_Set_Session_Type_Hack
+@HOOK   0x00537A3C  _Save_Game_House_Type_Get
+@HOOK   0x004FDB92  _LoadOptionsClass__Fill_Prepend_Skirmish_Text
 
 DotMPR_str db ".mpr",0
+str_skirmish db "Skirmish",0
 
 ; Gets a side based on a country type
 ; arg: <EAX: country to get side for>
@@ -28,6 +31,36 @@ _Side_From_Country:
 .Return_Soviet:
 	mov		eax, 2
 	retn
+
+_LoadOptionsClass__Fill_Prepend_Skirmish_Text:
+    mov     dh, [ebp-0x14]
+    cmp     dh, 0xDD
+    jz      .Prepend_Skirmish_Text
+    cmp     dh, 2
+    jz      0x004FDB9F
+    
+    jmp     0x004FDB9A
+    
+.Prepend_Skirmish_Text:
+    mov     eax, str_skirmish
+    push    eax
+    push    0x005EC0D0     ; "(%s) "
+    mov     ebx, [ebp-0x34]
+    push    ebx
+    jmp     0x004FDBD3
+    
+_Save_Game_House_Type_Get;
+    mov     al, [eax+25h]
+    mov     [ebp-10h], al
+    
+    cmp     BYTE [SessionClass__Session], 5
+    jne     .Not_Skirmish_Save
+
+    mov     al, 0xDD
+    mov     [ebp-10h], al
+    
+.Not_Skirmish_Save:
+    jmp     0x00537A42
 
 _Load_Game_Set_Session_Type_Hack:
     call    0x005D5BF4 ; LZOStraw::Get(void *,int)

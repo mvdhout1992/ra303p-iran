@@ -1,15 +1,5 @@
 1. Need to make the mapped keyboard key names in config tool better
 
-2. Loaded skirmish savegames have NewUnitsEnabled=0 because aftermath.ini isn't read. After the actual loading is done need to add check if "is aftermath multiplayer and sessiontype is skirmish then newunitsenabled=1"
-
-3. Investigate adding an option to force missions to be played with Aftermath units enabled
-
-4. Add option for beta naval units remakes
-
-5. mention force am in missions and new beta recreations options
-
-8. So seems the vehicle sell logic works so long as the vehicle was not at full health when moving onto the pad. check calls to FootClass::Sell_Back(int)
-
 10. Don't forget to change multiplayer name back to "NoName"
 
 13. Need new savegames for fixed missions
@@ -30,12 +20,14 @@
 
 16. Update language packs with FunkyFr3sh's versions
 
+17. So seems the vehicle sell logic works so long as the vehicle was not at full health when moving onto the pad. check calls to FootClass::Sell_Back(int)
+
+18. Remap colours in sidebar cameo icons, 3rd last PUSH arg is remaptable pointer, the next one is a push that needs to be value 100h, the code does an or eax, 10 which fucks it over, it needs to be patched out
+
 23 I keep forgetting to mention, not exactly a bug, but the Cargo Truck did not have a shadow until
 Aftermath, yet in Aftermath, the fixed SHP with the shadow is inside conquer.mix (and not expand2.mix), so if you play the original
 campaign or Counterstrike missions, you still get the old Cargo Truck without the shadow (this is non-issue for the TFD version, I suppose).
 Basically, putting the new version of the SHP inside expand2.mix should fix it.
-
-
 
 22. Mention all non-code patches in my patch notes.
 

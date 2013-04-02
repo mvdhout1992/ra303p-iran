@@ -217,7 +217,7 @@ E.g.: GameLanguage=6 to load a Spanish language pack.
 	CONQUER.ENG string: 110			Value:	Retract Draw Proposal
 	CONQUER.ENG string: 109			Value:	Propose a Draw
 
-68. Added support for winter and desert theaters. To use set Theater= to DESERT or WINTER under the [Basic] section of the map. The game will try to load DESERT.MIX and WINTER.MIX. These theaters are converted from C&C95 by Allen262, he also had to adapt them to Red Alert 1.
+68. Added support for winter and desert theaters. To use set Theater= to DESERT or WINTER under the [Basic] section of the map. The game will try to load DESERT.MIX and WINTER.MIX. These theaters are converted from C&C95 by Allen262, he also had to adapt them to Red Alert 1. The Desert conversion was based on work by Merri.
 
 69. Changed the "V2 Rocket" string to "V2 Rocket Launcher" when mousing over a V2 Rocket Launcher.
 
@@ -275,7 +275,7 @@ E.g.: GameLanguage=6 to load a Spanish language pack.
 
 98. Added a fix for the Ore Mine foundation. This fix is only applied in single player and skirmish. The problem is that the Ore Mine doesn't spread ore on the cell directly below it because it uses the foundation of the Blossom Tree from C&C1, which has a height of two cells, while the Ore Mine is only one cell. This fix was taken from Arda by AlexB.
 
-99. Added the option to save/load/delete a game during skirmish. Sadly there's a bug where the savegames will show up as "(Allies)" one even if the saved game is a Soviet game.
+99. Added the option to save/load/delete a game during skirmish.
 
 100. Fixed Soviet mission 6 variants A and B so you no longer get APCs at the start of the mission. Fix made by Allen262.
 
