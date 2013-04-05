@@ -54,7 +54,6 @@ test_str  db "RUN1226M",0
 ;%include "src/building_crew_impassable_terrain_fix.asm" ; desyncs online with 3.03
 %include "src/multiplayer_allies_fix.asm"
 ;%include "src/build_off_ally.asm"
-%include "src/ally_shroud_reveal.asm"
 ;%include "src/selectable_spawn_locations.asm"
 ;%include "src/tech_center_bug_fix.asm"
 %include "src/special_colourscheme.asm"
@@ -71,6 +70,7 @@ test_str  db "RUN1226M",0
 %include "src/music_loading.asm"
 %include "src/movie_loading.asm"
 %include "src/custom_missions.asm"
+%include "src/ally_shroud_reveal.asm"
 %include "src/ingame_chat_improvments.asm"
 %include "src/extra_multiplayer_countries.asm"
 %include "src/aftermath_fast_buildspeed_option.asm"
