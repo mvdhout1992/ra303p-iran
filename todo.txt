@@ -10,7 +10,7 @@
 
 16. mention fixed time flies mission in features list if the mission is actually fixed
 
-17. Add an option to hide serial and internet buttons
+17. do some rulesclass changes to skirmish scenario laods and savegame loads so ai paranoid mode is off
 
 18. ally sharing shroud at 0x004B07E0
 
@@ -21,8 +21,6 @@
 16. Update language packs with FunkyFr3sh's versions
 
 17. So seems the vehicle sell logic works so long as the vehicle was not at full health when moving onto the pad. check calls to FootClass::Sell_Back(int)
-
-18. Remap colours in sidebar cameo icons, 3rd last PUSH arg is remaptable pointer, the next one is a push that needs to be value 100h, the code does an or eax, 10 which fucks it over, it needs to be patched out
 
 23 I keep forgetting to mention, not exactly a bug, but the Cargo Truck did not have a shadow until
 Aftermath, yet in Aftermath, the fixed SHP with the shadow is inside conquer.mix (and not expand2.mix), so if you play the original

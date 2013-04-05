@@ -4,10 +4,36 @@
 @HOOK 0x004BD1DD 	_EventClass__Execute_Make_Ally
 @HOOK 0x004DDA71	_Fix_AI_Attacking_Top_Left_Bug
 @HOOK 0x004DDA00	_Fix_AI_Attacking_Top_Left_Bug2
+@HOOK 0x004D84C4    _HouseClass__MPlayer_Defeated_Check_AI_Allies
+@HOOK 0x004DE640    _HouseClass__Computer_Paranoid_Force_Disabled_Skirmish
 
 %define HouseClass__Where_To_Go 			0x004DD9FC
 %define DriveClass__Assign_Destination 		0x004B67C8
 
+_HouseClass__Computer_Paranoid_Force_Disabled_Skirmish:
+    cmp		BYTE [SessionClass__Session], 5
+    jnz      .Normal_Ret
+    
+    cmp     BYTE [computerparanoidforcedisabledskirmish], 1
+    jnz     .Normal_Ret
+    
+    retn
+
+.Normal_Ret:
+    push    ebp
+    mov     ebp, esp        ; hooked by patch
+    push    ebx
+    push    ecx
+    jmp     0x004DE645
+
+_HouseClass__MPlayer_Defeated_Check_AI_Allies:
+    cmp		BYTE [SessionClass__Session], 5
+    jz      .Ret
+
+    test    BYTE [eax+42h], 2
+    jz      0x004D84CD
+.Ret:
+    jmp     0x004D84CA
 
 _Fix_AI_Attacking_Top_Left_Bug2:
 	cmp		BYTE [SessionClass__Session], 5

@@ -282,3 +282,7 @@ E.g.: GameLanguage=6 to load a Spanish language pack.
 101. Any previous active chrono vortex is now destroyed while loading a map or savegame. Previously chrono vortex would persist in single player missions after (re)starting one. Thanks to djohe for reporting the bug.
 
 102. Added a REDALERT.INI options called "ForceAMUnitsInMissions" under the [Options] section. When enabled missions will always have Aftermath units enabled.
+
+103. The game will now end in skirmish if you have allied AI players. Note that all players you've allied with have to be allied with each other, when allying more than one other player in game this doesn't happen, players you ally will only ally you. So this only works if you ally only one player in skirmish.
+
+104. The "computer paranoid" setting has been forced off in skirmish. To disable this, under the [AI] section of RULES.INI set ComputerParanoidForceDisabledSkirmish=no. This keyword is only read at startup from RULES.INI (aka globally).

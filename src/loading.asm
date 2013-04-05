@@ -51,6 +51,8 @@ str_usebetadestroyer db "UseBetaDestroyer",0
 str_usebetacruiser db "UseBetaCruiser",0
 str_usebetasubmarine db "UseBetaSubmarine",0
 str_usebetagunboat db "UseBetaGunboat",0
+str_colorremapsidebarcameoicons db "ColorRemapSidebarIcons",0
+str_computerparanoidforcedisabledskirmish db "ComputerParanoidForceDisabledSkirmish",0
 
 INIClass_redalertini5 TIMES 64 db 0
 FileClass_redalertini5	TIMES 128 db 0
@@ -62,7 +64,8 @@ extraremaptable TIMES 2400 db 0
 %define colourbrightyellowoffset 564
 
 OreMineFoundation dd 0
-
+computerparanoidforcedisabledskirmish db 1
+colorremapsidebarcameoicons db 0
 usebetadestroyer db 0
 usebetacruiser db 0
 usebetasubmarine db 0
@@ -343,6 +346,9 @@ _Startup_Function_Hook_Early_Load:
     
     INI_Get_Bool_ INIClass_redalertini5, str_options5, str_forceamunitsinmissions, 0
 	mov		[forceamunitsinmissions], al
+    
+    INI_Get_Bool_ INIClass_redalertini5, str_options5, str_colorremapsidebarcameoicons, 0
+	mov		[colorremapsidebarcameoicons], al
 	
 	Restore_Registers
 	mov     ebx, [0x006ABC10]
@@ -378,6 +384,10 @@ _Init_Game_Hook_Load:
 	
 	INI_Get_Bool_ 0x00666688, str_ai, str_fixaisendingtankstopleft, 0
 	mov		[fixaisendingtankstopleft], al
+    
+    INI_Get_Bool_ 0x00666688, str_ai, str_computerparanoidforcedisabledskirmish, 1
+	mov [computerparanoidforcedisabledskirmish], al
+    
 	
 ;  EXTRA COLOUR REMAP WHITE
 	Initialize_Remap_Table colorwhiteoffset

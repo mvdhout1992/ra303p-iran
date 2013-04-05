@@ -52,9 +52,9 @@ test_str  db "RUN1226M",0
 ;%include "src/ai_vessels.asm" probably desyncs online with 3.03
 ;%include "src/harvester_harvest_closest_ore.asm" ; same thing what pressing S on harvesters does, desyncs online and keeps mining new ore spawned by ore mines
 ;%include "src/building_crew_impassable_terrain_fix.asm" ; desyncs online with 3.03
-;%include "src/multiplayer_allies_fix.asm"
+%include "src/multiplayer_allies_fix.asm"
 ;%include "src/build_off_ally.asm"
-;%include "src/ally_shroud_reveal.asm"
+%include "src/ally_shroud_reveal.asm"
 ;%include "src/selectable_spawn_locations.asm"
 ;%include "src/tech_center_bug_fix.asm"
 %include "src/special_colourscheme.asm"
@@ -82,6 +82,7 @@ test_str  db "RUN1226M",0
 %include "src/parabombs_multiplayer.asm"
 %include "src/mousewheel_scrolling.asm"
 %include "src/skirmish_savegames.asm"
+%include "src/sidebar_cameo_icons_remap_colours.asm"
 ;%include "src/more_colour_remaps.asm" ; not done yet and needs a fix for a crash
 
 %ifdef USE_NOCD
