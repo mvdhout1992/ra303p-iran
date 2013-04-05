@@ -6,13 +6,12 @@
 
 14. Upload new campaign.mix file with fixed maps
 
-15. computer goes paranoid after killing an ai in skirmish, probably cause skirmish always applies paranoid fix?
+15. Invisible explosion fix, not fixed = 0x000000C3, fixed = 0x000000C1, type is byte, 0x0E68042C needs to be modified
 
 16. mention fixed time flies mission in features list if the mission is actually fixed
 
 17. do some rulesclass changes to skirmish scenario laods and savegame loads so ai paranoid mode is off
 
-18. ally sharing shroud at 0x004B07E0
 
 19. 0x0056A95F is growthrate for ore mines, need to modify it is read from the map with its own value instead of using growthrate
 

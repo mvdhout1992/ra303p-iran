@@ -7,9 +7,16 @@
 firstformationunit: db 1
 
 _Formation_Speed_Glitched_Loop:
+    cmp		BYTE [SessionClass__Session], 5
+    jz      .Apply_Fix
+    cmp		BYTE [SessionClass__Session], 0
+    jz      .Apply_Fix
 	cmp BYTE [fixformationspeed], 1
-	jnz		.Dont_Fix
+	jz		.Apply_Fix
+    
+    jmp     .Dont_Fix
 
+.Apply_Fix:
 	mov     esi, [ecx+11h]
 	mov     eax, ecx
 	call    [esi+34h]

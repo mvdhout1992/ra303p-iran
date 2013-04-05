@@ -131,7 +131,7 @@ Etc for every new song. Make sure there's an empty (blank) line at the end of th
 
 37. Added a keyword FixAIAlly= (yes/no) under the [AI] section of RULES.INI, when set to yes you can ally with AI players. This fix is always enabled in skirmish.
 
-38. Optional fix for the formation exploit, the slowest unit speed is used now as formation speed when this fix is enabled. The RULES.INI keyword FixFormationSpeed= (yes/no) keyword under the [General] section controls whether this fix is on or off, it's off when this keyword is missing. (Taken from Arda.dll.inj by AlexB)
+38. Optional fix for the formation exploit, the slowest unit speed is used now as formation speed when this fix is enabled. The RULES.INI keyword FixFormationSpeed= (yes/no) keyword under the [General] section controls whether this fix is on or off, it's off when this keyword is missing. This fix is applied by default for skirmish and single player, but not online to stay compatible with 3.03 online. (Taken from Arda.dll.inj by AlexB)
 
 39. The game will no longer delete conquer.eng if it's inside the game folder. (Thanks to Arda.dll.inj by AlexB)
 
@@ -286,3 +286,13 @@ E.g.: GameLanguage=6 to load a Spanish language pack.
 103. The game will now end in skirmish if you have allied AI players. Note that all players you've allied with have to be allied with each other, when allying more than one other player in game this doesn't happen, players you ally will only ally you. So this only works if you ally only one player in skirmish.
 
 104. The "computer paranoid" setting has been forced off in skirmish. To disable this, under the [AI] section of RULES.INI set ComputerParanoidForceDisabledSkirmish=no. This keyword is only read at startup from RULES.INI (aka globally).
+
+105. Added a fix for building crew from certain buildings like the Tesla Coil getting stuck one cell above the buildings foundations. This fix is applied to single player and skirmish, but to remain online compatible with 3.03 it isn't applied online and in LAN. (Fix made with help from CCHyper and code reverse engineered from Arda by AlexB)
+
+106. Fix for an exploit dubbed "magic build". When you're selecting a spot to place a building and white rectangles for the building foundations are showing, indicating that the building is place-able at that spot, even if every close by building of you dies the rectangles for the building foundation stay white, allowing you to still build at that location. In practice when a player is base crawling really quickly and you destroy any of his buildings close to where he wants to place, if the white rectangles are shown he can still place the building (unexpectedly) at that location. If he doesn't yet place the building but moves the mouse instead the rectangles will be red.
+
+This fix is applied to single player and skirmish by default, but not online by default to stay compatible with 3.03 online.
+
+107. Added a fix for an infantry range exploit that allows you to have infantry fire across the map. This fix is applied to skirmish and single player by default, but not online to stay compatible with 3.03. (Fix reverse engineerd from Arda by AlexB)
+
+108. Added a fix for certain invisible explosions that affects certain warheads when shooting buildings. For example this affects the Chrono Tank shooting its missiles at a Construction Yard, the missiles are invisible from most angles. This fix is applied to single player and skirmish, but disabled online to remain 3.03 online compatible. (Fix made by AlexB)

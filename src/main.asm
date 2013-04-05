@@ -47,11 +47,11 @@ test_str  db "RUN1226M",0
 
 ; generic
 %include "src/game_difficulty_speed_modifier_remove.asm"
-;%include "src/magic_build_fix.asm"
-;%include "src/infantry_range_check.asm" desyncs online with 3.03
+%include "src/magic_build_fix.asm"
+%include "src/infantry_range_check.asm" ; desyncs online with 3.03
 ;%include "src/ai_vessels.asm" probably desyncs online with 3.03
 ;%include "src/harvester_harvest_closest_ore.asm" ; same thing what pressing S on harvesters does, desyncs online and keeps mining new ore spawned by ore mines
-;%include "src/building_crew_impassable_terrain_fix.asm" ; desyncs online with 3.03
+%include "src/building_crew_impassable_terrain_fix.asm" ; desyncs online with 3.03
 %include "src/multiplayer_allies_fix.asm"
 ;%include "src/build_off_ally.asm"
 ;%include "src/selectable_spawn_locations.asm"

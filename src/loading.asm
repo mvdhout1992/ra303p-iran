@@ -7,6 +7,7 @@
 @HOOK   0x00537E08      _Load_Game_Before_Hook ; For savegame loading stuff
 @HOOK   0x00538F07      _Load_Game_Late_Hook  ; For savegame loading stuff
 @HOOK   0x0055B84B      _Ore_Mine_Foundation_Voodoo
+@HOOK   0x00408005      _FRAG1_Data_Voodoo
 
 %define INIClass__INIClass                          0x004C7C60
 %define INIClass__Load                              0x004F28C4
@@ -64,6 +65,7 @@ extraremaptable TIMES 2400 db 0
 %define colourbrightyellowoffset 564
 
 OreMineFoundation dd 0
+FRAG1AnimData dd 0
 computerparanoidforcedisabledskirmish db 1
 colorremapsidebarcameoicons db 0
 usebetadestroyer db 0
@@ -211,10 +213,37 @@ _Load_Game_Before_Hook:
     mov     DWORD [eax], 0x800080 ; Set to fixed Ore Mine foundation
    
 .No_Skirmish_Mine_Fix2: 
+
+    ; FRAG1 explosion anim fix code
+    mov     eax, DWORD [FRAG1AnimData]
+    mov     BYTE [eax], 0xC3 ; Set to normal, bugged FRAG1 anim data
+    
+    cmp		BYTE [SessionClass__Session], 5
+    je      .Fix_FRAG1
+    cmp		BYTE [SessionClass__Session], 0
+    je      .Fix_FRAG1
+    
+    jmp     .Dont_Fix_FRAG1
+    
+.Fix_FRAG1:
+
+  mov     BYTE [eax], 0xC1 ; Set to fixed FRAG1 anim data   
+    
+.Dont_Fix_FRAG1:
     
     Restore_Registers
     call    0x004A765C ; Call_Back(void)
     jmp     0x00537E0D
+    
+ _FRAG1_Data_Voodoo:
+    mov     edx, [0x00625B48]
+    push    edx
+    lea     ecx, [eax+0x138]
+    mov     DWORD [FRAG1AnimData], ecx
+    mov     [eax+138h], cl
+    
+    pop     edx
+    jmp     0x00408011 
 
 _Ore_Mine_Foundation_Voodoo:
     push    ecx
@@ -269,6 +298,23 @@ _Map_Load_Late_Hook:
     mov     DWORD [0X00665DE0], 1 ; NewUnitsEnabled
     
 .Dont_Force_AM_Units_In_Missions:
+
+    ; FRAG1 explosion anim fix code
+    mov     eax, DWORD [FRAG1AnimData]
+    mov     BYTE [eax], 0xC3 ; Set to normal, bugged FRAG1 anim data
+    
+    cmp		BYTE [SessionClass__Session], 5
+    je      .Fix_FRAG1
+    cmp		BYTE [SessionClass__Session], 0
+    je      .Fix_FRAG1
+    
+    jmp     .Dont_Fix_FRAG1
+    
+.Fix_FRAG1:
+
+  mov     BYTE [eax], 0xC1 ; Set to fixed FRAG1 anim data   
+    
+.Dont_Fix_FRAG1:
     
     Restore_Registers
     call    0x0053A5C8 ; Fill_In_Data(void)

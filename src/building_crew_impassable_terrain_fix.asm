@@ -86,6 +86,17 @@ _Valid_Building_Crew_Cell_Spawn:
 	retn
 
 _BuildingClass_Mission_Exit_Coord:
+    cmp		BYTE [SessionClass__Session], 5
+    jz      .Apply_Fix
+    cmp		BYTE [SessionClass__Session], 0
+    jz      .Apply_Fix
+   
+.Ret:   
+    mov     [ebp-0x50], eax
+    mov     eax, [ebp-0x5C]
+    jmp     0x0045C2F9
+
+.Apply_Fix:
 	Save_Registers
 	
 	call    0x004AC3C0 ; Coord_Cell(ulong)
