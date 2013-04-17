@@ -307,3 +307,4 @@ Country=0 ; play as Spain country
 
 111. The game has been patched so the single player score screen will decide whether a house is Soviet or Allies by checking what country the house plays as, instead of by the house itself. The game needs to decide this to calculate buildings destroyed and casualties for a side. With the added ability to change what country a house plays at (say USSR can play as France) this is needed.
 
+112. When playing as a country higher than the internal number of 9 the sidebar graphics get loaded correctly, before the game would  crash. The Allies sidebar is loaded now. This affects the following countries: Neutral, Special and Multi1-8. Note that these "countries" are different from houses. In multiplayer your house is either multi1 to multi8 and the country you play as is USSR, Greece etc.

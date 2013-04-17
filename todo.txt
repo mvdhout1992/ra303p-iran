@@ -8,7 +8,29 @@
 
 10. Don't forget to change multiplayer name back to "NoName"
 
-11. Make colour and country configurable for single player missions, country is set at 0x004D34C6 and colour at 0x004D392B. Current housetype is ebp-0x14, [eax+0x25] at 0x004D34B6 also has something to do with country not sure what probably dont need to touch it but it's referenced in HouseStaticsClass
+11. make it so playing as neutral, mult1 etc doesnt crash the game, patches at:
+
+Patches, item 126
+ Address=0052DA5C
+ Size=  6.
+ State=Active
+ Old=MOV EAX,DWORD PTR DS:[EAX+3E]
+ New=MOV EAX,2
+
+ Patches, item 127
+ Address=0052DB02
+ Size=  6.
+ State=Active
+ Old=MOV EAX,DWORD PTR DS:[EAX+3E]
+ New=MOV EAX,2
+
+ Patches, item 169
+ Address=0054E0A4
+ Size=  6.
+ State=Active
+ Old=MOV EAX,DWORD PTR DS:[EDX+3E]
+ New=MOV EAX,2
+
 
 13. Need new savegames for fixed missions
 
