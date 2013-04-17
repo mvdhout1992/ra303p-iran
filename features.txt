@@ -26,7 +26,7 @@ The original code for this high resolution feature was written by hifi.
 
 7. The Counterstrike expansion can be enabled/disabled with the CounterstrikeEnabled= (yes/no) keyword under the [Options] section of REDALERT.INI. Likewise there's a AftermathEnabled= (yes/no) keyword to enable/disable the Aftermath expansion.
 
-8. A crash relating to the a max limit being reached (e.g. that of airplanes) has been fixed. (from hifi's p-series).
+8. A crash relating to the a max limit being reached (e.g. that of airplanes) has been fixed. (from hifi's p-series). When a max unit limit has been reached the game will play the "unable to build more sound".
 
 9. FunkyFr3sh's OOS-FIX.INI file will be loaded (if it's found) while still being compatible online with 3.03 players not using this fix. This fix prevents desyncing after playing certain (most?) modded maps online and then playing another map. It also fixes the cause of the desync itself, namely that after playing certain modded maps/missions certain memory used by the game for its settings (e.g. unit cost) won't be reset when playing a normal map/mission. This has to do with some really terrible programming but is a bit technical to explain. Suffice to say this fixes things like the Mobile Radar Jammer gaining a Tesla weapon after playing certain Counterstrike expansion missions, etc.
 
@@ -296,3 +296,5 @@ This fix is applied to single player and skirmish by default, but not online by 
 107. Added a fix for an infantry range exploit that allows you to have infantry fire across the map. This fix is applied to skirmish and single player by default, but not online to stay compatible with 3.03. (Fix reverse engineerd from Arda by AlexB)
 
 108. Added a fix for certain invisible explosions that affects certain warheads when shooting buildings. For example this affects the Chrono Tank shooting its missiles at a Construction Yard, the missiles are invisible from most angles. This fix is applied to single player and skirmish, but disabled online to remain 3.03 online compatible. (Fix made by AlexB)
+
+109. When loading a scenario, the game would not reset the current amount of credits shown on the credits tab in the top right of the screen. So if you have 1.4 billion credits then start another scenario, the game would start decrementing the credits count on the top right of the screen back to the actual amount (starting with the previous 1.4 billion credits), usually 10 000 when playing skirmish games. This process could take up to one hour if you start with 1.4 billion credits. This has been fixed and the amount of credits to display will be reset to 0 when a scenario is loaded. This does not affect the actual money you have, just what is displayed.

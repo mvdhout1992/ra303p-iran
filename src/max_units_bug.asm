@@ -15,6 +15,7 @@
 ;
 
 @HOOK	0x004BEFED	_max_units_bug
+@HOOK   0x004BEE93  _FactorClass__Set_Speak_Unable_To_Build_More
 
 _max_units_bug:
 
@@ -26,4 +27,31 @@ _max_units_bug:
 .Abandon_Production:
 ;	mov eax, ecx
 ;	call 0x004BF228
-    JMP 0x004BF21B
+    mov     eax, 17
+    call    0x00426158 ; void Speak(VoxType)
+    JMP     0x004BF21B
+    
+_FactorClass__Set_Speak_Unable_To_Build_More:
+    mov     edi, [ecx+22h]
+
+    CMP     edi, 0
+    jnz     .Dont_Speak
+    mov     eax, [0x00669958] ; PlayerPtr
+    CMP     DWORD ebx, eax
+    jnz     .Dont_Speak
+    
+    Save_Registers
+    
+    xor     edx, edx    
+    mov     ebx, [ebp-0x10]
+    mov     BYTE dl, [ebx]
+    call   0x004D671C  ; ProdFailType HouseClass::Abandon_Production(RTTIType)
+    
+    mov     eax, 17
+    call    0x00426158 ; void Speak(VoxType)
+    
+    Restore_Registers
+ 
+.Dont_Speak: 
+    test    edi, edi
+    jmp     0x004BEE98

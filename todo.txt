@@ -1,17 +1,22 @@
 1. Need to make the mapped keyboard key names in config tool better
 
+2. Add fixed conyard cameo text: http://cnc-comm.com/community/index.php?topic=2282.0
+
 10. Don't forget to change multiplayer name back to "NoName"
 
 13. Need new savegames for fixed missions
 
 14. Upload new campaign.mix file with fixed maps
 
-15. Invisible explosion fix, not fixed = 0x000000C3, fixed = 0x000000C1, type is byte, 0x0E68042C needs to be modified
+15. Add a rules.ini setting to allow AI to gain more credits from harvesting, maybe also have them ignore maximum ore sotrage limit?
+
+16. make AI build one service depot, cameo pillbox (hack normal pillbox code) and one nuke silo, service depot count is HouseClass+0x366, nuke silo count is HouseClass+0x37a
+
+17. Make AI not build radar jammer and Mad Tank
+
+18. Need to set credits to display before map and save load to 0 if you have 1.4 billion then start another game the game slowly lowers the displayed credit count of 1.4 billion to the actual amount, check 0x004ACC3E
 
 16. mention fixed time flies mission in features list if the mission is actually fixed
-
-17. do some rulesclass changes to skirmish scenario laods and savegame loads so ai paranoid mode is off
-
 
 19. 0x0056A95F is growthrate for ore mines, need to modify it is read from the map with its own value instead of using growthrate
 

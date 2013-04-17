@@ -7,13 +7,13 @@ _Paradrop_Superweapon_Custom:
 	
 	mov		esi, eax
 	
-	; Paradrop V2 Rocket Launchers
-;	mov		eax, 12
-;	call 	0x00578C24 ; UnitTypeClass::As_Reference(UnitType)
+	; Paradrop Demo Trucks
+	mov		eax, 0x14
+	call 	0x00578C24 ; UnitTypeClass::As_Reference(UnitType)
 
 	; Paradrop Cruisers
-	mov		eax, 2
-	call	0x00584858 ; VesselTypeClass::As_Reference(VesselType)
+;	mov		eax, 2
+;	call	0x00584858 ; VesselTypeClass::As_Reference(VesselType)
 
 	; Paradrop dogs
 ;	mov		eax, 10

@@ -1,5 +1,6 @@
 @HOOK 0x004DAFA4	_AI_Tech_Up_Check
 @HOOK 0x004D6102	_HouseClass__Make_Ally_Computer_Paranoid_Call_Patch_Out
+@HOOK 0x004DAFD5    _HouseClasss__AI_Building_Build_Radar_Dome_Have_War_Check
 @HOOK 0x004DE5D2	_HouseClass__Is_Allowed_To_Ally_AI_Player_Fix
 @HOOK 0x004BD1DD 	_EventClass__Execute_Make_Ally
 @HOOK 0x004DDA71	_Fix_AI_Attacking_Top_Left_Bug
@@ -9,6 +10,23 @@
 
 %define HouseClass__Where_To_Go 			0x004DD9FC
 %define DriveClass__Assign_Destination 		0x004B67C8
+
+_HouseClasss__AI_Building_Build_Radar_Dome_Have_War_Check:
+    jnz     0x004DB050
+    
+    cmp		BYTE [SessionClass__Session], 5
+    jz      .War_Check
+	cmp BYTE [removeaitechupcheck], 1
+	jz		.War_Check
+  
+    jmp     .Ret
+
+.War_Check:  
+    cmp     dword [ecx+30Eh], 0 ; war factory count
+    jz      0x004DB050
+
+.Ret:    
+    jmp     0x004DAFDB
 
 _HouseClass__Computer_Paranoid_Force_Disabled_Skirmish:
     cmp		BYTE [SessionClass__Session], 5

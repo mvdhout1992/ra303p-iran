@@ -258,6 +258,9 @@ _Ore_Mine_Foundation_Voodoo:
     call    0x0053AA94 ; Clear_Scenario(void)
     Save_Registers
     
+    ; Set current credit count to be displayed on the credits tab to 0
+    mov     DWORD [0x0066984E], 0
+    
     ;Remove any active Chrono Vortex
     mov     eax, 0x006904B4 ; ChronoVortex instance
     call    0x0058E304 ; ChronalVortexClass::Stop(void)
