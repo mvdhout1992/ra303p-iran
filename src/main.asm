@@ -59,6 +59,7 @@ test_str  db "RUN1226M",0
 %include "src/special_colourscheme.asm"
 %include "src/arguments.asm"
 %include "src/image_keyword_fix.asm"
+%include "src/singleplayer_custom_colours_countries.asm"
 ;%include "src/debug_printing.asm" ; Seems to cause crashes
 %include "src/hotkeys.asm"
 %include "src/extra_theaters.asm"

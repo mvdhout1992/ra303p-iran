@@ -1,0 +1,21 @@
+HouseType - Country:
+0           - Spain
+1           - Greece
+2           - USSR
+3           - England
+4           - Ukraine
+5           - Germany
+6           - France
+7           - Turkey
+8           - GoodGuy
+9           - BadGuy
+10 (0x0A)   - Neutral
+11 (0x0B)   - Special
+12 (0x0C)   - Multi1
+13 (0x0D)   - Multi2
+14 (0x0E)   - Multi3
+15 (0x0F)   - Multi4
+16 (0x10)   - Multi5
+17 (0x11)   - Multi6
+18 (0x12)   - Multi7
+19 (0x13)   - Multi8

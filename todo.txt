@@ -2,7 +2,13 @@
 
 2. Add fixed conyard cameo text: http://cnc-comm.com/community/index.php?topic=2282.0
 
+3. Add ants cameos: http://forums.cncnz.com/topic/17482-portablera-beta/page-16#entry212164
+
+4. Add Einstein cameo: http://forums.cncnz.com/topic/17482-portablera-beta/page-16#entry212170
+
 10. Don't forget to change multiplayer name back to "NoName"
+
+11. Make colour and country configurable for single player missions, country is set at 0x004D34C6 and colour at 0x004D392B. Current housetype is ebp-0x14, [eax+0x25] at 0x004D34B6 also has something to do with country not sure what probably dont need to touch it but it's referenced in HouseStaticsClass
 
 13. Need new savegames for fixed missions
 

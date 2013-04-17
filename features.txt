@@ -298,3 +298,12 @@ This fix is applied to single player and skirmish by default, but not online by 
 108. Added a fix for certain invisible explosions that affects certain warheads when shooting buildings. For example this affects the Chrono Tank shooting its missiles at a Construction Yard, the missiles are invisible from most angles. This fix is applied to single player and skirmish, but disabled online to remain 3.03 online compatible. (Fix made by AlexB)
 
 109. When loading a scenario, the game would not reset the current amount of credits shown on the credits tab in the top right of the screen. So if you have 1.4 billion credits then start another scenario, the game would start decrementing the credits count on the top right of the screen back to the actual amount (starting with the previous 1.4 billion credits), usually 10 000 when playing skirmish games. This process could take up to one hour if you start with 1.4 billion credits. This has been fixed and the amount of credits to display will be reset to 0 when a scenario is loaded. This does not affect the actual money you have, just what is displayed.
+
+110. Added the ability to decide what colour and country a house plays at in single player missions. Under the house specific section of the map INI (e.g. [USSR]) the new Country= and Colour= keywords are valid. They take a number. Country= takes a HouseType and Colour= takes a PlayerColorType. For more info see the documentation for these data types. An example would be:
+
+[USSR]
+Colour=1 ; play with blue colour
+Country=0 ; play as Spain country
+
+111. The game has been patched so the single player score screen will decide whether a house is Soviet or Allies by checking what country the house plays as, instead of by the house itself. The game needs to decide this to calculate buildings destroyed and casualties for a side. With the added ability to change what country a house plays at (say USSR can play as France) this is needed.
+
