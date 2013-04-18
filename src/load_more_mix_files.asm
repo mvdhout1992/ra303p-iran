@@ -24,6 +24,8 @@ frenchlanguagepack_str db"frenchlanguagepack.MIX",0
 spanishlanguagepack_str db"spanishlanguagepack.MIX",0
 russianlanguagepack_str db"russianlanguagepack.MIX",0
 
+spawnmix_str db"spawn.MIX",0
+
 expand3_str db"expand3.MIX",0
 expand4_str db"expand4.MIX",0
 expand5_str db"expand5.MIX",0
@@ -193,6 +195,9 @@ _load_more_mix_files:
 	Load_Mix_File 	movies_2_str
 	Load_Mix_File 	movies_1_str
 	
+    ; SPAWN.MIX
+    Load_Mix_File_Cached    spawnmix_str
+    
 	; EXTRA EXPANDxx.MIX
 	Load_Mix_File_Cached 	expand9_str 
 	Load_Mix_File_Cached	expand8_str

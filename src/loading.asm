@@ -18,6 +18,7 @@
 %define FileClass__Is_Available                     0x00462A30
 %define SessionClass__Session 0x0067F2B4
 
+;str_aftermath db"Aftermath",0
 str_redalertini5 db "REDALERT.INI",0
 str_options5 db "Options",0
 str_videointerlacemode db "VideoInterlaceMode",0

@@ -24,6 +24,7 @@
 %define FileClass__FileClass                        0x004627D4
 %define FileClass__Is_Available                     0x00462A30
 %define calloc                                      0x005E1EF6
+%define operator_new                                0x005BBF80
 %define IPXAddressClass__IPXAddressClass            0x004F9950
 %define DynamicVectorClass__Add                     0x004B9DA0
 %define nameTags                                    0x0068043A
@@ -80,7 +81,7 @@ struc Player
     .address    RESB NetAddress_size
     .side       RESB 1
     .color      RESB 1
-    .pad        RESW 1
+    .pad        RESB 5
 endstruc
 
 struc Session
@@ -561,6 +562,20 @@ Initialize_Spawn:
     MOV EDX,1
     CALL SidebarClass__Activate
 
+    MOV EAX,SidebarClass_this
+    XOR EDX,EDX
+    CALL GScreenClass__Flag_To_Redraw
+
+    MOV EAX,SidebarClass_this
+    CALL GScreenClass__Render
+    
+    call 0x004A765C ; call back (is this needed?)
+    
+    call 0x00528EDC ; queue ai
+    
+    call 0x004A765C ; callback (is this needed?)
+    
+    ; Refresh screen again (don't think this is working)
     MOV EAX,SidebarClass_this
     XOR EDX,EDX
     CALL GScreenClass__Flag_To_Redraw

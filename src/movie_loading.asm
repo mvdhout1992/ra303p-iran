@@ -114,14 +114,30 @@ _Optional_Play_ENGLISHVQA_Intro:
 	
 	INI_Get_Bool str_options2, str_playenglishintro, 1
 	cmp eax, 0
-	
-	pop	ebx
+    
+    pop	ebx
 	pop eax
 	pop edx
 	
 	je .Ret
-	
-	
+    
+    push    edx
+    push    eax
+    push    ebx
+    
+        ; check -SPAWN exists
+    CALL GetCommandLineA
+
+    MOV EDX, str_spawn_arg
+    CALL stristr_
+    TEST EAX,EAX
+    
+    pop	    ebx
+	pop     eax
+	pop     edx
+    
+    JNE .Ret
+		
 	call	Play_Intro
 	
 .Ret:
