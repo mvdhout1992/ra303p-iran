@@ -37,7 +37,7 @@ str_araziodaud	db "ARAZIOD.AUD",0
 str_sprintf_format2 db "%d",0
 
 sprintf_buffer   TIMES 64 db 0
-str_empty db 0
+;str_empty db 0
 
 str_general db "General",0
 str_sprintf_format db "%d",0

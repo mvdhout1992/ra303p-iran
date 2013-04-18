@@ -1,11 +1,11 @@
 ; Crashes sometimes with 7 AI players, seems to try to get an eight one then
 
-@HOOK	0x0053E052 		_Assign_Houses_Color_Remaps_Indexes
-@HOOK	0x0053E069		_Assign_Houses_Color_Remaps_Index_Check
-@HOOK	0x0053DFCE		_Assign_Houses_Color_Remaps_Index_Check2
-@HOOK	0x0053B81D		_Assign_Houses_Colour_Remaps_Cleanup
-@HOOK	0x0053E158		_Assign_Houses_Colour_Remaps_NULL_Check
-@HOOK	0x004D654B		_Assign_Houses_Colour_Return_Custom_Remaps
+;@HOOK	0x0053E052 		_Assign_Houses_Color_Remaps_Indexes
+;@HOOK	0x0053E069		_Assign_Houses_Color_Remaps_Index_Check
+;@HOOK	0x0053DFCE		_Assign_Houses_Color_Remaps_Index_Check2
+;@HOOK	0x0053B81D		_Assign_Houses_Colour_Remaps_Cleanup
+;@HOOK	0x0053E158		_Assign_Houses_Colour_Remaps_NULL_Check
+@HOOK	0x004D654B		_HouseClass__Remap_Table_Return_Custom_Remaps
 @HOOK	0x0052E4E7		_RadarClass__Draw_It_Custom_Remaps
 @HOOK	0x00532767		_RadarClass__Draw_Names_Custom_Remaps
 @HOOK	0x0049EF65		_CellClass__Cell_Color
@@ -93,7 +93,7 @@ _RadarClass__Draw_It_Custom_Remaps:
 	push    0
 	jmp		0x0052E4F9
 
-_Assign_Houses_Colour_Return_Custom_Remaps:
+_HouseClass__Remap_Table_Return_Custom_Remaps:
 
 	cmp		eax, 7
 	jg		.Return_Custom_Remap

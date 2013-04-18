@@ -6,7 +6,7 @@ FileClass_rulesini TIMES 128 db 0
 INIClass_rulesini TIMES 128 db 0
 str_rules_ini db "RULES.INI",0
 str_aftermathfastbuildspeed db "AftermathFastBuildSpeed",0
-str_aftermath db "Aftermath",0
+;str_aftermath db "Aftermath",0
 
 str_orespreads db "OreSpreads",0
 str_general3 db "General",0

@@ -1,4 +1,4 @@
-@HOOK 0x0053DDEB	_Read_Scenario_INI_Spawn_Locations
+;@HOOK 0x0053DDEB	_Read_Scenario_INI_Spawn_Locations
 @HOOK 0x0053E6A9	_Create_Units_Spawn_Location
 
 str_SpawnLocations 		db "SpawnLocations",0
@@ -11,14 +11,14 @@ str_multi6				db "Multi6",0
 str_multi7				db "Multi7",0
 str_multi8				db "Multi8",0
 
-multi1_spawn	dd 0
-multi2_spawn	dd 0
-multi3_spawn	dd 0
-multi4_spawn	dd 0
-multi5_spawn	dd 0
-multi6_spawn	dd 0
-multi7_spawn	dd 0
-multi8_spawn	dd 0
+multi1_spawn	dd -1
+multi2_spawn	dd -1
+multi3_spawn	dd -1
+multi4_spawn	dd -1
+multi5_spawn	dd -1
+multi6_spawn	dd -1
+multi7_spawn	dd -1
+multi8_spawn	dd -1
 
 _Read_Scenario_INI_Spawn_Locations:
 	push	eax

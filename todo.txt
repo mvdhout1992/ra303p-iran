@@ -8,29 +8,19 @@
 
 10. Don't forget to change multiplayer name back to "NoName"
 
-11. make it so playing as neutral, mult1 etc doesnt crash the game, patches at:
-
-Patches, item 126
- Address=0052DA5C
- Size=  6.
- State=Active
- Old=MOV EAX,DWORD PTR DS:[EAX+3E]
- New=MOV EAX,2
-
- Patches, item 127
- Address=0052DB02
- Size=  6.
- State=Active
- Old=MOV EAX,DWORD PTR DS:[EAX+3E]
- New=MOV EAX,2
-
- Patches, item 169
- Address=0054E0A4
- Size=  6.
- State=Active
- Old=MOV EAX,DWORD PTR DS:[EDX+3E]
- New=MOV EAX,2
-
+11. Units that need cameo icons:
+-   C1
+-   C2
+-   C3
+-   C4
+-   C5
+-   C6
+-   C7
+-   C8
+-   C9
+-   C10
+-   DELPHI
+-   CHAN
 
 13. Need new savegames for fixed missions
 

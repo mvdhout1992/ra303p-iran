@@ -44,24 +44,24 @@ shroudregrows:		db 1
 ctf:				db 1
 
 ; sizes not actually verified
-FileClass_this  TIMES 128 db 0
-INIClass_this   TIMES 64 db 0
+FileClass_this_  TIMES 128 db 0
+INIClass_this_   TIMES 64 db 0
 
 ; args: <section>, <key>, <default>, <dst>
-%macro INI_Get_Int 3
+%macro INI_Get_Int__ 3
     MOV ECX, DWORD %3
     MOV EBX, DWORD %2
     MOV EDX, DWORD %1
-    MOV EAX, INIClass_this
+    MOV EAX, INIClass_this_
     CALL INIClass__Get_Int
 %endmacro
 
 ; args: <section>, <key>, <default>, <dst>
-%macro INI_Get_Bool 3
+%macro INI_Get_Bool__ 3
     MOV ECX, DWORD %3
     MOV EBX, DWORD %2
     MOV EDX, DWORD %1
-    MOV EAX, INIClass_this
+    MOV EAX, INIClass_this_
     CALL INIClass__Get_Bool
 %endmacro
 
@@ -266,7 +266,7 @@ _Skirmish_Players_Slider3:
 	jne .Not_First_Load_Players
 	
 	mov DWORD [FirstLoadPlayers], 0
-	INI_Get_Int multiplayer_defaults_str, aiplayers_str, 1
+	INI_Get_Int__ multiplayer_defaults_str, aiplayers_str, 1
 	mov DWORD [Players], eax
 
 .Not_First_Load_Players:
@@ -297,7 +297,7 @@ Not_First_Load:
 	
 _Skirmish_Set_AI_Difficulty:
 	
-	INI_Get_Int multiplayer_defaults_str, aidifficulty_str, 1
+	INI_Get_Int__ multiplayer_defaults_str, aidifficulty_str, 1
 	mov     edx, eax
 	jmp		0x00513168
 		
@@ -313,71 +313,71 @@ _RulesClass_Multiplayer_Defaults:
 		
 	; initialize FileClass
     MOV EDX, redalert_ini
-    MOV EAX, FileClass_this
+    MOV EAX, FileClass_this_
     CALL FileClass__FileClass
 
     ; check ini exists
-    MOV EAX, FileClass_this
+    MOV EAX, FileClass_this_
     XOR EDX, EDX
     CALL FileClass__Is_Available
 ;    TEST EAX,EAX
 ;    JE .exit_error
 
     ; initialize INIClass
-    MOV EAX, INIClass_this
+    MOV EAX, INIClass_this_
     CALL INIClass__INIClass
 
     ; load FileClass to INIClass
-    MOV EDX, FileClass_this
-    MOV EAX, INIClass_this
+    MOV EDX, FileClass_this_
+    MOV EAX, INIClass_this_
     CALL INIClass__Load
 	
 	
-	INI_Get_Int multiplayer_defaults_str, unitcount_str, 0
+	INI_Get_Int__ multiplayer_defaults_str, unitcount_str, 0
 	mov	DWORD [UnitCount], eax
-	INI_Get_Int multiplayer_defaults_str, techlevel_str, 10
+	INI_Get_Int__ multiplayer_defaults_str, techlevel_str, 10
 	mov DWORD [BuildLevel], eax
 
-	INI_Get_Int multiplayer_defaults_str, money_str, 10000
+	INI_Get_Int__ multiplayer_defaults_str, money_str, 10000
 	mov dword [esi+0B5h], eax ; Money
 	mov dword [esi+0B9h], 10000 ; MaxMoney, used as the max on the Credits slider
 		; modifying MaxMoney causes network desync
 		
-	INI_Get_Bool multiplayer_defaults_str, shroudregrows_str, 0 ; ShadowGrow
+	INI_Get_Bool__ multiplayer_defaults_str, shroudregrows_str, 0 ; ShadowGrow
 	mov BYTE [shroudregrows], al
 
-	INI_Get_Bool multiplayer_defaults_str, bases_str, 1 ; Bases
+	INI_Get_Bool__ multiplayer_defaults_str, bases_str, 1 ; Bases
 	mov BYTE [bases], al
 
-	INI_Get_Bool multiplayer_defaults_str, oreregenerates_str, 1 ; Ore Grows
+	INI_Get_Bool__ multiplayer_defaults_str, oreregenerates_str, 1 ; Ore Grows
 	mov BYTE [oreregenerates], al
 
-	INI_Get_Bool multiplayer_defaults_str, crates_str, 0 ; Crates
+	INI_Get_Bool__ multiplayer_defaults_str, crates_str, 0 ; Crates
 	mov BYTE [crates], al
 
-	INI_Get_Bool multiplayer_defaults_str, capturetheflag_str, 0 ; CaptureTheFlag
+	INI_Get_Bool__ multiplayer_defaults_str, capturetheflag_str, 0 ; CaptureTheFlag
 	mov BYTE [ctf], al
 	
-			INI_Get_Bool multiplayer_defaults_str, shroudregrows_str, 0 ; ShadowGrow
+    INI_Get_Bool__ multiplayer_defaults_str, shroudregrows_str, 0 ; ShadowGrow
 ;		mov		eax, 0 
-		and     [esi+0BDh], dword 0FEh
-		and     eax, 1
-		mov     edx, [esi+0BDh]
-		or      edx, eax
+    and     [esi+0BDh], dword 0FEh
+    and     eax, 1
+    mov     edx, [esi+0BDh]
+    or      edx, eax
 
-		mov     ecx, edx
-		mov     [esi+0BDh], edx
+    mov     ecx, edx
+    mov     [esi+0BDh], edx
 
-		INI_Get_Bool multiplayer_defaults_str, capturetheflag_str, 0 ; CaptureTheFlag 
-		mov     cl, [esi+0BDh]
-		and     cl, 0DFh
-		and     eax, 1
-		mov     [esi+0BDh], cl
-		shl     eax, 5
-		mov     ebx, [esi+0BDh]
-		or      ebx, eax
-		mov     eax, 1
-		mov     [esi+0BDh], ebx
+    INI_Get_Bool__ multiplayer_defaults_str, capturetheflag_str, 0 ; CaptureTheFlag 
+    mov     cl, [esi+0BDh]
+    and     cl, 0DFh
+    and     eax, 1
+    mov     [esi+0BDh], cl
+    shl     eax, 5
+    mov     ebx, [esi+0BDh]
+    or      ebx, eax
+    mov     eax, 1
+    mov     [esi+0BDh], ebx
 	
 	pop     edi
 	pop     esi

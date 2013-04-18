@@ -52,15 +52,16 @@ test_str  db "RUN1226M",0
 ;%include "src/ai_vessels.asm" probably desyncs online with 3.03
 ;%include "src/harvester_harvest_closest_ore.asm" ; same thing what pressing S on harvesters does, desyncs online and keeps mining new ore spawned by ore mines
 %include "src/building_crew_impassable_terrain_fix.asm" ; desyncs online with 3.03
-%include "src/multiplayer_allies_fix.asm"
+%include "src/predetermined_alliances.asm"
 ;%include "src/build_off_ally.asm"
-;%include "src/selectable_spawn_locations.asm"
+%include "src/selectable_spawn_locations.asm"
 ;%include "src/tech_center_bug_fix.asm"
 %include "src/special_colourscheme.asm"
 %include "src/arguments.asm"
 %include "src/image_keyword_fix.asm"
 %include "src/singleplayer_custom_colours_countries.asm"
 %include "src/sidebar_special_houses.asm"
+%include "src/spawn.asm"
 ;%include "src/debug_printing.asm" ; Seems to cause crashes
 %include "src/hotkeys.asm"
 %include "src/extra_theaters.asm"
@@ -85,7 +86,7 @@ test_str  db "RUN1226M",0
 %include "src/mousewheel_scrolling.asm"
 %include "src/skirmish_savegames.asm"
 %include "src/sidebar_cameo_icons_remap_colours.asm"
-;%include "src/more_colour_remaps.asm" ; not done yet and needs a fix for a crash
+%include "src/more_colour_remaps.asm" ; not done yet and needs a fix for a crash
 
 %ifdef USE_NOCD
 %include "src/nocd.asm"
@@ -98,6 +99,7 @@ test_str  db "RUN1226M",0
 %ifdef USE_BUGFIXES
 ;%include "src/invisible_explosions_fix.asm" ; Causes desync with 3.03
 %include "src/engi_q_freeze_fix.asm"
+%include "src/gnrl_ukraine_voices_fix.asm"
 %include "src/score_screen_print_colour_fix.asm"
 %include "src/animate_score_objects_crash_fix.asm"
 %include "src/submarine_decloak_skip_campaign.asm"
