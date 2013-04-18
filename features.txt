@@ -309,7 +309,7 @@ Country=0 ; play as Spain country
 
 112. When playing as a country higher than the internal number of 9 the sidebar graphics get loaded correctly, before the game would  crash. The Allies sidebar is loaded now. This affects the following countries: Neutral, Special and Multi1-8. Note that these "countries" are different from houses. In multiplayer your house is either multi1 to multi8 and the country you play as is USSR, Greece etc.
 
-113. The GRNL unit (Volkov for Soviets, Stavros for Allies) had Stavros' voice when playing as Ukraine. For no clear reason. He has the generic Soviet voice now, like he has when playing as USSR or BadGuy.
+113. The GNRL unit (Volkov for Soviets, Stavros for Allies) had Stavros' voice when playing as Ukraine. For no clear reason. He has the generic Soviet voice now, like he has when playing as USSR or BadGuy.
 
 114. Allies mission 11 variant B had a bunch of Soviet units and buildings that were counted as Allies casualties in the score screen. This has been fixed. (Fix made by Allen262)
 
@@ -320,3 +320,8 @@ Country=0 ; play as Spain country
 117. The Counterstrike expansion Sarin Gas 1: Crackdown mission had a bunch of Soviet units and building that were counted as Allies casualties in the score screen. This has been fixed. (Fix made by Allen262)
 
 117. In The Aftermath expansion Brothers in Arms mission all buildings of the orange "arms dealer" faction were counted as Soviet casualties in the score screen, even though they were bunch of dirty traitors. This has been fixed and they get counted as Allies casualties now. (Fix made by Allen262)
+
+118. Added a new AllyTheNeutralHouse= (yes/no) keyword under the house specific section of a map INI. This allows you to disable the hard-coded logic for a house to ally the neutral house. An example:
+
+[USSR]
+AllyTheNeutralHouse=no  ; Don't ally the Neutral house
