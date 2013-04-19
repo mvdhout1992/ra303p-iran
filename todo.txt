@@ -1,5 +1,9 @@
 1. Need to make the mapped keyboard key names in config tool better
 
+1. Add the colour + country thing for funky
+
+1. Check Times Flies fix and add lets make a steal fix
+
 2. Add fixed conyard cameo text: http://cnc-comm.com/community/index.php?topic=2282.0
 
 3. Add ants cameos: http://forums.cncnz.com/topic/17482-portablera-beta/page-16#entry212164

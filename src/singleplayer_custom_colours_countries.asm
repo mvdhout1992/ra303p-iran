@@ -9,6 +9,12 @@ str_allytheneutralhouse db "AllyTheNeutralHouse",0
 allyneutral: db 1
 
 _HouseClass__Read_INI_Optional_House_Neutral_Ally_Patch_Out_Double:
+    cmp     edx, 0x0A ; Neutral house
+    jz     .Ret
+    
+    call    0x004D6060  ; HouseClass::Make_Ally(HousesType)
+    
+.Ret:
     jmp     0x004DDE85
 
 _HouseClass__Read_INI_Optional_House_Neutral_Ally: 

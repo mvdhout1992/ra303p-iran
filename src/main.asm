@@ -61,6 +61,8 @@ test_str  db "RUN1226M",0
 %include "src/image_keyword_fix.asm"
 %include "src/singleplayer_custom_colours_countries.asm"
 %include "src/sidebar_special_houses.asm"
+%include "src/load_more_mix_files.asm"
+%include "src/spawner_house_colours_countries_handicaps.asm"
 %include "src/spawn.asm"
 %include "src/spawner_files.asm"
 ;%include "src/debug_printing.asm" ; Seems to cause crashes
@@ -129,7 +131,6 @@ test_str  db "RUN1226M",0
 %endif
 
 %ifdef USE_LOAD_MORE_MIX_FILES
-%include "src/load_more_mix_files.asm"
 %endif
 
 %ifdef FOCUS_LOSS_KEEP_PLAYING_SOUND

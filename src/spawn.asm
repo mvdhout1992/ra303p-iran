@@ -239,6 +239,81 @@ Initialize_Spawn:
 	
 	INI_Get_Int  str_SpawnLocations, str_multi8, -1
 	mov		DWORD [multi8_spawn], eax
+    
+    ; multi1-8 colours   
+    INI_Get_Int str_housecolours, str_multi1, 0xFF
+	mov		BYTE [Multi1_Colour], al
+	
+	INI_Get_Int  str_housecolours, str_multi2, 0xFF
+	mov		BYTE [Multi2_Colour], al
+	
+	INI_Get_Int  str_housecolours, str_multi3, 0xFF
+	mov		BYTE [Multi3_Colour], al
+	
+	INI_Get_Int  str_housecolours, str_multi4, 0xFF
+	mov		BYTE [Multi4_Colour], al
+	
+	INI_Get_Int  str_housecolours, str_multi5, 0xFF
+	mov		BYTE [Multi5_Colour], al
+	
+	INI_Get_Int  str_housecolours, str_multi6, 0xFF
+	mov		BYTE [Multi6_Colour], al
+	
+	INI_Get_Int  str_housecolours, str_multi7, 0xFF
+	mov		BYTE [Multi7_Colour], al
+	
+	INI_Get_Int  str_housecolours, str_multi8, 0xFF
+	mov		BYTE [Multi8_Colour], al
+    
+    ; multi1-8 countries    
+    INI_Get_Int str_housecountries, str_multi1, 0xFF
+	mov		BYTE [Multi1_Country], al
+	
+	INI_Get_Int  str_housecountries, str_multi2, 0xFF
+	mov		BYTE [Multi2_Country], al
+	
+	INI_Get_Int  str_housecountries, str_multi3, 0xFF
+	mov		BYTE [Multi3_Country], al
+	
+	INI_Get_Int  str_housecountries, str_multi4, 0xFF
+	mov		BYTE [Multi4_Country], al
+	
+	INI_Get_Int  str_housecountries, str_multi5, 0xFF
+	mov		BYTE [Multi5_Country], al
+	
+	INI_Get_Int  str_housecountries, str_multi6, 0xFF
+	mov		BYTE [Multi6_Country], al
+	
+	INI_Get_Int  str_housecountries, str_multi7, 0xFF
+	mov		BYTE [Multi7_Country], al
+	
+	INI_Get_Int  str_housecountries, str_multi8, 0xFF
+	mov		BYTE [Multi8_Country], al
+    
+    ; multi1-8 handicaps
+    INI_Get_Int str_househandicaps, str_multi1, 0xFF
+	mov		BYTE [Multi1_Handicap], al
+	
+	INI_Get_Int  str_househandicaps, str_multi2, 0xFF
+	mov		BYTE [Multi2_Handicap], al
+	
+	INI_Get_Int  str_househandicaps, str_multi3, 0xFF
+	mov		BYTE [Multi3_Handicap], al
+	
+	INI_Get_Int  str_househandicaps, str_multi4, 0xFF
+	mov		BYTE [Multi4_Handicap], al
+	
+	INI_Get_Int  str_househandicaps, str_multi5, 0xFF
+	mov		BYTE [Multi5_Handicap], al
+	
+	INI_Get_Int  str_househandicaps, str_multi6, 0xFF
+	mov		BYTE [Multi6_Handicap], al
+	
+	INI_Get_Int  str_househandicaps, str_multi7, 0xFF
+	mov		BYTE [Multi7_Handicap], al
+	
+	INI_Get_Int  str_househandicaps, str_multi8, 0xFF
+	mov		BYTE [Multi8_Handicap], al
 
     ; generic stuff
     INI_Get_Int str_settings, str_port, 1234

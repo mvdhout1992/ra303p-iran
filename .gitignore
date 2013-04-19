@@ -1,6 +1,3 @@
-magic_build_fix.asm
-build_off_ally.asm
-ally_shroud_reveal.asm
 *.exe
 extpe
 linker

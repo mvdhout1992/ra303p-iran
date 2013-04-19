@@ -3,11 +3,15 @@
 
 str_spawn_xdp: db"spawn.xdp",0
 str_mmm_ext: db".MMM",0
+spawnmix_str db"spawn1.MIX",0
 
 _Init_Game_RULES_File:
     CALL    0x00547810 ; SmudgeTypeClass::Init_Heap(void)
-    
+        
     Save_Registers
+    
+    ; SPAWN1.MIX
+    Load_Mix_File_Cached    spawnmix_str
     
     CALL GetCommandLineA
 
