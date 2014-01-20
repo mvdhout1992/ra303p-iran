@@ -23,21 +23,37 @@ str_am_file db "SCG43EA.INI",0
 str_cs_file db "SCU38EA.INI",0
 
 _Is_Aftermath_Installed:
-	cmp BYTE [aftermathenabled], 1
-	jz .Ret_True
-	
-	mov		eax, 0
+_Init_Game_Should_Load_AFTRMATH_INI:
+    Save_Registers
+
+    CALL GetCommandLineA
+    MOV  EDX, str_spawn_arg
+    CALL _stristr
+    TEST EAX,EAX
+    Restore_Registers
+    jz   .Non_Spawner_Check
+
+    xor  eax, eax
+    mov  BYTE al, [spawner_aftermath]
+    retn
+
+.Non_Spawner_Check:
+    cmp  BYTE [aftermathenabled], 1
+    jz   .Ret_True
+
+.Ret_False:
+    mov  eax, 0
     retn
 .Ret_True:
-	mov		eax, 1
-	retn
-	
+    mov  eax, 1
+    retn
+
 _Is_Counterstrike_Installed:
-	cmp BYTE [counterstrikeenabled], 1
-	jz .Ret_True
-	
-	mov		eax, 0
+    cmp  BYTE [counterstrikeenabled], 1
+    jz   .Ret_True
+
+    mov  eax, 0
     retn
 .Ret_True:
-	mov		eax, 1
-	retn
+    mov  eax, 1
+    retn

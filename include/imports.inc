@@ -15,5 +15,3 @@
 ;
 
 %define Find_File           0x00462DD4
-%define stristr_            0x005CEC59
-%define INIClass_Get_Int    0x004F3660

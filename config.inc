@@ -16,7 +16,6 @@
 
 %define USE_BUGFIXES
 ; exception handler is still buggy
-%undef USE_EXCEPTIONS
 %define USE_EXCEPTIONS
 %define USE_NOCD
 ; hires is still buggy

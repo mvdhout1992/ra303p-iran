@@ -5,4 +5,4 @@
 @HOOK 0x004535D0 _BuildingTypeClass__One_Time_TechLevel_Check
 
 _BuildingTypeClass__One_Time_TechLevel_Check:
-	jmp		0x004535D9
+    jmp  0x004535D9

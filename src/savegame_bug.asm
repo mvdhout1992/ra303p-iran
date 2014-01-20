@@ -4,5 +4,5 @@
 @HOOK 0x004AB108 _Get_Disk_Space ; Not the function's real name
 
 _Get_Disk_Space:
-	MOV eax, 800001h
-	RETN
+    MOV  eax, 800001h
+    RETN

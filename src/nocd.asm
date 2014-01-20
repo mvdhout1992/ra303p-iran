@@ -21,75 +21,77 @@
 @HOOK 0x00551FC8 _Patch_In_Later_GetCDClass_Init
 ;@HOOK 0x004AAE0C _Fix_CDROM_Name_Get_Crash
 
-%define GetCDClass__GetCDClass 	0x005CDD10
-%define CDList					0x00680884
+;nocdmode db 1
+
+%define GetCDClass__GetCDClass    0x005CDD10
+%define CDList                    0x00680884
 
 _Fix_CDROM_Name_Get_Crash:
-	cmp		eax, 12
-	jng		.No_EAX_Adjust
-	mov		eax, 0
-	
+    cmp  eax, 12
+    jng  .No_EAX_Adjust
+    mov  eax, 0
+
 .No_EAX_Adjust:
-	cmp     esi, 0FFFFFFFFh
-	jnz     0x004AAE25
-	jmp		0x004AAE11
+    cmp  esi, 0FFFFFFFFh
+    jnz  0x004AAE25
+    jmp  0x004AAE11
 
 _Force_CD_Available:
-	cmp BYTE [nocdmode], 1
-	jz	.Ret_Now
-	
-	push    ebp
-	mov     ebp, esp
-	push    ebx
-	push    ecx
-	push    edx
-	push    esi
-	jmp		0x004AAC5F
-	
+    cmp  BYTE [nocdmode], 1
+    jz   .Ret_Now
+
+    push ebp
+    mov  ebp, esp
+    push ebx
+    push ecx
+    push edx
+    push esi
+    jmp  0x004AAC5F
+
 .Ret_Now:
-    MOV EAX,1
+    MOV  EAX,1
     RETN
 
 _Init_CDROM_Access:
-	cmp BYTE [nocdmode], 1
-	jz	.Ret_Now
-	
-	sub     esp, 1Ch
-	xor     ah, ah
-	jmp		0x004F7A15
+    cmp  BYTE [nocdmode], 1
+    jz   .Ret_Now
+
+    sub  esp, 1Ch
+    xor  ah, ah
+    jmp  0x004F7A15
 
 .Ret_Now:
-	lea     esp, [ebp-14h]
-	pop		edi
-	pop     esi
-	pop     edx
-	pop     ecx
-	pop     ebx
-	pop     ebp
-	
+    lea  esp, [ebp-14h]
+    pop  edi
+    pop  esi
+    pop  edx
+    pop  ecx
+    pop  ebx
+    pop  ebp
+
     RETN
 
 _GetCDClass__GetCDClass_GetDriveType:
-	cmp BYTE [nocdmode], 1
-	jz		.Get_Hard_Drive
+    cmp  BYTE [nocdmode], 1
+    jz   .Get_Hard_Drive
 
-	cmp     eax, 5
-	jnz     0x005CDD50
-	mov     eax, [esi+68h]
-	jmp		0x005CDD76
+    cmp  eax, 5
+    jnz  0x005CDD50
+    mov  eax, [esi+68h]
+    jmp  0x005CDD76
 
 .Get_Hard_Drive:
-	cmp     eax, 3
-	jnz     0x005CDD50
-	mov     eax, [esi+68h]
-	jmp		0x005CDD76
-	
+    cmp  eax, 3
+    jnz  0x005CDD50
+    mov  eax, [esi+68h]
+    jmp  0x005CDD76
+
 _Patch_Out_Early_GetCDClass_Init:
-	jmp		0x004C7B40
-	
+    jmp  0x004C7B40
+
 _Patch_In_Later_GetCDClass_Init:
 
-	mov     eax, CDList
-	call    GetCDClass__GetCDClass
-	mov     eax, CDList
-	jmp		0x00551FCD
+    mov  eax, CDList
+    call GetCDClass__GetCDClass
+    mov  eax, CDList
+    jmp  0x00551FCD

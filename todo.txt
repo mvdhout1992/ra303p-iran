@@ -1,80 +1,89 @@
-1. Need to make the mapped keyboard key names in config tool better
+5. Add service depot instant repair fix from Arda 
 
-1. Add the colour + country thing for funky
+6. crates dont work in coop mode
 
-1. Check Times Flies fix and add lets make a steal fix
+18. There's graphical glitching in the no-refresh area of the sidebar with the keybar toggle key, need to copy code from options menu to clear buffer. This code might be useful to fix graphical glitching on maps smaller than reso.
 
-2. Add fixed conyard cameo text: http://cnc-comm.com/community/index.php?topic=2282.0
+7. Need to add loading of custom explosions. Work like the SoundEffects code (custom buffer and added a call to read INI section [Explosions], use AnimType const CCINIClass::Get_AnimType to get something like:
+[Explosions]
+7=CBL1SPLASH
 
-3. Add ants cameos: http://forums.cncnz.com/topic/17482-portablera-beta/page-16#entry212164
+Then patch code using explosions like Combat_Anim() to return the correct animtype
 
-4. Add Einstein cameo: http://forums.cncnz.com/topic/17482-portablera-beta/page-16#entry212170
+8. Check into making the hard-coded fb1 trail (which replaces smoke trail) behavior an option:
+AUTO:004611A7 028                 mov     edx, offset INIObject_FB1 ; "FB1"
+AUTO:004611AC 028                 cmp     ecx, 0FFFFFFFFh
 
-10. Don't forget to change multiplayer name back to "NoName"
+3. To fix the skirmish AI Allies Tech Center being sold almost immediately, patch 0x004DA1F0 to start reading the array from 0x0060198E instead of 0x00601989
+4. Take a look into why Soviet AI take ages to build tech center
 
-11. Units that need cameo icons:
--   C1
--   C2
--   C3
--   C4
--   C5
--   C6
--   C7
--   C8
--   C9
--   C10
--   DELPHI
--   CHAN
+17. Make skirmish AI not build radar jammer, Mobile Gap Generator, Mad Tank and Demo truck
+18. Make skirmish AI build shock trooper and dogs
 
-13. Need new savegames for fixed missions
+23. UPDATE savegames pack with 3.03 savegames, and upload it to site and update it there 
+6. make sure to set all the settings back to a "default" before releasing a new release
 
-14. Upload new campaign.mix file with fixed maps
+7. Make ore last longer
 
-15. Add a rules.ini setting to allow AI to gain more credits from harvesting, maybe also have them ignore maximum ore sotrage limit?
+8. Make sure to save all added new map/RuleClass keywords in memory, and to clear them too when loading 3.03 savegames
 
-16. make AI build one service depot, cameo pillbox (hack normal pillbox code) and one nuke silo, service depot count is HouseClass+0x366, nuke silo count is HouseClass+0x37a
+9. Look into making super weapons multi-shot with HouseClass extensions..
 
-17. Make AI not build radar jammer and Mad Tank
+10. the spawner aftermath option doesn't work if the game is loaded from a different working directory then where spawn.ini is located, or something like that
 
-18. Need to set credits to display before map and save load to 0 if you have 1.4 billion then start another game the game slowly lowers the displayed credit count of 1.4 billion to the actual amount, check 0x004ACC3E
-
-16. mention fixed time flies mission in features list if the mission is actually fixed
-
-19. 0x0056A95F is growthrate for ore mines, need to modify it is read from the map with its own value instead of using growthrate
-
-20. Probably need to add an option to disable changing alliances for spawner games (after predetermined alliances are run)
-
-16. Update language packs with FunkyFr3sh's versions
-
-17. So seems the vehicle sell logic works so long as the vehicle was not at full health when moving onto the pad. check calls to FootClass::Sell_Back(int)
-
-23 I keep forgetting to mention, not exactly a bug, but the Cargo Truck did not have a shadow until
-Aftermath, yet in Aftermath, the fixed SHP with the shadow is inside conquer.mix (and not expand2.mix), so if you play the original
-campaign or Counterstrike missions, you still get the old Cargo Truck without the shadow (this is non-issue for the TFD version, I suppose).
-Basically, putting the new version of the SHP inside expand2.mix should fix it.
-
-22. Mention all non-code patches in my patch notes.
-
-23. Add different colour remaps for buildings and units
-Feb 20 23:39:21 <iran> CCHyper: yeah TechnoClass offset 0x10 has the vftable with value 0x5F73E000 for BuildingClass
-red colour remap is 0x00666B3E
-NOTE: MCV should have building colour!
-
-21. Check out arda auto adjust on game grid option and check where to find it. It only works in windowed mode under cnc-ddraw and modifies width and height based on something, probably game, need to add launcher logic so this only gets enabled in windowed mode (enable/disable when windowed mode checkbox is changeed and make sure to do a check while saving options)
-
-9. Fix Radar Dome crash.
-
-11. selecting a harvester target ore patch on the radar minimap shows a "can't go there" cursor instead of the attack cursor.
-
-can't move is mousetype 0x11, attack is 16, actiontype move is 1 or 2
-
+11. Use GetSystemTime() and sprintf_ to set map snapshot key preview filename like cnc-ddraw does
 
 Todo for later:
 --------------------------------------
-18. There's graphical glitching in the no-refresh area of the sidebar with the keybar toggle key in 640x480, need to copy code from options menu to clear buffer. This code might be useful to fix graphical glitching on maps smaller than reso.
+
+7. Look into the attract feature again
 
 
-9. Update forceAM and forceAMfastbuildspeed rules.ini files to use updated oos-fix.ini to prevent issues with barrels in single player etc
+For extended type classes:
+1. Find TFixedIHeapClass<T>::TFixedIHeapClass(void) for type and patch the argument to FixedHeapClass::FixedHeapClass(int)
+2. Find <T>::operator new(unsigned int) and hard-code the size
+3. In TFixedIHeapClass.fn_init(void) find the heap for the type and patch the size argument to FixedHeapClass::FixedHeapClass(int)
+4. Find TFixedIHeapClass<T>::TFixedIHeapClass(void) and patch the size argument to FixedHeapClass::FixedHeapClass(int)
+5. Find the size argument somewhere at the end of TFixedIHeapClass<T>::Save(Pipe &) and patch it.
+6. Find the size argument somewhere at the end of TFixedIHeapClass<BuildingTypeClass>::Load(Straw &) and patch it.
+7. TO FIX MEMORY ISSUES WITH MAP LOADING AND EXTENDED TYPE CLASSES HOOK BEFORE THE VIRTUAL FUNCTION CALLS TO ::Read_INI() in RulesClass::Objects() and check if the current INI file is RulesINI, if it is call a clear function for the type.
+8. NEED TO ADD CODE TO CLEAR STUFF when loading a 3.03 savegame, seperate from clearing when loading a mission/map..Maybe in the heap<T>::Load() function?
+
+
+To extend BulletTypeClass:
+1. Move Initial RULES.INI loading to before Heap loading stuff (check how arda does this?)
+2. Patch: 
+	AUTO:004F40D8 0D8                 mov     edx, 12h        ; Amount of objects in heap
+	AUTO:004F40DD 0D8                 mov     eax, offset TFixedIHeapClass<BulletTypeClass> BulletTypes
+3. Patch the following to read INI sections count:
+	AUTO:00426C90 008                 lea     esp, [ebp-4]
+
+2. add support for oil derrick logic, need to extend BuildingClass, then hook BuildingClass::Captured() and BuildingClass::AI() for oil derrick logic. Use HouseClass::Refund_Money(unsigned int) to give house money and write custom timer macros using frames. Extend BuildingTYPEClass too for the Oil Derrick options:
+UseOilDerrickLogic= (yes/no)
+OilDerrickCaptureReward=
+OilDerrickMoney=
+OilDerrickFrameTimer=
+AUTO:00460AD0     ObjectTypeClass & const BuildingClass::Class_Of(void)const  proc near (to get the BuildingObjectType pointer)
+
+; For buildingClass
+AUTO:004C8035 00C                 mov     edx, 0FBh
+AUTO:004C803A 00C                 call    FixedHeapClass::FixedHeapClass(int)
+
+AUTO:004CE74E 014                 mov     ebx, 0FBh
+AUTO:004CE753 014                 mov     [eax+0Ch], edx
+
+AUTO:004CE673 014                 mov     ebx, 0FBh
+AUTO:004CE678 014                 mov     edx, eax
+
+
+19. Fix South Advantage
+
+9. make shown names longer in radar map area: 005327F1     83F9 15        CMP ECX,15 then need to patch the part of the code that shows the names in the sidebar to use my own names array which gets loaded from spawn.ini (if spawn.ini is enabled)
+
+10. Rename computer players to show that they're easy/normal/hard ai, patch the spawner country/colour/handicap code, add a check for ai players by testing the right bit field and rename, the player name offset for HouseClass is HouseClass+0x1790, need to get their handicap too and strcpy()
+
+Names get loaded at: 00532788 
+
 
 10. Add option to not have ai build mad tanks
 
@@ -82,9 +91,6 @@ Todo for later:
 
 12. Add option to not have ai build radar jammer
 
-12. Add "Unable to build more" sound when tank limit is reached
-
-58. add an option to not play sound in the cncnet/network/lan lobby, the sound gets played inside MessageListClass::Add_Message(), need to modify it so it doesnt play a sound if a global variable is true and then patch the calls to it inside Net_Join_Dialog() to set the variable, also need to remove calls to the Sound_Effect() function in a few places inside Net_Join_Dialog().
 
 41. Add rules.ini keyword to make ai build nuke silos and service depots, replacing with kennels at:
 
@@ -92,37 +98,21 @@ AUTO:004DA898                 mov     eax, 17h
 
 with mov eax, 1dh 
 
-BaseClass::Is_Built(int) might be a function that can help limiting service depot, nuke silo etc to only one
+16. make AI build one service depot, cameo pillbox (hack normal pillbox code) and one nuke silo, service depot count is HouseClass+0x366, nuke silo count is HouseClass+0x37a
 
-42. AI doesn't build shock troopers
 
-47. [19:03:39] <iran> i think it's because of the code that blacks the borders of the main menu graphic
+19. 0x0056A95F is growthrate for ore mines, need to modify it is read from the map with its own value instead of using growthrate
+
+47. Game credits slide show screen is broken 
+[19:03:39] <iran> i think it's because of the code that blacks the borders of the main menu graphic
 [19:03:48] <iran> it works by clearing the background whenever a pcx file is loaded
 [19:04:00] <iran> which is done for the credits screen with that file
 
-56. add displaying of messages typed by yourself as an optional redalert.ini setting
-
-52. Make the reject button send out the 'cancel game' packet to a player
-
-49. A few message boxes and in-game things reference "Command & Conquer" instead of "Red Alert".
 
 40. Add a rules.ini keyword to not have the AI sell their structures when all production facilities are destroyed
 
-45. Add extra colour remaps
 
-42. Should make AI build radar dome after WF instead of at start (use the BaseClass::Is_Built(int) if can help)
-
-45. Allies AI seems to sell Tech center, but not dome
-
-41. Probably can add minicampaigns by having the game read a new scenario keyword by checking a call to Map_Selection and replacing it
-
-38. After making AI fixes and adding them as rules.ini keywords, make a rules.ini mod with AI fixes + hard AI plus fast Aftermath build speed
 37. sam site fire smoke is misplaced and has C&C95 Nod Sam Site graphics overlayed (this doesn't seem noticable)
 42. Create a Red Alert 1 theme pack for windows 7 (using the unfinished one as base)
 
-EDIT: Seems that if you join someones game who has a custom and map it starts transfering and you hit cancel you get "Unable to Read" scenario, hit ok and it goes to desktop, rather than back to the lobby.
-
-[17:49:34] <Chad1233> When you ally a AI
-[17:49:43] <Chad1233> does most of his base reveal to you?
-[17:49:52] <Chad1233> Because that's soppose to happen
-[17:50:00] <Chad1233> To a player
+48. The "skirmish" text that's shown for skirmish savegames needs to be localised

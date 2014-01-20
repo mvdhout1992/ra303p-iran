@@ -14,20 +14,20 @@
 ; OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 ;
 
-[org 0x006ED220]
+;[org 0x006ED220]
+[org 0x00711000]
 
 ;_str_version: db "3.03p4 B6 ",0
 _str_version: db "3.03p-iB1v1",0
 
-;format_test_str  db 'SC%c%02d%c%c.INI',0
-test_str  db "RUN1226M",0
-
 %include "config.inc"
-%include "imports.inc"
-%include "string.inc"
 
-; This should be included first to hopefully prevent the memory address of the byte flags from changing
-%include "src/video_stretching_helpers.asm"
+%include "imports.inc"
+
+%include "libc.inc"
+
+%include "INIClass.inc"
+%include "CCINIClass.inc"
 
 %ifdef USE_HIRES
 %include "src/hires.asm"
@@ -45,32 +45,86 @@ test_str  db "RUN1226M",0
 ; loading code
 %include "src/loading.asm"
 
+;map snapshot code
+%include "src/map_snapshot.asm"
+
+;spawner code
+%include "src/spawn.asm"
+%include "src/spawner_files.asm"
+%include "src/spawner_tunnel.asm"
+
+;extended classses
+%include "src/ext/savegame_support.asm" ; this needs to go first before other extended classes
+
+%include "src/ext/UnitTypeClass/extended_unittypeclass_loading.asm"
+%include "src/ext/UnitTypeClass/extended_unittypeclass_additions.asm"
+%include "src/ext/extended_houseclass.asm"
+%include "src/ext/extended_buildingclass.asm"
+%include "src/ext/extended_technoclass.asm"
+%include "src/ext/extended_aircrafttypeclass.asm"
+%include "src/ext/extended_footclass.asm"
+%include "src/ext/extended_triggeraction.asm"
+
+; Unhardcode
+%include "src/ext/early_rules_ini_load.asm"
+
+%include "src/ext/warheadtypeclass_unhardcode.asm"
+%include "src/ext/bullettypeclass_unhardcode.asm"
+%include "src/ext/weapontypeclass_unhardcode.asm"
+%include "src/ext/soundeffectslist_unhardcode.asm"
+%include "src/ext/animtypeclass_unhardcode.asm"
+%include "src/ext/unittypeclass_unhardcode.asm"
+%include "src/ext/infantrytypeclass_unhardcode.asm"
+%include "src/ext/buildingtypeclass_unhardcode.asm"
+%include "src/ext/vesseltypeclass_unhardcode.asm"
+%include "src/ext/aircrafttypeclass_unhardcode.asm"
+
 ; generic
+;%include "src/ore_lasts_longer.asm" ; ONLY ENABLE FOR TESTING
+%include "src/attract.asm"
+%include "src/atom_damage_custom.asm"
+%include "src/ingame_display_messages_from_yourself.asm"
+%include "src/naval_exploits_fixes.asm"
+%include "src/coop.asm"
+%include "src/no_digest.asm"
+%include "src/remove_C&C_text_references.asm"
+%include "src/modem_menu_remove.asm"
+%include "src/spectator.asm"
+%include "src/radar_spectator.asm"
+%include "src/forced_alliances.asm"
+%include "src/mcvundeploy.asm"
+;%include "src/south_advantage_fix.asm" ; test fix
 %include "src/game_difficulty_speed_modifier_remove.asm"
 %include "src/magic_build_fix.asm"
-%include "src/infantry_range_check.asm" ; desyncs online with 3.03
+%include "src/infantry_range_check.asm"
+%include "src/no_tesla_zap_effect_delay.asm"
+%include "src/short_game.asm"
+%include "src/no_screenshake.asm"
+%include "src/shorter_multiplayer_reconnect_timer.asm"
 ;%include "src/ai_vessels.asm" probably desyncs online with 3.03
 ;%include "src/harvester_harvest_closest_ore.asm" ; same thing what pressing S on harvesters does, desyncs online and keeps mining new ore spawned by ore mines
-%include "src/building_crew_impassable_terrain_fix.asm" ; desyncs online with 3.03
+%include "src/building_crew_impassable_terrain_fix.asm"
 %include "src/predetermined_alliances.asm"
-;%include "src/build_off_ally.asm"
+%include "src/build_off_ally.asm"
 %include "src/selectable_spawn_locations.asm"
-;%include "src/tech_center_bug_fix.asm"
+%include "src/tech_center_bug_fix.asm"
 %include "src/special_colourscheme.asm"
 %include "src/arguments.asm"
 %include "src/image_keyword_fix.asm"
+%include "src/strip_cameos_glitch_bug.asm"
+%include "src/internet_cncnet.asm"
 %include "src/singleplayer_custom_colours_countries.asm"
 %include "src/sidebar_special_houses.asm"
+%include "src/video_stretching_helpers.asm"
 %include "src/load_more_mix_files.asm"
 %include "src/spawner_house_colours_countries_handicaps.asm"
-%include "src/spawn.asm"
-%include "src/spawner_files.asm"
+%include "src/spawner_stats.asm"
 ;%include "src/debug_printing.asm" ; Seems to cause crashes
 %include "src/hotkeys.asm"
 %include "src/extra_theaters.asm"
 %include "src/extra_sounds.asm"
 %include "src/evac_in_mp.asm"
-%include "src/custom_paradrop_superweapon.asm"
+;%include "src/custom_paradrop_superweapon.asm"
 %include "src/pkt_loading.asm"
 %include "src/expansions.asm"
 %include "src/music_loading.asm"
@@ -82,7 +136,7 @@ test_str  db "RUN1226M",0
 %include "src/aftermath_fast_buildspeed_option.asm"
 %include "src/optional_scorescreen.asm"
 %include "src/zoom_out_radar_by_default.asm"
-%include "src/load_ai_ini.asm" ; Changing AI settings desyncs online...
+;%include "src/load_ai_ini.asm" ; Changing AI settings desyncs online...
 %include "src/ai_fixes.asm"
 %include "src/fix_formation_glitch.asm"
 %include "src/parabombs_multiplayer.asm"
@@ -101,6 +155,8 @@ test_str  db "RUN1226M",0
 
 %ifdef USE_BUGFIXES
 ;%include "src/invisible_explosions_fix.asm" ; Causes desync with 3.03
+%include "src/ore_truck_ore_patch_minimap_cursor_bug_fix.asm"
+%include "src/allies_NCO_helipad_airfield_bug.asm"
 %include "src/engi_q_freeze_fix.asm"
 %include "src/gnrl_ukraine_voices_fix.asm"
 %include "src/score_screen_print_colour_fix.asm"

@@ -19,7 +19,7 @@
 @HOOK 0x004FDDDC _tags_bug
 
 _tags_bug:
-    CMP ESI,0
-    JE 0x004FDDB8
+    CMP  ESI,0
+    JE   0x004FDDB8
     TEST BYTE [0x006680A1],2
-    JMP 0x004FDDE3
+    JMP  0x004FDDE3

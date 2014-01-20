@@ -1,0 +1,12 @@
+Colour=
+0           - Yellow
+1           - Blue
+2           - Red
+3           - Green
+4           - Orange
+5           - Gray
+6           - Teal
+7           - Brown/Dark Red
+8           - White (not fully done)
+9           - Black (not folly done)
+10          - Flaming blue

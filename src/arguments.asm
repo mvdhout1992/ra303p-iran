@@ -19,77 +19,97 @@
 @HOOK 0x004F5B38 _arguments
 @HOOK 0x005025CC _Select_Game_AntMissions_Check
 
-%define AntsEnabled 0x00665DDC
+%define AntsEnabled        0x00665DDC
+%define recording_mode        0x00680151
 
+arg_attract: db "-ATTRACT",0
 arg_lan: db "-LAN",0
 arg_internet: db "-INTERNET",0
 arg_skirmish: db "-SKIRMISH",0
 arg_newmissions: db "-NEWMISSIONS",0
 arg_antmissions: db "-ANTMISSIONS",0
+arg_record: db "-RECORD",0
+arg_playback: db "-PLAYBACK",0
 
 antmissionsenabled db 0
 newmissionsenabled db 0
-GLOBAL newmissionsenabled
 
 _Select_Game_AntMissions_Check:
-	
-	cmp  BYTE [antmissionsenabled], 1
-	jne .Jump_Back
 
-	mov BYTE [antmissionsenabled], 0
-	mov BYTE [AntsEnabled], 1
-	mov DWORD [ebp-30h], 2
-	xor     edi, edi
+    cmp  BYTE [antmissionsenabled], 1
+    jne  .Jump_Back
 
-.Jump_Back
-	test    edi, edi
-	jnz     0x0050210E
-	jmp		0x005025D4
+    mov  BYTE [antmissionsenabled], 0
+    mov  BYTE [AntsEnabled], 1
+    mov  DWORD [ebp-30h], 2
+    xor  edi, edi
+
+.Jump_Back:
+    test edi, edi
+    jnz  0x0050210E
+    jmp  0x005025D4
 
 _arguments:
 .lan:
-    MOV EDX, arg_lan
-    MOV EAX,ESI
-    CALL stristr_
+    MOV  EDX, arg_lan
+    MOV  EAX,ESI
+    CALL _stristr
     TEST EAX,EAX
-    JE .skirmish
-    MOV BYTE [0x0067F2B4], 3
-    JMP .ret
-	
+    JE   .skirmish
+    MOV  BYTE [0x0067F2B4], 3
+    JMP  .ret
+
 .skirmish:
-    MOV EDX, arg_skirmish
-    MOV EAX,ESI
-    CALL stristr_
+    MOV  EDX, arg_skirmish
+    MOV  EAX,ESI
+    CALL _stristr
     TEST EAX,EAX
-    JE .antmissions
-    MOV BYTE [0x0067F2B4], 5
-    JMP .ret
-	
+    JE   .antmissions
+    MOV  BYTE [0x0067F2B4], 5
+    JMP  .ret
+
 .antmissions:
-    MOV EDX, arg_antmissions
-    MOV EAX,ESI
-    CALL stristr_
+    MOV  EDX, arg_antmissions
+    MOV  EAX,ESI
+    CALL _stristr
     TEST EAX,EAX
-    JE .newmissions
-    MOV BYTE [antmissionsenabled], 1
-    JMP .ret 
-	
+    JE   .newmissions
+    MOV  BYTE [antmissionsenabled], 1
+    JMP  .ret
+
 .newmissions:
-    MOV EDX, arg_newmissions
-    MOV EAX,ESI
-    CALL stristr_
+    MOV  EDX, arg_newmissions
+    MOV  EAX,ESI
+    CALL _stristr
     TEST EAX,EAX
-    JE .internet
-    MOV BYTE [newmissionsenabled], 1
-    JMP .ret 
+    JE   .internet
+    MOV  BYTE [newmissionsenabled], 1
+    JMP  .ret
 
 .internet:
-    MOV EDX, arg_internet
-    MOV EAX,ESI
-    CALL stristr_
+    MOV  EDX, arg_internet
+    MOV  EAX,ESI
+    CALL _stristr
     TEST EAX,EAX
-    JE .ret
-    MOV BYTE [0x0067F2B4], 4
+    JE   .record
+    MOV  BYTE [0x0067F2B4], 4
+
+.record:
+    MOV  EDX, arg_record
+    MOV  EAX,ESI
+    CALL _stristr
+    TEST EAX,EAX
+    JE   .playback
+    or   BYTE [recording_mode], 5
+
+.playback:
+    MOV  EDX, arg_playback
+    MOV  EAX,ESI
+    CALL _stristr
+    TEST EAX,EAX
+    JE   .ret
+    or   BYTE [recording_mode], 6
 
 .ret:
-    JMP 0x004F5B54
+    mov  EDX, arg_attract
+    JMP  0x004F5B3D

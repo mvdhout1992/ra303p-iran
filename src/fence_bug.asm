@@ -26,17 +26,17 @@ _fence_bug:
     PUSH EAX
     PUSH EBX
 
-    SUB EAX, DWORD [0x0066826C]
-    XOR EDX,EDX
-    MOV EBX,0x3A
+    SUB  EAX, DWORD [0x0066826C]
+    XOR  EDX,EDX
+    MOV  EBX,0x3A
     IDIV EBX
-    MOV EDX,EAX
+    MOV  EDX,EAX
 
-    POP EBX
-    POP EAX
+    POP  EBX
+    POP  EAX
 
-    CMP EDX,0
-    JL fence_bug_bad
-    CMP EDX,0x4000
-    JB fence_bug_good
-    JMP fence_bug_bad
+    CMP  EDX,0
+    JL   fence_bug_bad
+    CMP  EDX,0x4000
+    JB   fence_bug_good
+    JMP  fence_bug_bad

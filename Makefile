@@ -1,30 +1,33 @@
-NFLAGS=-I./include/
-CC?=gcc
-DAT=ra95.dat
-EXE=ra95.exe
-NASM?=nasm$(EXT)
-REV=$(shell sh -c 'git rev-parse --short @{0}')
-CFLAGS=-m32 -pedantic -O2 -Wall -DREV=\"$(REV)\"
+# if you are on windows you can use build.bat instead of make
 
-all: ra95.exe build
+BUILD_DIR = .
+# should be tools repo
+TOOLS_DIR = ../nasm-patcher
 
-tools: linker$(EXT) extpe$(EXT)
+LINKER    = $(BUILD_DIR)/linker$(EXT)
+PETOOL    = $(BUILD_DIR)/petool$(EXT)
 
-ra95.exe: $(DAT) extpe$(EXT)
-	cp $(DAT) $(EXE)
+NASM     ?= nasm
+NFLAGS    = -I./include/
 
-build: linker$(EXT)
-	./linker$(EXT) src/main.asm src/main.inc $(EXE) $(NASM) $(NFLAGS)
+default: ra95.exe
 
-$(DAT):
-	@echo "You are missing the required ra95.dat from 3.03 patch"
+%.exe: %.ext $(LINKER) src/main.asm
+	cp $< $@
+	$(LINKER) src/main.asm src/main.inc $@ $(NASM) $(NFLAGS)
+
+%.ext: %.dat $(PETOOL)
+	cp $< $@
+	$(PETOOL) $@ AUTO rwxc
+	$(PETOOL) $@ .patch rwxci 131072
+
+%.dat:
+	@echo "You are missing the required orininal executable, \"$(@F)\""
 	@false
 
-linker$(EXT): tools/linker.c
-	$(CC) $(CFLAGS) -o linker$(EXT) tools/linker.c
+clean: clean_tools
+	rm -f *.exe src/*.map src/*.bin src/*.inc
 
-extpe$(EXT): tools/extpe.c tools/pe.h
-	$(CC) $(CFLAGS) -o extpe$(EXT) tools/extpe.c
+.PHONY: clean
 
-clean:
-	rm -rf extpe$(EXT) linker$(EXT) $(EXE) src/*.map src/*.bin src/*.inc
+include $(TOOLS_DIR)/Makefile
