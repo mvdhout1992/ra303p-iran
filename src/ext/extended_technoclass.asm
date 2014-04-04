@@ -26,18 +26,17 @@ _TechnoClass__Remap_Table_Secondary_Colour_Scheme_For_Units:
 
     cmp  BYTE [eax+0x1802], 0xFF
     jz   .Normal_Code
-    cmp  BYTE [edi], 0x06 ; Is Building?
-    jbe  .Normal_Code
+    cmp  BYTE [edi], 0x05 ; Is Building?
+    je  .Normal_Code
     cmp  BYTE [edi], 0x1C ; Is Unit?
     jnz  .Draw_Secondary_Color_Scheme
     mov  eax, edi
     call 0x00580854 ; ObjectTypeClass & const UnitClass::Class_Of(void)
     mov  edi, eax
-    mov  edi, [edi+0x196]
-    sar  edi, 0x18
-    cmp  edi, 0x0B ; Is MCV?
+    mov  eax, [edi+0x196]
+    cmp  byte al, 0x0B ; Is MCV?
     jz   .Normal_Code
-    cmp  edi, 0x07 ; Is Ore Truck?
+    cmp  byte al, 0x07 ; Is Ore Truck?
     jz   .Normal_Code
 
     ; just to be sure
