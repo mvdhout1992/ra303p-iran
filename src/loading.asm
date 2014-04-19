@@ -2,7 +2,7 @@
 
 @HOOK 0x004F446C _Init_Game_Hook_Load ; For rules.ini stuff
 @HOOK 0x00525A9F _OptionsClass__Load_Settings ; For redalert.ini and some spawn.ini stuff
-@HOOK 0x00551A87 _Startup_Function_Hook_Early_Load ; For redalert.ini and some spawn.ini stuff
+@HOOK 0x00551A87 _Startup_Function_Hook_Early_Load ; for some spawn.ini stuff
 @HOOK 0x0053D081 _Map_Load_Before_Hook ; For map loading stuff
 @HOOK 0x0053A568 _Map_Load_Late_Hook  ; For map loading stuff
 @HOOK 0x00537E08 _Load_Game_Before_Hook ; For savegame loading stuff
@@ -12,7 +12,8 @@
 @HOOK 0x00536AB5 _RulesClass__AI_Load
 @HOOK 0x0053D6AA _Custom_Missions_Load_Map_Specific_Tutorial_Text
 @HOOK 0x00538CE1 _Custom_Missions_Load_Game_Map_Specific_Tutorial_Text
-
+@JMP 0x004F406D  _Init_Game_Early_Hook ; For loading REDALERT.INI stuff early
+@JMP 0x004F4462 0x004F446C ; Don't call OptionsClass::Load_Settings() again, patch calls it at start of Init_Game()
 
 str_sprintf_format3 db "cmu%02dea",0
 str_s_format  db "%s",0
@@ -392,6 +393,12 @@ Read_Map_Specific_Tutorial_Text:
 .Out:
     retn
 
+_Init_Game_Early_Hook:
+    call 0x004F8664 ; Init_Keys(void)
+    mov eax, 0x00668188 ; offset GameOptionsClass Options
+    call 0x00525A24 ; OptionsClass::Load_Settings(void)
+    jmp 0x004F4072    
+    
 _Load_Game_Late_Hook:
     Save_Registers
 

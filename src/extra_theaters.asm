@@ -19,22 +19,28 @@
 @HOOK 0x004A7AEB _Theater_From_Name_New_Theaters_Array
 @HOOK 0x004A7AD4 _Theater_From_Name_New_Theaters_Counter_Check
 
+; was 3 originally
+%define THEATERS_COUNT 6
+
 ;Theaters array
-Temperate db "TEMPERATE", 0, 0, 0, 0, 0, 0, 0 ; 16 bytes
-Temperat db "TEMPERAT", 0, 0 ; 10 bytes
-Tem db "TEM", 0 ; 4 bytes
-Snow db "SNOW", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ; 16 bytes
-Snow_2 db "SNOW", 0, 0, 0, 0, 0, 0 ; 10 bytes
-Sno db "SNO", 0 ; 4 bytes
-Interior db "INTERIOR", 0, 0, 0, 0, 0, 0, 0, 0 ; 16 bytes
-Interior_2 db "INTERIOR", 0, 0 ; 10 bytes
-Int_ db "INT", 0 ; 4 bytes
-Winter db "WINTER", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ; 16 bytes
-Winter2 db "WINTER", 0, 0, 0, 0 ; 10 bytes
-Win_ db "WIN", 0 ; 4 bytes, needs to be changed back to WIN
-Desert db "DESERT", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ; 16 bytes
-Desert2 db "DESERT", 0, 0, 0, 0 ; 10 bytes
-Des    db "DES", 0 ; 4 bytes
+Temperate       db "TEMPERATE", 0, 0, 0, 0, 0, 0, 0 ; 16 bytes
+Temperat        db "TEMPERAT", 0, 0 ; 10 bytes
+Tem             db "TEM", 0 ; 4 bytes
+Snow            db "SNOW", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ; 16 bytes
+Snow_2          db "SNOW", 0, 0, 0, 0, 0, 0 ; 10 bytes
+Sno             db "SNO", 0 ; 4 bytes
+Interior        db "INTERIOR", 0, 0, 0, 0, 0, 0, 0, 0 ; 16 bytes
+Interior_2      db "INTERIOR", 0, 0 ; 10 bytes
+Int_            db "INT", 0 ; 4 bytes
+Winter          db "WINTER", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ; 16 bytes
+Winter2         db "WINTER", 0, 0, 0, 0 ; 10 bytes
+Win_            db "WIN", 0 ; 4 bytes, needs to be changed back to WIN
+Desert          db "DESERT", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ; 16 bytes
+Desert2         db "DESERT", 0, 0, 0, 0 ; 10 bytes
+Des             db "DES", 0 ; 4 bytes
+Jungle          db "JUNGLE", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ; 16 bytes
+Jungle2         db "JUNGLE", 0, 0, 0, 0 ; 10 bytes
+Jun             db "JUN",0 ; 4 bytes
 
 _TerrainClass__Unlimbo_Theater_Check_NOP:
     jmp  0x0056AAF1
@@ -97,7 +103,7 @@ _Theater_From_Name_New_Theaters_Array:
     jmp  0x004A7AF1
 
 _Theater_From_Name_New_Theaters_Counter_Check:
-    cmp  dl, 5           ; 3 theaters originally, 5 now
+    cmp  dl, THEATERS_COUNT
     jl   0x004A7AE0
     jmp  0x004A7AFF
 
