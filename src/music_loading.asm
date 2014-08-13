@@ -138,6 +138,8 @@ _Start_Scenario_Queue_Theme:
     xor  edx, edx
     cmp  Byte [randomstartingsong], 0
     jz   .Ret
+    cmp  dword [SongsAvailable], 0
+    jz   .Ret
 
 .Select_Random_Song:
     mov  eax, INIClass_this3
