@@ -861,3 +861,4 @@ Features
         Iron_Curtain_Trigger_Object: ID = 67, parameter 1 = frames duration for Iron Curtain 
         effect (Iron Curtains the object that triggered this trigger event, e.g. "Entered by..")
     
+147.	It's now possible to use BuildingTypes in TeamTypes/taskforces. So you can for example now have buildings paradropped in.

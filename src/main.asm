@@ -93,6 +93,7 @@ _str_version: db "3.03p-iB1v1",0
 %include "src/radar_spectator.asm"
 %include "src/forced_alliances.asm"
 %include "src/mcvundeploy.asm"
+%include "src/teamtype_buildings.asm"
 ;%include "src/south_advantage_fix.asm" ; test fix
 %include "src/game_difficulty_speed_modifier_remove.asm"
 %include "src/magic_build_fix.asm"
